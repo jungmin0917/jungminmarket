@@ -1,0 +1,213 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'RIDIBatang';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/RIDIBatang.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+html{
+    font-family: 'RIDIBatang', sans-serif;
+    font-size:12px;
+}
+
+.layout_width{
+    width:1050px;
+    min-width:1050px;
+    margin:0 auto;
+}
+
+/* 관리자 로그인 관련 S */
+
+.admin_login_wrap{
+    height:100%;
+    background-color:lightblue;
+    padding-top:250px;
+    height: 1000px;
+}
+
+.admin_login_form{
+    width:350px;
+    margin:0 auto;
+}
+
+.admin_login_form .title{
+    font-size:2rem;
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.admin_login_form input{
+    font-family: 'RIDIBatang', sans-serif;
+    font-size:1.5rem;
+    display:block;
+    width:100%;
+    padding:10px 15px;
+    border:0;
+    box-shadow:0 0 3px lightblue;
+    border-radius: 10px;
+}
+
+.admin_login_form input:focus{
+    box-shadow: 0 0 3px blue;
+}
+
+.admin_login_ul li{
+    margin-bottom:10px;
+}
+
+.admin_login_form input[type='submit']{
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.5s;
+    box-shadow: 0 0 5px dodgerblue;
+    background-color: dodgerblue;
+    color: white;
+}
+
+.admin_login_form input[type='submit']:hover,
+.admin_login_form input[type='submit']:focus{
+    background-color: blue;
+}
+
+/* 관리자 로그인 관련 E */
+
+/* 탑 메뉴 관련 S */
+
+.top_menu_wrap{
+    background-color: lightblue;
+}
+
+.top_menu_ul:after{
+    clear: both;
+    display: block;
+    content: '';
+}
+
+.top_menu_ul li{
+    float: left;
+}
+
+
+.top_menu_ul li a{
+    display: block;
+    padding: 20px 30px;
+    font-size: 1.5rem;
+    transition: all 0.5s;
+    width: 150px;
+    text-align: center;
+}
+
+.top_menu_ul li a.on{
+    background-color: dodgerblue;
+}
+
+.top_menu_ul li a:focus,
+.top_menu_ul li a:hover{
+    background-color: dodgerblue;
+}
+
+/* 탑 메뉴 관련 E */
+
+/* 서브 메뉴 관련 S */
+
+.sub_menu_wrap{
+    background-color: khaki;
+    margin-bottom: 50px;
+}
+
+.sub_menu_ul:after{
+    clear: both;
+    display: block;
+    content: '';
+}
+
+.sub_menu_ul li{
+    float: left;
+}
+
+.sub_menu_ul li a{
+    display: block;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    transition: all 0.5s;
+    width: 130px;
+    text-align: center;
+}
+
+.sub_menu_ul li a.on{
+    background-color: orange;
+}
+
+.sub_menu_ul li a:focus,
+.sub_menu_ul li a:hover{
+    background-color: orange;
+}
+
+/* 서브 메뉴 관련 E */
+
+/* 회원관리 - 가입설정 관련 S */
+
+.member_config_form{
+    font-size: 1.3rem;
+}
+
+.member_config_form .title{
+    box-shadow: 0 0 5px dodgerblue;
+    border-radius: 10px;
+    font-size: 1.5rem;
+    padding: 10px 20px;
+    margin-bottom: 30px;
+}
+
+.member_config_ul li{
+    margin-bottom: 20px;
+}
+
+.member_config_ul li:after{
+    clear: both;
+    display: block;
+    content: '';
+}
+
+.member_config_ul li label{
+    line-height: 150px;
+    float: left;
+    width: 20%;
+    text-align: center;
+}
+
+.member_config_ul li textarea{
+    font-family: 'RIDIBatang', sans-serif;
+    font-size:1.3rem;
+    float: left;
+    resize: none;
+    height: 150px;
+    box-shadow: 0 0 3px dodgerblue;
+    border: 0;
+    padding: 5px 10px;
+    width: 80%;
+}
+
+.member_config_form input[type='submit']{
+    width: 100%;
+    font-family: 'RIDIBatang', sans-serif;
+    font-size:1.5rem;
+    cursor: pointer;
+    padding: 10px;
+    background-color: skyblue;
+    border: 0;
+    box-shadow: 0 0 5px dodgerblue;
+    margin-top: 10px;
+    border-radius: 10px;
+    transition: all 0.5s;
+}
+
+.member_config_form input[type='submit']:focus,
+.member_config_form input[type='submit']:hover{
+    background-color: dodgerblue;
+    color: white;
+}
+
+/* 회원관리 - 가입설정 관련 E */
