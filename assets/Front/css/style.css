@@ -10,11 +10,12 @@
 html{
     font-family: 'RIDIBatang', sans-serif;
     font-size:12px;
+    min-width: 1080px;
 }
 
 .layout_width{
-	width:1050px;
-	min-width:1050px;
+	width:1080px;
+	min-width:1080px;
 	margin:0 auto;
 }
 

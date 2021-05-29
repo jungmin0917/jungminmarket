@@ -211,10 +211,12 @@ class Member{
 	}
 
 	public function memNmValidate(){
+		$memNm = $this->params['memNm'];
+
 		$pattern = "/[^가-힣a-zA-Z]/";
 
-		if(preg_match($pattern, $this->params['memNm'])){
-			throw new AlertException('이름은 영문대소문자, 올바른 한글 문자로만 입력해주세요');
+		if(strlen($memNm) < 2 || strlen($memNm) > 8 || preg_match($pattern, $memNm)){
+			throw new AlertException('이름은 특수문자를 제외하고 2~8자로 입력해주세요');
 		}
 	}
 
@@ -651,5 +653,88 @@ class Member{
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 		return $row;
+	}
+
+	public function getList($page = 1, $limit){
+		try{
+			$url = siteUrl("admin/member/list");
+			$page = $page?$page:1; // 기본값 1
+			$limit = $limit?$limit:10; // 기본값 10
+			$offset = ($page - 1) * $limit; // 각 페이지 시작 레코드
+
+			// total 구하기
+			$sql = "SELECT COUNT(*) as cnt FROM jmmk_member";
+
+			$stmt = db()->prepare($sql);
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('총 레코드 수 조회 실패');
+			}
+
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+			$total = $row['cnt'];
+
+			// list 구하기
+			$sql = "SELECT * FROM jmmk_member ORDER BY regDt DESC LIMIT :limit OFFSET :offset";
+
+			$stmt = db()->prepare($sql);
+
+			$stmt->bindValue(":limit", $limit, PDO::PARAM_INT);
+			$stmt->bindValue(":offset", $offset, PDO::PARAM_INT);
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('리스트 조회 실패');
+			}
+
+			$list = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+			// 페이징하기
+			$paginator = App::load(\Component\Core\Pagination::class, $page, $limit, $total, $url);
+
+			$pagination = $paginator->getHTML();
+
+			$data = [
+				'list' => $list,
+				'pagination' => $pagination,
+			];
+
+			return $data;
+
+		}catch(AlertException $e){
+			echo $e;
+			exit;
+		}
+	}
+
+	public function updateGrade(){
+		$data = $this->params['memLv'];
+
+		foreach($data as $k => $v){ // $k는 memNo이고, $v는 memLv로 치환하여 SQL UPDATE 한다
+			$memNo = $k;
+			$memLv = $v;
+
+			$sql = "UPDATE jmmk_member SET memLv = :memLv WHERE memNo = :memNo";
+
+			$stmt = db()->prepare($sql);
+
+			$bindData = ['memLv', 'memNo'];
+
+			foreach($bindData as $v){
+				$stmt->bindValue(":{$v}", $$v);
+			}
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('회원등급 변경 DB 처리 실패');
+			}
+		}
+
+		return $result;
 	}
 }

@@ -15,6 +15,6 @@ class RegisterController extends \Controller\Admin\AdminController{
 	}
 
 	public function index(){
-		
+		App::render("Admin/Member/register");
 	}
 }

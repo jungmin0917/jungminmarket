@@ -29,7 +29,7 @@ class IndbController extends \Controller\Admin\AdminController{
 						throw new AlertException('관리자 로그인 실패');
 					}
 
-					alertGo('관리자 로그인에 성공했습니다. 메인 페이지로 이동합니다', "admin", "parent");
+					alertReplace('관리자 로그인에 성공했습니다. 메인 페이지로 이동합니다', "admin", "parent");
 
 					break;
 
@@ -40,7 +40,19 @@ class IndbController extends \Controller\Admin\AdminController{
 						throw new AlertException('약관 업데이트 실패');
 					}
 
-					alertGo('회원가입 약관 업데이트에 성공했습니다', "admin/member/config", "parent");;
+					alertReplace('회원가입 약관 업데이트에 성공했습니다', "admin/member/config", "parent");;
+
+					break;
+
+				case 'updateGrade':
+
+					$result = $member->data($formData)->updateGrade();
+
+					if($result === false){
+						throw new AlertException('회원등급 일괄 변경 실패');
+					}
+
+					alertReload('회원등급 일괄 변경에 성공했습니다', "parent");
 
 					break;
 			}

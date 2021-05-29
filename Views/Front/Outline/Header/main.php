@@ -2,6 +2,7 @@
 <html lang='ko'>
 <head>
 	<meta charset='utf-8'>
+	<meta name='viewport'>
 
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 	<link rel='stylesheet' type='text/css' href='<?=siteUrl("assets/Front/css/reset.css")?>'>

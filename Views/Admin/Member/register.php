@@ -1,8 +1,8 @@
-<div class='member_join_wrap layout_width'>
-	<form method='post' action='indb' target='ifrm_hidden' autocomplete='off' class='member_join_form'>
-	<div class='member_join_title'><?php if(isset($memNo)){echo "회원정보 수정";}else{echo "회원가입";}?></div>
-		<input type='hidden' name='mode' value='<?php if(isset($memNo)){echo "modify";}else{echo "join";}?>'>
-		<ul class='member_join_ul'>
+<div class='member_register_wrap layout_width'>
+	<form method='post' action='indb' target='ifrm_hidden' autocomplete='off' class='member_register_form'>
+	<div class='member_register_title'>관리자 등록</div>
+		<input type='hidden' name='mode' value='<?php if(isset($memNo)){echo "modify";}else{echo "register";}?>'>
+		<ul class='member_register_ul'>
 			<li>
 				<label for='memId'>아이디</label>
 				<input type='text' name='memId' id='memId' class='<?php if(!isset($memNo)){echo "input_validator";}?>' value='<?php if(isset($memNo)){echo $memId;}?>' <?php if(isset($memNo)){echo "readonly";}?> >
@@ -57,54 +57,8 @@
 				<input type='email' name='memEm' id='memEm' value='<?php if(isset($memNo)){echo $memEm;}?>'>
 			</li>
 		</ul>
-		<?php
-			if(!isset($memNo)){
-				echo "
-						<div class='member_join_title'>이용약관</div>
-						<ul class='member_join_agree'>
-							<li>
-								<input type='checkbox' name='agree_all' id='agree_all'>
-								<label for='agree_all' class='agree_title'>이용약관에 동의합니다</label>
-							</li>
-							<li>
-								[필수] 이용약관 동의
-								<div class='terms'>
-									<pre>
-									{$terms1}
-									</pre>
-								</div>
-								이용약관에 동의하십니까?
-								<input type='checkbox' name='agree_terms[0]' id='agree_terms_1'>
-								<label for='agree_terms_1'>동의합니다</label>
-							</li>
-							<li>
-								[필수] 개인정보 수집 및 이용 동의
-								<div class='terms'>
-									<pre>
-									{$terms2}
-									</pre>
-								</div>
-								개인정보 수집 및 이용에 동의하십니까?
-								<input type='checkbox' name='agree_terms[1]' id='agree_terms_2'>
-								<label for='agree_terms_2'>동의합니다</label>
-							</li>
-							<li>
-								[선택] 쇼핑정보 수집 동의
-								<div class='terms'>
-									<pre>
-									{$terms3}
-									</pre>
-								</div>
-								쇼핑정보 수집에 동의하십니까?
-								<input type='checkbox' name='agree_terms[2]' id='agree_terms_3'>
-								<label for='agree_terms_3'>동의합니다</label>
-							</li>
-						</ul>
-					";
-			}
-		?>
-		<div class='member_join_submit_wrap'>
-			<input type='submit' value='<?php if(isset($memNo)){echo "회원정보 수정";}else{echo "회원가입";}?>'>
+		<div class='member_register_submit_wrap'>
+			<input type='submit' value='<?php if(isset($memNo)){echo "회원정보 수정";}else{echo "관리자 등록";}?>'>
 		</div>
 	</form>
 </div>

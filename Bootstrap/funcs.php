@@ -63,6 +63,10 @@ function alertReplace($msg, $url, $target = 'self'){
 	exit;
 }
 
+function alertReload($msg, $target = 'self'){
+	echo "<script>alert('{$msg}'); {$target}.location.reload();</script>";
+}
+
 // 세션 추가하는 함수
 function setSession($key, $value = null, $expires = 0){
 	$_SESSION[$key] = $value;

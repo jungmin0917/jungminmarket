@@ -10,11 +10,12 @@
 html{
     font-family: 'RIDIBatang', sans-serif;
     font-size:12px;
+    min-width: 1080px;
 }
 
 .layout_width{
-    width:1050px;
-    min-width:1050px;
+    width:1080px;
+    min-width:1080px;
     margin:0 auto;
 }
 
@@ -211,3 +212,211 @@ html{
 }
 
 /* 회원관리 - 가입설정 관련 E */
+
+/* 회원관리 - 회원목록 관련 S */
+
+.member_list_table{
+    width: 1040px;
+    margin: 0 auto;
+}
+
+.member_list_table thead{
+    font-size: 1.4rem;
+    background-color: lightblue;
+}
+
+.member_list_table thead th{
+    padding: 15px 0;
+    border-right: 1px solid white;
+}
+
+.member_list_table tbody{
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.member_list_table tbody td{
+    padding: 15px 0;
+}
+
+.member_list_table tbody select{
+    font-family: 'RIDIBatang', sans-serif;
+    font-size:1.1rem;
+    height: 30px;
+    width: 65px;
+    padding-left: 2px;
+}
+
+.member_list_table tbody tr:nth-child(2n){
+    background-color: lightcyan;
+}
+
+.member_list_form input[type='submit']{
+    font-family: 'RIDIBatang', sans-serif;
+    font-size:1.5rem;
+    display: block;
+    cursor: pointer;
+    margin: 20px auto;
+    box-shadow: 0 0 3px dodgerblue;
+    background-color: skyblue;
+    border: 0;
+    padding: 15px 40px;
+    transition: all 0.5s;
+    border-radius: 10px;
+    line-height: 2rem;
+}
+
+.member_list_form input[type='submit']:hover,
+.member_list_form input[type='submit']:focus{
+    background-color: dodgerblue;
+    color: white;
+}
+
+.pagination{
+    text-align: center;
+    margin-top: 30px;
+}
+
+.pagination li{
+    display: inline-block;
+    font-size: 1.5rem;
+}
+
+.pagination li a{
+    padding: 5px;
+}
+
+.pagination li.on{
+    font-size: 1.9rem;
+}
+
+/* 회원관리 - 회원목록 관련 E */
+
+
+
+/* 회원관리 - 관리자등록 관련 S */
+
+.member_register_form{
+    width:100%;
+}
+
+.member_register_title{
+    font-size:1.8rem;
+    margin-bottom:30px;
+}
+
+.member_register_ul{
+    font-size:1.5rem;
+    margin-bottom:50px;
+}
+
+.member_register_ul li{
+    padding:15px;
+    border-bottom:1px solid #ccc;
+}
+
+.member_register_ul li:after{
+    clear:both;
+    display:block;
+    content:'';
+}
+
+.member_register_ul li:first-child{
+    border-top:1px solid #ccc;
+}
+
+.member_register_ul li label{
+    float:left;
+    display:inline-block;
+    width:200px;
+    line-height:32px;
+}
+
+.member_register_ul li input{
+    float:left;
+    font-family: 'RIDIBatang', sans-serif;
+    font-size:1.3rem;
+    padding:5px 10px;
+    border:0;
+    box-shadow:0 0 3px #999;
+    margin-right:10px;
+    width:250px;
+}
+
+.member_register_ul li select{
+    float:left;
+    font-family: 'RIDIBatang', sans-serif;
+    font-size:1.3rem;
+    padding:5px 10px;
+    border:0;
+    box-shadow:0 0 3px #999;
+    margin-right:10px;
+    width:70px;
+    height: 30px;
+}
+
+.member_register_ul li input.memPh{
+    width:80px;
+}
+
+.member_register_ul li input:focus{
+    box-shadow:0 0 3px dodgerblue;
+}
+
+.member_register_ul li .msg{
+    font-size:1.2rem;
+    line-height:32px;
+}
+
+.member_register_ul li .memAd_ul{
+    width:calc(100% - 200px);
+    float:left;
+}
+
+.member_register_ul li .memAd_ul li{
+    border:0;
+    padding:0;
+    padding-bottom:15px;
+}
+
+.member_register_ul li .memAd_ul li input{
+    width:400px;
+}
+
+.member_register_ul li .memAd_ul li:first-child input{
+    width:120px;
+}
+
+.member_register_ul li .memAd_ul li:last-child{
+    padding:0;
+}
+
+.member_register_ul li input[type='button']{
+    cursor:pointer;
+}
+
+.member_register_ul .msg.error{
+    color:red;
+}
+
+.member_register_ul .msg.success{
+    color:dodgerblue;
+}
+
+.member_register_form input[type='submit']{
+    font-family: 'RIDIBatang', sans-serif;
+    background-color:#2a2a2a;
+    color:white;
+    font-size:1.5rem;
+    padding:10px 40px;
+    cursor:pointer;
+    border-radius:5px;
+    border:0;
+}
+
+.member_register_submit_wrap{
+    text-align:center;
+}
+
+
+/* 회원관리 - 관리자등록 관련 E */
