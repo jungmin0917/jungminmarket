@@ -235,16 +235,17 @@ html{
     text-align: center;
 }
 
-.member_list_table tbody td{
-    padding: 15px 0;
-}
-
 .member_list_table tbody select{
     font-family: 'RIDIBatang', sans-serif;
     font-size:1.1rem;
     height: 30px;
     width: 65px;
     padding-left: 2px;
+}
+
+.member_list_table tbody tr{
+    height: 59px;
+    line-height: 59px;
 }
 
 .member_list_table tbody tr:nth-child(2n){

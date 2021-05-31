@@ -60,6 +60,47 @@ class Member{
 
 				break;
 
+			case 'register':
+				if(!$this->params['memId']){
+					throw new AlertException('아이디를 입력해주세요');
+				}
+				if(!$this->params['memPw']){
+					throw new AlertException('비밀번호를 입력해주세요');
+				}
+				if(!$this->params['memPwRe']){
+					throw new AlertException('비밀번호 확인을 입력해주세요');
+				}
+				if(!$this->params['memNm']){
+					throw new AlertException('이름을 입력해주세요');
+				}
+				if(!$this->params['memAdNum']){
+					throw new AlertException('주소를 입력해주세요');
+				}
+				if(!$this->params['memAdMain']){
+					throw new AlertException('주소를 입력해주세요');
+				}
+				if(!$this->params['memAdRemain']){
+					throw new AlertException('나머지 주소를 입력해주세요');
+				}
+				for($i=0; $i<3; $i++){
+					if(!$this->params['memPh'][$i]){
+						throw new AlertException('전화번호를 입력해주세요');
+					}	
+				}
+				if(!$this->params['memEm']){
+					throw new AlertException('이메일을 입력해주세요');
+				}
+
+				$this->memIdValidate($this->params['memId']);
+				$this->memPwValidate($this->params['memPw']);
+				$this->memPwReValidate();
+				$this->memNmValidate();
+				$this->memAdRemainValidate();
+				$this->memPhValidate();
+				$this->memEmValidate();
+
+				break;
+
 			case 'modify':
 				if(!$this->params['memPw']){
 					throw new AlertException('비밀번호를 입력해주세요');
@@ -215,7 +256,7 @@ class Member{
 
 		$pattern = "/[^가-힣a-zA-Z]/";
 
-		if(strlen($memNm) < 2 || strlen($memNm) > 8 || preg_match($pattern, $memNm)){
+		if(mb_strlen($memNm) < 2 || mb_strlen($memNm) > 8 || preg_match($pattern, $memNm)){
 			throw new AlertException('이름은 특수문자를 제외하고 2~8자로 입력해주세요');
 		}
 	}
@@ -321,6 +362,40 @@ class Member{
 		foreach($bindData as $v){
 			$stmt->bindValue(":{$v}", $$v);
 		}
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('회원 가입 처리 실패');
+		}
+
+		return $result;
+	}
+
+	public function register(){
+		$security = App::load(\Component\Core\Security::class);
+
+		$memLv = 10;
+		$memId = $this->params['memId'];
+		$memPw = $security->createHash($this->params['memPw']);
+		$memNm = $this->params['memNm'];
+		$memAdNum = $this->params['memAdNum'];
+		$memAdMain = $this->params['memAdMain'];
+		$memAdRemain = $this->params['memAdRemain'];
+		$memPhArray = $this->params['memPh'];
+		$memEm = $this->params['memEm'];
+		$memPh = implode("-", $memPhArray);
+
+		$sql = "INSERT INTO jmmk_member (memLv, memId, memPw, memNm, memAdNum, memAdMain, memAdRemain, memPh, memEm) VALUES (:memLv, :memId, :memPw, :memNm, :memAdNum, :memAdMain, :memAdRemain, :memPh, :memEm)";
+
+		$stmt = db()->prepare($sql);
+
+		$bindData = ['memId', 'memPw', 'memNm', 'memAdNum', 'memAdMain', 'memAdRemain', 'memPh', 'memEm'];
+
+		foreach($bindData as $v){
+			$stmt->bindValue(":{$v}", $$v);
+		}
+		$stmt->bindValue(":memLv", $memLv, PDO::PARAM_INT);
 
 		$result = $stmt->execute();
 

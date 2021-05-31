@@ -55,6 +55,18 @@ class IndbController extends \Controller\Admin\AdminController{
 					alertReload('회원등급 일괄 변경에 성공했습니다', "parent");
 
 					break;
+
+				case 'register':
+
+					$result = $member->data($formData)->validator('register')->register();
+
+					if($result === false){
+						throw new AlertException('관리자 등록 실패');
+					}
+
+					alertReplace('관리자 등록에 성공했습니다', "admin/member/list", "parent");
+
+					break;
 			}
 		}catch(AlertException $e){
 			echo $e;

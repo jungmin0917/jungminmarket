@@ -16,12 +16,15 @@
 				<?php foreach($list as $v) : ?>
 					<tr>
 						<td>
+							<?php if($v['memLv'] != 10) : ?>
 							<select name=memLv[<?=$v['memNo']?>]>
 								<option value='0' <?php if($v['memLv'] == '0'){echo "selected";}?> >일반</option>
 								<option value='1' <?php if($v['memLv'] == '1'){echo "selected";}?> >패밀리</option>
 								<option value='2' <?php if($v['memLv'] == '2'){echo "selected";}?> >VIP</option>
 								<option value='3' <?php if($v['memLv'] == '3'){echo "selected";}?> >VVIP</option>
 							</select>
+							<?php endif; ?>
+							<?php if($v['memLv'] == 10){echo "관리자";}?>
 						</td>
 						<td><?=$v['memId']?></td>
 						<td><?=$v['memNm']?></td>

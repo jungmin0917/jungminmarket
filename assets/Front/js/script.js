@@ -49,7 +49,7 @@ $(document).ready(function(){
     		$li = obj.closest("li");
 
     		$.ajax({
-    			url : "../member/ajax",
+    			url : "/workspace/jungminmarket/member/ajax",
     			type : "post",
     			dataType : "json",
     			data : {
