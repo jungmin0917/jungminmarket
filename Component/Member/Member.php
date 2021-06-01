@@ -16,7 +16,7 @@ class Member{
 		return $this;
 	}
 
-	public function validator($mode){
+	public function validator($mode = null){
 		switch($mode){
 			case 'join':
 				if(!$this->params['memId']){

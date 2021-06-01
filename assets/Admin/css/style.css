@@ -257,7 +257,7 @@ html{
     font-size:1.5rem;
     display: block;
     cursor: pointer;
-    margin: 20px auto;
+    margin: 30px auto;
     box-shadow: 0 0 3px dodgerblue;
     background-color: skyblue;
     border: 0;
@@ -421,3 +421,166 @@ html{
 
 
 /* 회원관리 - 관리자등록 관련 E */
+
+
+/* 게시판관리 - 게시판목록 관련 S */
+
+
+.board_list_table{
+    width: 1040px;
+    margin: 0 auto;
+}
+
+.board_list_table thead{
+    font-size: 1.4rem;
+    background-color: lightblue;
+}
+
+.board_list_table thead th{
+    padding: 15px 0;
+    border-right: 1px solid white;
+}
+
+.board_list_table tbody{
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.board_list_table tbody select{
+    font-family: 'RIDIBatang', sans-serif;
+    font-size:1.1rem;
+    height: 30px;
+    width: 65px;
+    padding-left: 2px;
+}
+
+.board_list_table tbody tr{
+    height: 59px;
+    line-height: 59px;
+}
+
+.board_list_table tbody tr:nth-child(2n){
+    background-color: lightcyan;
+}
+
+.board_list_form input[type='submit']{
+    font-family: 'RIDIBatang', sans-serif;
+    font-size:1.5rem;
+    display: block;
+    cursor: pointer;
+    margin: 30px auto;
+    box-shadow: 0 0 3px dodgerblue;
+    background-color: skyblue;
+    border: 0;
+    padding: 15px 40px;
+    transition: all 0.5s;
+    border-radius: 10px;
+    line-height: 2rem;
+}
+
+.board_list_form input[type='submit']:hover,
+.board_list_form input[type='submit']:focus{
+    background-color: dodgerblue;
+    color: white;
+}
+
+.pagination{
+    text-align: center;
+    margin-top: 30px;
+}
+
+.pagination li{
+    display: inline-block;
+    font-size: 1.5rem;
+}
+
+.pagination li a{
+    padding: 5px;
+}
+
+.pagination li.on{
+    font-size: 1.9rem;
+}
+
+/* 게시판관리 - 게시판목록 관련 E */
+
+
+/* 게시판관리 - 게시판생성 관련 S */
+
+.board_create_form{
+    width: 700px;
+    margin: 0 auto;
+    padding: 30px 40px;
+    box-shadow: 0 0 5px dodgerblue;
+    border-radius: 20px;
+    font-size: 1.5rem;
+}
+
+.board_create_form .title{
+    font-size: 1.8rem;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.board_create_ul li{
+    margin-bottom: 20px;
+}
+
+.board_create_ul li:after{
+    clear: both;
+    display: block;
+    content: '';
+}
+
+.board_create_ul li label{
+    float: left;
+    width: 25%;
+    line-height: 34px;
+}
+
+.board_create_ul li input,
+.board_create_ul li textarea,
+.board_create_ul li select{
+    font-family: 'RIDIBatang', sans-serif;
+    font-size: 1.4rem;
+    padding: 5px 10px;
+    float: left;
+    width: 75%;
+    box-shadow: 0 0 3px skyblue;
+    border: 0;
+    border-radius: 5px;
+    resize: none;
+}
+
+.board_create_ul li input:focus,
+.board_create_ul li textarea:focus,
+.board_create_ul li select:focus{
+    box-shadow: 0 0 3px red;
+}
+
+.board_create_ul li textarea{
+    height: 150px;
+}
+
+.board_create_form input[type='submit']{
+    font-family: 'RIDIBatang', sans-serif;
+    background-color:#222;
+    color:white;
+    font-size:1.4rem;
+    padding:10px;
+    cursor:pointer;
+    border-radius:10px;
+    border:0;
+    width: 60%;
+    transition: all 0.5s;
+    box-shadow: 0 0 5px black;
+    display: block;
+    margin: 30px auto 0 auto;
+}
+
+.board_create_form input[type='submit']:focus,
+.board_create_form input[type='submit']:hover{
+    background-color: grey;
+}
+
+/* 게시판관리 - 게시판생성 관련 E */

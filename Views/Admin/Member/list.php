@@ -35,7 +35,7 @@
 				<?php endforeach; ?>
 			</tbody>
 		</table>
-		<input type='submit' value='회원등급 일괄 변경하기'>
+		<input type='submit' value='일괄 변경하기'>
 	</form>
 </div>
 
