@@ -29,7 +29,7 @@ class IndbController extends \Controller\Front\FrontController{
 					break;
 
 				case 'modify':
-					if($formData['memId'] != $_SESSION['member']['memId']){
+					if($formData['memId'] != getSession('member_memId')){
 						throw new AlertException('잘못된 접근입니다. 페이지를 새로고침하여 진행해주세요.');
 					}
 

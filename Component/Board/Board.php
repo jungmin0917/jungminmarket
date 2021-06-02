@@ -185,6 +185,26 @@ class Board{
 		return $skins; // 해당 파일 리스트를 반환
 	}
 
+	// 게시판 스킨 설정 가져오기
+	public function getSkin($boardId){
+		$sql = "SELECT * FROM jmmk_board_create WHERE boardId = :boardId";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":boardId", $boardId);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('게시판 아이디로 레코드 조회 실패');
+		}
+
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		return $row['boardSkin'];
+	}
+
+	// 게시판 리스트 (게시글 리스트 아님)
 	public function getBoardList($page = 1, $limit = 10){
 		try{
 			$url = siteUrl("admin/board/list");
@@ -229,6 +249,91 @@ class Board{
 			$pagination = $paginator->getHTML();
 
 			$data = [
+				'list' => $list,
+				'pagination' => $pagination,
+			];
+
+			return $data;
+
+		}catch(AlertException $e){
+			echo $e;
+			exit;
+		}
+	}
+
+	// boardId에 따라 게시글 가져옴
+	public function getList($boardId, $page = 1, $limit = 10){
+		try{
+			$url = siteUrl("board/list?id={$boardId}"); // boardId에 따라 url 만듦
+			$page = $page?$page:1;
+			$limit = $limit?$limit:10;
+			$offset = ($page - 1) * $limit;
+			
+			// total 구하기
+
+			$sql = "SELECT COUNT(*) as cnt FROM jmmk_board WHERE boardId = :boardId";
+
+			$stmt = db()->prepare($sql);
+
+			$stmt->bindValue(":boardId", $boardId);
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('게시글 수 조회 실패');
+			}
+
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+			$total = $row['cnt'];
+
+
+			// list 구하기
+
+			$sql = "SELECT * FROM jmmk_board WHERE boardId = :boardId ORDER BY regDt DESC LIMIT :limit OFFSET :offset";
+			// WHERE 뒤에 ORDER BY랑 LIMIT 등 써야 오류 안 남
+
+			$stmt = db()->prepare($sql);
+
+			$stmt->bindValue(":limit", $limit, PDO::PARAM_INT);
+			$stmt->bindValue(":offset", $offset, PDO::PARAM_INT);
+			$stmt->bindValue(":boardId", $boardId);
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('게시글 리스트 조회 실패');
+			}
+
+			$list = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+			// boardNm 구하기
+
+			$sql = "SELECT * FROM jmmk_board_create WHERE boardId = :boardId";
+
+			$stmt = db()->prepare($sql);
+
+			$stmt->bindValue(":boardId", $boardId);
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('게시판명 조회 실패');
+			}
+
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+			$boardNm = $row['boardNm'];
+
+
+			$paginator = App::load(\Component\Core\Pagination::class, $page, $limit, $total, $url);
+
+			$pagination = $paginator->getHTML();
+
+			$data = [
+				'boardId' => $boardId,
+				'boardNm' => $boardNm,
 				'list' => $list,
 				'pagination' => $pagination,
 			];

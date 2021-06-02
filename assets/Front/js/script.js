@@ -1,6 +1,7 @@
 $(document).ready(function(){
 	console.log('로드됨');
 
+    /* CKEDITOR 관련 */
 	CKEDITOR.replace("contents");
 
 	/* 약관 관련 */

@@ -489,10 +489,10 @@ class Member{
 		}
 
 		// 로그인 성공
-		$_SESSION['member']['memNo'] = $row['memNo'];
-		$_SESSION['member']['memId'] = $row['memId'];
-		$_SESSION['member']['memNm'] = $row['memNm'];
-		$_SESSION['member']['memLv'] = $row['memLv'];
+		setSession('member_memNo', $row['memNo']);
+		setSession('member_memId', $row['memId']);
+		setSession('member_memNm', $row['memNm']);
+		setSession('member_memLv', $row['memLv']);
 
 		return $result;
 	}
@@ -532,10 +532,10 @@ class Member{
 		}
 
 		// 관리자 로그인 성공
-		$_SESSION['member']['memNo'] = $row['memNo'];
-		$_SESSION['member']['memId'] = $row['memId'];
-		$_SESSION['member']['memNm'] = $row['memNm'];
-		$_SESSION['member']['memLv'] = $row['memLv'];
+		setSession('member_memNo', $row['memNo']);
+		setSession('member_memId', $row['memId']);
+		setSession('member_memNm', $row['memNm']);
+		setSession('member_memLv', $row['memLv']);
 
 		return $result;
 	}

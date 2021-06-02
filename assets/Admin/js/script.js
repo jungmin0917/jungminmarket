@@ -1,6 +1,7 @@
 $(document).ready(function(){
 	console.log('로드됨');
 
+    /* CKEDITOR 관련 */
 	CKEDITOR.replace("contents");
 	
 	/* 주소 검색 관련 */
@@ -25,7 +26,7 @@ $(document).ready(function(){
 
     const member = {
     	/**
-    	*	회원 가입 유효성 검사
+    	*	관리자 등록 유효성 검사
     	*
     	*	@param obj = $this
     	*/

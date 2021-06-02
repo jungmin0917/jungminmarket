@@ -89,3 +89,21 @@ function getSession($key){
 
 	return $_SESSION[$key];
 }
+
+// 로그인 확인하는 함수
+function isLogin(){
+	if(!getSession('member_memNo')){
+		return false;
+	}else{
+		return true;
+	}
+}
+
+// 관리자 로그인 확인하는 함수
+function isAdminLogin(){
+	if(getSession('member_memLv') == 10){
+		return true;
+	}else{
+		return false;
+	}
+}

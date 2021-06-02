@@ -7,10 +7,11 @@ use App;
 class IndexController extends \Controller\Front\FrontController{
 
 	public function index(){
-		if(!isset($_SESSION['member']['memNo'])){
+		if(!isLogin()){
 			alertGo('로그인이 필요한 페이지입니다', "member/login");
 		}
-		$memNo = $_SESSION['member']['memNo'];
+		
+		$memNo = getSession('member_memNo');
 
 		$member = App::load(\Component\Member\Member::class);
 
