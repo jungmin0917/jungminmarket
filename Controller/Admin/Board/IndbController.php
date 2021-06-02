@@ -28,6 +28,17 @@ class IndbController extends \Controller\Admin\AdminController{
 
 					break;
 
+				case 'updateNameSkin':
+					$result = $board->data($formData)->validator('updateNameSkin')->updateNameSkin();
+
+					if($result === false){
+						throw new AlertException('게시판 일괄 변경 실패');
+					}
+
+					alertReload("게시판 일괄 변경에 성공했습니다.", "parent");
+
+					break;
+
 				default:
 					break;
 			}

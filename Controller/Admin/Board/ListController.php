@@ -24,6 +24,10 @@ class ListController extends \Controller\Admin\AdminController{
 
 		$data = $board->getBoardList($page, $limit); // 본격 쿼리 등 처리는 getList 안에서 함
 
+		$skins = $board->getSkins();
+
+		$data = array_merge($data, ['skins' => $skins]); // list에서 option 값으로 skins 자동 추가하기 위함
+
 		App::render("Admin/Board/list", $data);
 	}
 }

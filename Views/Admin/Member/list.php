@@ -4,17 +4,19 @@
 		<table class='member_list_table'>
 			<thead>
 				<tr>
+					<th width='5%'>선택</th>
 					<th width='8%'>회원등급</th>
 					<th width='15%'>아이디</th>
-					<th width='12%'>이름</th>
+					<th width='10%'>이름</th>
 					<th width='30%'>주소</th>
 					<th width='12%'>전화번호</th>
-					<th>이메일</th>
+					<th width='20%'>이메일</th>
 				</tr>
 			</thead>
 			<tbody>
 				<?php foreach($list as $v) : ?>
 					<tr>
+						<td><input type='checkbox' name=memNo[<?=$v['memNo']?>]></td>
 						<td>
 							<?php if($v['memLv'] != 10) : ?>
 							<select name=memLv[<?=$v['memNo']?>]>
@@ -35,7 +37,7 @@
 				<?php endforeach; ?>
 			</tbody>
 		</table>
-		<input type='submit' value='일괄 변경하기'>
+		<input type='submit' value='선택 일괄 변경하기' onclick="return confirm('정말 변경하시겠습니까?');">
 	</form>
 </div>
 

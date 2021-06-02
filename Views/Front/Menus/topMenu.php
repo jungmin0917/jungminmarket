@@ -2,16 +2,16 @@
 	<div class='layout_width'>
 		<ul class='top_menu_left'>
 			<li>
-				<a href='<?=siteUrl("board_notice/list")?>'>공지사항</a>
+				<a href='<?=siteUrl("board/list?id=notice")?>'>공지사항</a>
 			</li>
 			<li>
-				<a href='<?=siteUrl("board_event/list")?>'>이벤트</a>
+				<a href='<?=siteUrl("board/list?id=event")?>'>이벤트</a>
 			</li>
 			<li>
-				<a href='<?=siteUrl("board_review/list")?>'>리뷰</a>
+				<a href='<?=siteUrl("board/list?id=review")?>'>리뷰</a>
 			</li>
 			<li>
-				<a href='<?=siteUrl("board_qna/list")?>'>Q&A</a>
+				<a href='<?=siteUrl("board/list?id=qna")?>'>Q&A</a>
 			</li>
 		</ul>
 		<ul class='top_menu_right'>

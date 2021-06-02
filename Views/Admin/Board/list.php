@@ -4,40 +4,51 @@
 		<table class='board_list_table'>
 			<thead>
 				<tr>
-					<th>게시판 아이디</th>
-					<th>게시판 이름</th>
-					<th>카테고리</th>
-					<th>게시판 스킨</th>
-					<th>등록일자</th>
+					<th width='5%'>선택</th>
+					<th width='15%'>게시판 아이디</th>
+					<th width='15%'>게시판 이름</th>
+					<th width='35%'>카테고리</th>
+					<th width='15%'>게시판 스킨</th>
+					<th width='15%'>등록일자</th>
 				</tr>
 			</thead>
 			<tbody>
 				<?php foreach($list as $v) : ?>
 					<tr>
 						<td>
+							<input type='checkbox' name='boardNo[<?=$v['boardNo']?>]'>
+						</td>
+						<td>
 							<?=$v['boardId']?>
 						</td>
 						<td>
-							<?=$v['boardNm']?>
+							<input type='text' name='boardNm[<?=$v['boardNo']?>]' value='<?=$v['boardNm']?>'>
 						</td>
 						<td>
 							<?php
-								str_replace(PHP_EOL, "<br>", $v['category']);
+								$v['category'] = str_replace(PHP_EOL, "|| ", $v['category']);
 								echo $v['category'];
 							?>
 						</td>
 						<td>
-							<?=$v['boardSkin']?>
+							<select name='boardSkin[<?=$v['boardNo']?>]'>
+								<?php foreach($skins as $skin) : ?>
+									<option value='<?=$v['boardSkin']?>'><?=$v['boardSkin']?></option>
+								<?php endforeach; ?>
+							</select>
 						</td>
 						<td>
-							<?=$v['regDt']?>
+							<?php
+								$v['regDt'] = str_replace(" ", "<br>", $v['regDt']);
+								echo $v['regDt'];
+							?>
 						</td>
 					</tr>
 				<?php endforeach; ?>
 			</tbody>
 
 		</table>
-		<input type='submit' value='일괄 변경하기'>
+		<input type='submit' value='선택 일괄 변경하기' onclick="return confirm('정말 변경하시겠습니까?');">
 	</form>
 </div>
 

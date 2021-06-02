@@ -34,6 +34,19 @@ class Board{
 
 				break;
 
+			case 'updateNameSkin':
+				if(!isset($this->params['boardNo'])){
+					throw new AlertException('변경할 게시판을 선택해주세요');
+				}
+
+				foreach($this->params['boardNm'] as $v){
+					if(!$v){
+						throw new AlertException('게시판 이름을 입력해주세요');
+					}
+				}
+
+				break;
+
 			default:
 				break;
 		}
@@ -103,6 +116,53 @@ class Board{
 			throw new AlertException('게시판 생성 DB 처리 실패');
 		}
 
+		return $result;
+	}
+
+	public function updateNameSkin(){
+		$checked_boardNo = $this->params['boardNo'];
+		$boardNmList = $this->params['boardNm'];
+		$boardSkinList = $this->params['boardSkin'];
+
+		foreach($checked_boardNo as $checked_k => $checked_v){
+
+			foreach($boardNmList as $k => $v){
+
+				if($checked_k == $k){
+					$sql = "UPDATE jmmk_board_create SET boardNm = :boardNm WHERE boardNo = :boardNo";
+
+					$stmt = db()->prepare($sql);
+
+					$stmt->bindValue(":boardNm", $v);
+					$stmt->bindValue(":boardNo", $k);
+
+					$result = $stmt->execute();
+
+					if($result === false){
+						throw new AlertException('게시판 이름 변경 실패');
+					}
+				}
+			}
+
+			foreach($boardSkinList as $k => $v){
+
+				if($checked_k == $k){
+					$sql = "UPDATE jmmk_board_create SET boardSkin = :boardSkin WHERE boardNo = :boardNo";
+
+					$stmt = db()->prepare($sql);
+
+					$stmt->bindValue(":boardSkin", $v);
+					$stmt->bindValue(":boardNo", $k);
+
+					$result = $stmt->execute();
+
+					if($result === false){
+						throw new AlertException('게시판 스킨 변경 실패');
+					}
+				}
+			}
+
+		}
 		return $result;
 	}
 

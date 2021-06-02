@@ -46,7 +46,7 @@ class IndbController extends \Controller\Admin\AdminController{
 
 				case 'updateGrade':
 
-					$result = $member->data($formData)->updateGrade();
+					$result = $member->data($formData)->validator('updateGrade')->updateGrade();
 
 					if($result === false){
 						throw new AlertException('회원등급 일괄 변경 실패');

@@ -273,6 +273,12 @@ html{
     color: white;
 }
 
+.member_list_form input[type='checkbox']{
+    zoom: 1.4;
+    position: relative;
+    top: 4px;
+}
+
 .pagination{
     text-align: center;
     margin-top: 30px;
@@ -450,22 +456,35 @@ html{
     font-family: 'RIDIBatang', sans-serif;
     font-size:1.1rem;
     height: 30px;
-    width: 65px;
+    width: 80px;
     padding-left: 2px;
 }
 
 .board_list_table tbody tr{
     height: 59px;
-    line-height: 59px;
+    line-height: 1.5rem;
 }
 
 .board_list_table tbody tr:nth-child(2n){
     background-color: lightcyan;
 }
 
+.board_list_table tbody td{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.board_list_form input[type='text']{
+    font-family: 'RIDIBatang', sans-serif;
+    font-size: 1.2rem;
+    padding: 2px 5px;
+    display: block;
+    width: 90%;
+    margin: 0 auto;
+}
+
 .board_list_form input[type='submit']{
     font-family: 'RIDIBatang', sans-serif;
-    font-size:1.5rem;
     display: block;
     cursor: pointer;
     margin: 30px auto;
@@ -476,12 +495,19 @@ html{
     transition: all 0.5s;
     border-radius: 10px;
     line-height: 2rem;
+    font-size: 1.5rem;
 }
 
 .board_list_form input[type='submit']:hover,
 .board_list_form input[type='submit']:focus{
     background-color: dodgerblue;
     color: white;
+}
+
+.board_list_form input[type='checkbox']{
+    zoom: 1.4;
+    position: relative;
+    top: 1px;
 }
 
 .pagination{

@@ -208,6 +208,13 @@ class Member{
 
 				break;
 
+			case 'updateGrade':
+				if(!isset($this->params['memNo'])){
+					throw new AlertException('변경할 회원을 선택해주세요');
+				}
+
+				break;
+
 			default:
 				break;
 		}
@@ -787,26 +794,33 @@ class Member{
 	}
 
 	public function updateGrade(){
+		$checked = $this->params['memNo'];
 		$data = $this->params['memLv'];
 
-		foreach($data as $k => $v){ // $k는 memNo이고, $v는 memLv로 치환하여 SQL UPDATE 한다
-			$memNo = $k;
-			$memLv = $v;
+		foreach($checked as $k => $v){
+			$checked_memNo = $k;
 
-			$sql = "UPDATE jmmk_member SET memLv = :memLv WHERE memNo = :memNo";
+			foreach($data as $k => $v){ // $k는 memNo이고, $v는 memLv로 치환하여 SQL UPDATE 한다
+				$memNo = $k;
+				$memLv = $v;
 
-			$stmt = db()->prepare($sql);
+				if($checked_memNo == $k){
+					$sql = "UPDATE jmmk_member SET memLv = :memLv WHERE memNo = :memNo";
 
-			$bindData = ['memLv', 'memNo'];
+					$stmt = db()->prepare($sql);
 
-			foreach($bindData as $v){
-				$stmt->bindValue(":{$v}", $$v);
-			}
+					$bindData = ['memLv', 'memNo'];
 
-			$result = $stmt->execute();
+					foreach($bindData as $v){
+						$stmt->bindValue(":{$v}", $$v);
+					}
 
-			if($result === false){
-				throw new AlertException('회원등급 변경 DB 처리 실패');
+					$result = $stmt->execute();
+
+					if($result === false){
+						throw new AlertException('회원등급 변경 DB 처리 실패');
+					}
+				}
 			}
 		}
 
