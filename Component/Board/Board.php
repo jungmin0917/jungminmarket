@@ -51,6 +51,11 @@ class Board{
 				if(!$this->params['subject']){
 					throw new AlertException('제목을 입력해주세요');
 				}
+
+				if(strlen($this->params['subject']) > 100){
+					throw new AlertException('제목이 너무 길어요');
+				}
+
 				if(!$this->params['contents']){
 					throw new AlertException('내용을 입력해주세요');
 				}
@@ -414,6 +419,55 @@ class Board{
 			throw new AlertException('파일 업로드 실패');
 		}
 
+		// isFileExists 처리
+		$sql = "SELECT COUNT(*) as cnt FROM jmmk_file WHERE fileGroup = :fileGroup";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":fileGroup", $fileGroup);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('파일 그룹 조회 실패');
+		}
+
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		if($row['cnt'] > 0){
+			$isFileExists = 1;
+			$sql = "UPDATE jmmk_board SET isFileExists = :isFileExists WHERE fileGroup = :fileGroup";
+
+			$stmt = db()->prepare($sql);
+
+			$stmt->bindValue(":isFileExists", $isFileExists, PDO::PARAM_INT);
+			$stmt->bindValue(":fileGroup", $fileGroup);
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('isFileExists 업데이트 실패');
+			}
+		}
+
 		return $result;
+	}
+
+	public function getPost($postNo){
+		$sql = "SELECT * FROM jmmk_board WHERE idx = :postNo";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":postNo", $postNo);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('게시글 조회 실패');
+		}
+
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		return $row;
 	}
 }

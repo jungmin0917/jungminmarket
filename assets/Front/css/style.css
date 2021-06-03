@@ -1071,6 +1071,7 @@ html{
 	width: 100%;
 	border-collapse: collapse;
 	border-top: 1px solid #ccc;
+	table-layout: fixed;
 }
 
 .board_list_table th,
@@ -1110,6 +1111,13 @@ html{
 	display: table-cell;
 	vertical-align: middle;
 	padding: 10px;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.board_list_table tbody td:nth-child(3){
+	text-align: left;
 }
 
 .board_list_table tbody tr:nth-child(2n+1){

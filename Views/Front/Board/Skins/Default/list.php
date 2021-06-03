@@ -23,7 +23,14 @@
 					<?=$v['memNm']?>
 				</td>
 				<td>
-					<?=$v['subject']?>
+					<a href='<?=siteUrl("board/view?id={$v['boardId']}&post={$v['idx']}")?>'>
+						<?php
+							if($v['isFileExists'] == 1){
+								echo "<i class='xi-file'></i>";
+							}
+						?>
+						<?=$v['subject']?>
+					</a>
 				</td>
 				<td>
 					<?=date("Y-m-d", strtotime($v['regDt']))?><br>
