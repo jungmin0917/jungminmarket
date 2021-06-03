@@ -123,6 +123,10 @@ html{
 	float:left;
 }
 
+.sub_menu_left li:first-child{
+	margin-right: 15px;
+}
+
 .sub_menu_left:after{
 	clear:both;
 	display:block;
@@ -1061,8 +1065,213 @@ html{
 
 /* 마이페이지 관련 E */
 
+/* 게시글 목록 관련 S */
+
+.board_list_table{
+	width: 100%;
+	border-collapse: collapse;
+	border-top: 1px solid #ccc;
+}
+
+.board_list_table th,
+.board_list_table td{
+	border-bottom: 1px solid #ccc;
+}
+
+.board_list_table_wrap{
+	padding: 0 20px;
+}
+
+.board_list_wrap .title{
+	font-size: 1.8rem;
+	margin-bottom: 15px;
+}
+
+.board_list_wrap .sub_title{
+	font-size: 1.4rem;
+	color: #aaa;
+	margin-bottom: 40px;
+}
+
+.board_list_table thead{
+	font-size: 1.4rem;
+}
+
+.board_list_table thead th{
+	padding: 15px;
+}
+
+.board_list_table tbody{
+	font-size: 1.1rem;
+	text-align: center;
+}
+
+.board_list_table tbody td{
+	display: table-cell;
+	vertical-align: middle;
+	padding: 10px;
+}
+
+.board_list_table tbody tr:nth-child(2n+1){
+	background-color: aliceblue;
+}
+
+.board_list_wrap a.write{
+	display: inline-block;
+	padding: 10px 60px;
+	border-radius: 5px;
+	box-shadow: 0 0 3px dodgerblue;
+	font-size: 1.3rem;
+	margin-top: 30px;
+	transition: all 0.5s;
+}
+
+.board_list_wrap a.write:focus,
+.board_list_wrap a.write:hover{
+	background-color: skyblue;
+}
+
+.board_list_wrap .write_button_wrap{
+	text-align: center;
+}
+
+.pagination{
+	margin-top: 20px;
+	text-align: center;
+}
+
+.pagination li.on{
+	font-size: 2rem;
+}
+
+.pagination li{
+	display: inline-block;
+	font-size: 1.5rem;
+	margin: 3px;
+}
+
+.pagination li a{
+	padding: 3px;
+}
+
+/* 게시글 목록 관련 E */
+
 /* 게시글 작성 관련 S */
 
+.board_write_wrap .title{
+	font-size: 1.8rem;
+	margin-bottom: 15px;
+}
 
+.board_write_wrap .sub_title{
+	font-size: 1.4rem;
+	color: #aaa;
+	margin-bottom: 40px;
+}
+
+.board_write_form{
+	font-size: 1.4rem;
+}
+
+.board_write_ul > li:first-child{
+	border-top: 1px solid #ddd;
+}
+
+.board_write_ul > li:last-child{
+	border: 0;
+}
+
+.board_write_ul > li{
+	padding: 10px 0;
+	border-bottom: 1px solid #ddd;
+}
+
+.board_write_ul > li:after{
+	clear: both;
+	display: block;
+	content: '';
+}
+
+.board_write_ul > li > label{
+	float: left;
+	width: 15%;
+	padding: 0 20px;
+	line-height: 33px;
+}
+
+.board_write_ul label.file{
+	line-height: 39px;
+}
+
+.board_write_ul label.secure{
+	line-height: 39px;
+}
+
+.board_write_ul > li > input,
+.board_write_ul li .radio{
+    font-family: 'RIDIBatang', sans-serif;
+    font-size:1.4rem;
+    padding: 5px 10px;
+	float: left;
+	border: 0;
+	box-shadow: 0 0 3px black;
+	border-radius: 5px;
+}
+
+.board_write_ul li .radio{
+	box-shadow: 0 0 0 #fff;
+	padding:0;
+	line-height: 39px;
+}
+
+.board_write_ul li .radio label{
+	margin-right: 10px;
+}
+
+.board_write_ul > li > input:focus{
+	box-shadow: 0 0 3px red;
+}
+
+.board_write_ul > li > input.subject{
+	width: 40%;
+}
+
+.board_write_ul li.buttons{
+	margin-top: 20px;
+}
+
+.board_write_ul li.buttons:after{
+	clear: both;
+	display: block;
+	content: '';
+}
+
+.board_write_ul li.buttons .left{
+	float: left;
+	width: 20%;
+}
+
+.board_write_ul li.buttons .right{
+	float: right;
+	width: 80%;
+	text-align: right;
+}
+
+.board_write_ul li.buttons a{
+	display: inline-block;
+	padding: 10px 30px;
+	border-radius: 5px;
+	box-shadow: 0 0 3px dodgerblue;
+	transition: all 0.5s;
+}
+
+.board_write_ul li.buttons a:hover,
+.board_write_ul li.buttons a:focus{
+	background-color: skyblue;
+}
+
+.board_write_ul li.buttons a.submit{
+	margin-right: 10px;
+}
 
 /* 게시글 작성 관련 E */

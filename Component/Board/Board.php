@@ -47,6 +47,15 @@ class Board{
 
 				break;
 
+			case 'write':
+				if(!$this->params['subject']){
+					throw new AlertException('제목을 입력해주세요');
+				}
+				if(!$this->params['contents']){
+					throw new AlertException('내용을 입력해주세요');
+				}
+				break;
+
 			default:
 				break;
 		}
@@ -333,7 +342,7 @@ class Board{
 
 			$data = [
 				'boardId' => $boardId,
-				'boardNm' => $boardNm,
+				'boardNm' => $boardNm, // 쓸 일 있어서 반환
 				'list' => $list,
 				'pagination' => $pagination,
 			];
@@ -344,5 +353,67 @@ class Board{
 			echo $e;
 			exit;
 		}
+	}
+
+	public function getBoardNm($boardId){
+		try{
+			$sql = "SELECT * FROM jmmk_board_create WHERE boardId = :boardId";
+
+			$stmt = db()->prepare($sql);
+
+			$stmt->bindValue(":boardId", $boardId);
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('boardId로 레코드 조회 실패');
+			}
+
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+			return $row['boardNm'];
+
+		}catch(AlertException $e){
+			echo $e;
+			exit;
+		}
+	}
+
+	public function write(){
+
+		// 게시글 작성 처리
+		$boardId = $this->params['boardId'];
+		$memNm = getSession('member_memNm');
+		$subject = $this->params['subject'];
+		$contents = $this->params['contents'];
+		$isLocked = $this->params['secure'];
+		$fileGroup = md5(uniqid());
+
+		$sql = "INSERT INTO jmmk_board (boardId, memNm, subject, contents, isLocked, fileGroup) VALUES (:boardId, :memNm, :subject, :contents, :isLocked, :fileGroup)";
+
+		$stmt = db()->prepare($sql);
+
+		$bindData = ['boardId', 'memNm', 'subject', 'contents', 'isLocked', 'fileGroup'];
+
+		foreach($bindData as $v){
+			$stmt->bindValue(":{$v}", $$v);
+		}
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('게시글 작성 DB 처리 실패');
+		}
+
+		// 파일 업로드 처리
+		$file = App::load(\Component\Core\File::class);
+		
+		$result = $file->upload($fileGroup);
+
+		if($result === false){
+			throw new AlertException('파일 업로드 실패');
+		}
+
+		return $result;
 	}
 }

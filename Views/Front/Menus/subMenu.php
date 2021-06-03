@@ -5,25 +5,25 @@
 				<i class='layer_menu xi-bars'></i>
 			</li>
 			<li>
-				<a href='<?=siteUrl("goods/list?category=1")?>'>BEST</a>
+				<a href='<?=siteUrl("goods/list?category=best")?>'>BEST</a>
 			</li>
 			<li>
-				<a href='<?=siteUrl("goods/list?category=2")?>'>NEW</a>
+				<a href='<?=siteUrl("goods/list?category=new")?>'>NEW</a>
 			</li>
 			<li>
-				<a href='<?=siteUrl("goods/list?category=3")?>'>상의</a>
+				<a href='<?=siteUrl("goods/list?category=1")?>'>상의</a>
 			</li>
 			<li>
-				<a href='<?=siteUrl("goods/list?category=4")?>'>하의</a>
+				<a href='<?=siteUrl("goods/list?category=2")?>'>하의</a>
 			</li>
 			<li>
-				<a href='<?=siteUrl("goods/list?category=5")?>'>신발</a>
+				<a href='<?=siteUrl("goods/list?category=3")?>'>신발</a>
 			</li>
 			<li>
-				<a href='<?=siteUrl("goods/list?category=6")?>'>속옷</a>
+				<a href='<?=siteUrl("goods/list?category=4")?>'>속옷</a>
 			</li>
 			<li>
-				<a href='<?=siteUrl("goods/list?category=7")?>'>악세서리</a>
+				<a href='<?=siteUrl("goods/list?category=5")?>'>악세서리</a>
 			</li>
 		</ul>
 		<ul class='sub_menu_right'>

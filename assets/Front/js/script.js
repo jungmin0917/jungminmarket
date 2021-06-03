@@ -2,7 +2,9 @@ $(document).ready(function(){
 	console.log('로드됨');
 
     /* CKEDITOR 관련 */
-	CKEDITOR.replace("contents");
+	CKEDITOR.replace("contents", {
+        height:400,
+    });
 
 	/* 약관 관련 */
 	$('body').on('click', '#agree_all', function(){

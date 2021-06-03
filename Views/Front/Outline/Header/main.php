@@ -4,6 +4,8 @@
 	<meta charset='utf-8'>
 	<meta name='viewport'>
 
+	<link rel='shortcut icon' href="<?=siteUrl('assets/Front/image/favicon.png')?>">
+
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 	<link rel='stylesheet' type='text/css' href='<?=siteUrl("assets/Front/css/reset.css")?>'>
 	<link rel='stylesheet' type='text/css' href='<?=siteUrl("assets/Front/css/style.css")?>'>
