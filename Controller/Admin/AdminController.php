@@ -11,6 +11,12 @@ class AdminController extends \Controller\Controller{
 	protected $topMenuCode = '';
 	protected $subMenuCode = '';
 
+	public function isAdmin(){
+		if(!isAdminLogin()){
+			alertGo('관리자만 접근 가능합니다. 로그인 페이지로 이동합니다', "admin/member/login");
+		}
+	}
+
 	public function header(){
 		if($this->layoutBlank == true){
 			return;

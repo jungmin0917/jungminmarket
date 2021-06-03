@@ -13,6 +13,10 @@ class IndbController extends \Controller\Admin\AdminController{
 	public function index(){
 		try{
 			$formData = request()->all();
+			
+			if(!$formData){
+				alertBack('잘못된 접근입니다. 이전 페이지로 이동합니다');
+			}
 
 			$board = App::load(\Component\Board\Board::class);
 

@@ -6,6 +6,10 @@ use App;
 
 class LoginController extends \Controller\Admin\AdminController{
 
+	public function isAdmin(){
+		return;
+	}
+
 	public function __construct(){
 		if(isLogin() && !isAdminLogin()){
 			alertGo('일반회원으로 로그인 한 상태입니다. 로그아웃 후 접근해주세요', "");

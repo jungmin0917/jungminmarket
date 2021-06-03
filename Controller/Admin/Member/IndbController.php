@@ -17,6 +17,10 @@ class IndbController extends \Controller\Admin\AdminController{
 	public function index(){
 		try{
 			$formData = request()->all();
+			
+			if(!$formData){
+				alertBack('잘못된 접근입니다. 이전 페이지로 이동합니다');
+			}
 
 			$member = App::load(\Component\Member\Member::class);
 
@@ -66,6 +70,8 @@ class IndbController extends \Controller\Admin\AdminController{
 
 					alertReplace('관리자 등록에 성공했습니다', "admin/member/list", "parent");
 
+					break;
+				default:
 					break;
 			}
 		}catch(AlertException $e){
