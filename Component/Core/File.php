@@ -65,4 +65,121 @@ class File{
 			exit;
 		}
 	}
+
+	// 파일 그룹으로 파일 리스트 조회
+	public function getFileList($fileGroup){
+		try{
+			$sql = "SELECT * FROM jmmk_file WHERE fileGroup = :fileGroup";
+
+			$stmt = db()->prepare($sql);
+
+			$stmt->bindValue(":fileGroup", $fileGroup);
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('파일 그룹 조회 실패');
+			}
+
+			$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+			return $rows;
+
+		}catch(AlertException $e){
+			echo $e;
+			exit;
+		}
+	}
+
+	// 게시글 번호로 파일 그룹 조회
+	public function getFileGroup($postNo){
+		try{
+			$sql = "SELECT * FROM jmmk_board WHERE postNo = :postNo";
+
+			$stmt = db()->prepare($sql);
+
+			$stmt->bindValue(":postNo", $postNo);
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('fileGroup 조회 실패');
+			}
+
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+			return $row['fileGroup'];
+
+		}catch(AlertException $e){
+			echo $e;
+			exit;
+		}
+	}
+
+	// 파일 그룹으로 해당 파일들 지우기
+	public function deleteFiles($fileGroup){
+		try{
+			// 파일 지우기
+			$sql = "SELECT * FROM jmmk_file WHERE fileGroup = :fileGroup";
+
+			$stmt = db()->prepare($sql);
+
+			$stmt->bindValue(":fileGroup", $fileGroup);
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('지울 파일 조회 실패');
+			}
+
+			$uploadPath = $this->uploadPath; // 업로드 폴더 위치
+
+			$fileList = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+			foreach($fileList as $file){
+				$path = $uploadPath.$file['fileName'];
+				if(file_exists($path)){
+					unlink($path);
+				}
+			}
+
+			// 파일 DB 지우기
+			$sql = "DELETE FROM jmmk_file WHERE fileGroup = :fileGroup";
+
+			$stmt = db()->prepare($sql);
+
+			$stmt->bindValue(":fileGroup", $fileGroup);
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('파일 DB 지우기 실패');
+			}
+
+			return;
+
+		}catch(AlertException $e){
+			echo $e;
+			exit;
+		}
+	}
+
+	public function download($fileName){
+
+		$uploadPath = $this->uploadPath;
+		
+		$filePath = $uploadPath.$fileName;
+		$fileSize = filesize($filePath);
+
+		header("Pragma: no-cache"); // 캐싱 방지
+		header("Expires: 0"); // 캐싱 방지
+		header("Content-Type: application/octet-stream");
+		header("Content-Disposition:attachment; filename=$fileName");
+		header("Content-Transfer-Encoding:binary");
+		header("Content-Length:$fileSize");
+
+		ob_clean();
+		flush();
+		readfile($filePath);
+	}
 }

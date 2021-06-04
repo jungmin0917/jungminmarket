@@ -17,19 +17,21 @@
 			<?php foreach($list as $v) : ?>
 			<tr>
 				<td>
-					<?=$v['idx']?>
+					<?=$v['postNo']?>
 				</td>
 				<td>
 					<?=$v['memNm']?>
 				</td>
 				<td>
-					<a href='<?=siteUrl("board/view?id={$v['boardId']}&post={$v['idx']}")?>'>
+					<a href='<?=siteUrl("board/view?id={$v['boardId']}&post={$v['postNo']}")?>'>
 						<?php
-							if($v['isFileExists'] == 1){
-								echo "<i class='xi-file'></i>";
+							if($v['isLocked'] == 'locked'){
+								echo "<i class='xi-lock-o'></i>";
 							}
-						?>
-						<?=$v['subject']?>
+							if($v['isFileExists'] == 1){
+								echo "<i class='xi-file-text-o'></i>";
+							}
+						?><?=$v['subject']?>
 					</a>
 				</td>
 				<td>

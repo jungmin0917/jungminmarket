@@ -34,6 +34,17 @@ class IndbController extends \Controller\Front\FrontController{
 
 					break;
 
+				case 'modify':
+					$result = $board->data($formData)->validator('modify')->modify();
+
+					if($result === false){
+						throw new AlertException('게시글 수정 실패');
+					}
+
+					setSession('board_postNo', ''); // 임시 세션 지우기
+
+					alertGo("게시글 수정에 성공했습니다. 게시글 목록으로 이동합니다", "board/list?id={$boardId}", "parent");
+
 				default:
 					break;
 			}

@@ -61,6 +61,20 @@ class Board{
 				}
 				break;
 
+			case 'modify':
+				if(!$this->params['subject']){
+					throw new AlertException('제목을 입력해주세요');
+				}
+
+				if(strlen($this->params['subject']) > 100){
+					throw new AlertException('제목이 너무 길어요');
+				}
+
+				if(!$this->params['contents']){
+					throw new AlertException('내용을 입력해주세요');
+				}
+				break;
+
 			default:
 				break;
 		}
@@ -386,14 +400,14 @@ class Board{
 
 	public function write(){
 
-		// 게시글 작성 처리
-		$boardId = $this->params['boardId'];
 		$memNm = getSession('member_memNm');
+		$boardId = $this->params['boardId'];
 		$subject = $this->params['subject'];
 		$contents = $this->params['contents'];
 		$isLocked = $this->params['secure'];
 		$fileGroup = md5(uniqid());
 
+		// 게시글 작성 처리
 		$sql = "INSERT INTO jmmk_board (boardId, memNm, subject, contents, isLocked, fileGroup) VALUES (:boardId, :memNm, :subject, :contents, :isLocked, :fileGroup)";
 
 		$stmt = db()->prepare($sql);
@@ -453,8 +467,78 @@ class Board{
 		return $result;
 	}
 
+	public function modify(){
+
+		$boardId = $this->params['boardId'];
+		$subject = $this->params['subject'];
+		$contents = $this->params['contents'];
+		$isLocked = $this->params['secure'];
+		$postNo = $this->params['postNo'];
+
+		// 잘못된 접근 처리 (postNo 바꿔서 수정하는 것 차단)
+		$session_postNo = getSession('board_postNo');
+
+		if($postNo !== $session_postNo){
+			throw new AlertException('잘못된 접근입니다');
+		}
+
+		// 게시글 수정 처리
+		$sql = "UPDATE jmmk_board SET subject = :subject, contents = :contents, isLocked = :isLocked WHERE postNo = :postNo";
+
+		$stmt = db()->prepare($sql);
+
+		$bindData = ['subject', 'contents', 'isLocked', 'postNo'];
+
+		foreach($bindData as $v){
+			$stmt->bindValue(":{$v}", $$v);
+		}
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('게시글 수정 DB 처리 실패');
+		}
+
+		// 새로 올라온 파일 있는지 확인
+		$files = request()->files();
+		$isUploadFileExists = false;
+		foreach($files as $file){ 
+			if($file['error'] == 0){
+				$isUploadFileExists = true;
+				break;
+			}
+		}
+
+		// 새로 올라온 파일 있으면 기존 파일 지우고 업로드하기
+		if($isUploadFileExists){
+
+			// fileGroup 조회
+			$file = App::load(\Component\Core\File::class);
+
+			$fileGroup = $file->getFileGroup($postNo);
+
+			// 기존 파일 지우기
+
+			$result = $file->deleteFiles($fileGroup);
+
+			if($result === false){
+				throw new AlertException('업로드된 파일 삭제 실패');
+			}
+
+			// 파일 업로드
+			
+			$result = $file->upload($fileGroup);
+
+			if($result === false){
+				throw new AlertException('파일 업로드 실패');
+			}
+		}
+
+		return $result;
+	}
+
 	public function getPost($postNo){
-		$sql = "SELECT * FROM jmmk_board WHERE idx = :postNo";
+		$sql = "SELECT * FROM jmmk_board WHERE postNo = :postNo";
 
 		$stmt = db()->prepare($sql);
 
@@ -473,7 +557,7 @@ class Board{
 
 	public function getPrevPost($boardId, $postNo){ // 이전글이라 함은 더 나중에 작성된 글을 말함
 		try{
-			$sql = "SELECT * FROM jmmk_board WHERE boardId = :boardId AND idx > :postNo ORDER BY idx ASC LIMIT 1";
+			$sql = "SELECT * FROM jmmk_board WHERE boardId = :boardId AND postNo > :postNo ORDER BY postNo ASC LIMIT 1";
 
 			$stmt = db()->prepare($sql);
 
@@ -490,7 +574,7 @@ class Board{
 
 			if($row){ // $row가 존재하면 (이전글이 존재하면)
 				return [
-					'postNo' => $row['idx'],
+					'postNo' => $row['postNo'],
 					'subject' => $row['subject'],
 				]; // 이전글 번호 반환
 			}else{
@@ -505,7 +589,7 @@ class Board{
 
 	public function getNextPost($boardId, $postNo){ // 다음글 번호 구하기
 		try{
-			$sql = "SELECT * FROM jmmk_board WHERE boardId = :boardId AND idx < :postNo ORDER BY idx DESC LIMIT 1";
+			$sql = "SELECT * FROM jmmk_board WHERE boardId = :boardId AND postNo < :postNo ORDER BY postNo DESC LIMIT 1";
 
 			$stmt = db()->prepare($sql);
 
@@ -522,7 +606,7 @@ class Board{
 
 			if($row){
 				return [
-					'postNo' => $row['idx'],
+					'postNo' => $row['postNo'],
 					'subject' => $row['subject'],
 				];
 			}else{
@@ -536,7 +620,7 @@ class Board{
 	}
 
 	public function updateViews($boardId, $postNo){
-		$sql = "UPDATE jmmk_board SET views = views+1 WHERE boardId = :boardId AND idx = :postNo";
+		$sql = "UPDATE jmmk_board SET views = views+1 WHERE boardId = :boardId AND postNo = :postNo";
 
 		$stmt = db()->prepare($sql);
 
@@ -547,6 +631,22 @@ class Board{
 
 		if($result === false){
 			throw new AlertException('조회수 업데이트 실패');
+		}
+
+		return $result;
+	}
+
+	public function deletePost($postNo){
+		$sql = "DELETE FROM jmmk_board WHERE postNo = :postNo";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":postNo", $postNo);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('게시글 삭제 실패');
 		}
 
 		return $result;

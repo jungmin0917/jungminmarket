@@ -1124,6 +1124,16 @@ html{
 	background-color: aliceblue;
 }
 
+.board_list_table i{
+	padding-right: 2px;
+	position: relative;
+	top: 1px;
+}
+
+.board_list_table i:last-child{
+	padding-right: 5px;
+}
+
 .board_list_wrap a.write{
 	display: inline-block;
 	padding: 10px 60px;
@@ -1202,7 +1212,7 @@ html{
 
 .board_write_ul > li > label{
 	float: left;
-	width: 15%;
+	width: 20%;
 	padding: 0 20px;
 	line-height: 33px;
 }
@@ -1224,6 +1234,19 @@ html{
 	border: 0;
 	box-shadow: 0 0 3px black;
 	border-radius: 5px;
+}
+
+.board_write_ul li .file_title{
+	float: left;
+	width: 20%;
+	padding: 0 20px;
+	line-height: 38px;
+}
+
+.board_write_ul li .file_content{
+	float: left;
+	width: 80%;
+	line-height: 38px;
 }
 
 .board_write_ul li .radio{
@@ -1282,6 +1305,13 @@ html{
 	margin-right: 10px;
 }
 
+.board_write_ul li span.notice{
+	line-height: 38px;
+	padding-left: 20px;
+	font-size: 1.2rem;
+	color: red;
+}
+
 /* 게시글 작성 관련 E */
 
 
@@ -1330,16 +1360,33 @@ html{
 }
 
 .board_view_ul li .title.post{
+	float: left;
 	width: 15%;
 	padding: 0 15px;
 	line-height: 47px;
 }
 
 .board_view_ul li .content.post{
+	float: left;
 	width: 85%;
 	padding: 0 15px;
 	line-height: 47px;
 }
+
+.board_view_ul li .file_title{
+	float: left;
+	width: 15%;
+	padding: 0 15px;
+	line-height: 47px;
+}
+
+.board_view_ul li .file_content{
+	float: left;
+	width: 85%;
+	padding: 0 15px;
+	line-height: 47px;
+}
+
 
 .board_view_ul li .title i{
 	position: relative;
@@ -1350,6 +1397,7 @@ html{
 	width: 100%;
 	padding: 30px 20px;
 	min-height: 250px;
+	line-height: 2rem;
 }
 
 .board_view_ul li.buttons{
@@ -1389,6 +1437,5 @@ html{
 .board_view_ul li.buttons a.modify{
 	margin-right: 10px;
 }
-
 
 /* 게시물 보기 관련 E */

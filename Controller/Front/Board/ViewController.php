@@ -10,7 +10,6 @@ class ViewController extends \Controller\Front\FrontController{
 	public function index(){
 		try{
 			$postNo = request()->get('post');
-
 			$boardId = request()->get('id');
 
 			$board = App::load(\Component\Board\Board::class);
@@ -18,9 +17,7 @@ class ViewController extends \Controller\Front\FrontController{
 			$board->updateViews($boardId, $postNo);
 
 			$boardNm = $board->getBoardNm($boardId);
-
 			$data = $board->getPost($postNo);
-
 			$data = array_merge($data, ['boardNm' => $boardNm]);
 			
 			$skin = $board->getSkin($boardId);
