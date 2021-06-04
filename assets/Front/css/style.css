@@ -1124,13 +1124,13 @@ html{
 	background-color: aliceblue;
 }
 
-.board_list_table i{
+.board_list_table .subject i{
 	padding-right: 2px;
 	position: relative;
 	top: 1px;
 }
 
-.board_list_table i:last-child{
+.board_list_table .subject i:last-child{
 	padding-right: 5px;
 }
 
@@ -1140,7 +1140,7 @@ html{
 	border-radius: 5px;
 	box-shadow: 0 0 3px dodgerblue;
 	font-size: 1.3rem;
-	margin-top: 30px;
+	margin-top: 50px;
 	transition: all 0.5s;
 }
 
@@ -1312,6 +1312,24 @@ html{
 	color: red;
 }
 
+.board_write_ul input[type='checkbox']{
+	zoom: 1.8;
+	box-shadow: 0 0 0 #fff;
+}
+
+.board_write_ul input[type='checkbox']:focus{
+	box-shadow: 0 0 0 #fff;
+}
+
+.board_write_ul input[type='radio']{
+	position: relative;
+	top: 1px;
+}
+
+.board_write_ul .none{
+	opacity: 0.3;
+}
+
 /* 게시글 작성 관련 E */
 
 
@@ -1335,10 +1353,6 @@ html{
 
 .board_view_ul li{
 	border-top: 1px solid #ddd;
-}
-
-.board_view_ul li:last-child{
-	border-bottom: 1px solid #ddd;
 }
 
 .board_view_ul li:after{
@@ -1387,6 +1401,14 @@ html{
 	line-height: 47px;
 }
 
+.board_view_ul li .file_content a{
+	transition: all 0.5s;
+}
+
+.board_view_ul li .file_content a:focus,
+.board_view_ul li .file_content a:hover{
+	opacity: 0.5;
+}
 
 .board_view_ul li .title i{
 	position: relative;
@@ -1401,7 +1423,7 @@ html{
 }
 
 .board_view_ul li.buttons{
-	padding: 30px 0 60px 0;
+	padding: 30px 0 50px 0;
 }
 
 .board_view_ul li.buttons:after{
@@ -1436,6 +1458,15 @@ html{
 
 .board_view_ul li.buttons a.modify{
 	margin-right: 10px;
+}
+
+.board_view_ul .prev_li{
+	border-bottom: 1px solid #ddd;
+}
+
+.board_view_ul .next_li{
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
 }
 
 /* 게시물 보기 관련 E */

@@ -18,7 +18,7 @@
 			<li>
 				<textarea name='contents' id='contents'><?=isset($postNo)?$contents:""?></textarea>
 			</li>
-			<li>
+			<li class='attach_file'>
 				<label for='file1' class='file'>첨부파일1</label>
 				<input type='file' name='file1' id='file1'>
 				<?php 
@@ -28,7 +28,7 @@
 				?>
 
 			</li>
-			<li>
+			<li class='attach_file'>
 				<label for='file2' class='file'>첨부파일2</label>
 				<input type='file' name='file2' id='file2'>
 			</li>
@@ -47,11 +47,16 @@
 				}
 			?>
 
+			<li>
+				<label for='delete_file'>첨부파일 삭제</label>
+				<input type='checkbox' name='delete_file' id='delete_file'>
+			</li>
+
 			<li class='secure'>
 				<label for='secure' class='secure'>비밀글 설정</label>
 				<div class='radio'>
-					<label for='secure_unlocked'><input type='radio' name='secure' id='secure_unlocked' value='unlocked' checked>공개글</label>
-					<label for='secure_locked'><input type='radio' name='secure' id='secure_locked' value='locked'>비밀글</label>
+					<label for='secure_unlocked'><input type='radio' name='secure' id='secure_unlocked' value='unlocked' <?=!isset($postNo)?"checked":""?> <?php if(isset($postNo) && $isLocked == 'unlocked'){echo "checked";}?> >공개글</label>
+					<label for='secure_locked'><input type='radio' name='secure' id='secure_locked' value='locked' <?php if(isset($postNo) && $isLocked == 'locked'){echo "checked";}?> >비밀글</label>
 				</div>
 			</li>
 

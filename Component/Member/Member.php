@@ -558,6 +558,24 @@ class Member{
 		return $data;
 	}
 
+	public function getMemberByMemNm($memNm){
+		$sql = "SELECT * FROM jmmk_member WHERE memNm = :memNm";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":memNm", $memNm);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('회원번호로 레코드 조회 실패');
+		}
+
+		$data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		return $data;
+	}
+
 	public function findid(){
 
 		$memNm = $this->params['memNm'];

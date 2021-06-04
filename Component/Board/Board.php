@@ -499,6 +499,37 @@ class Board{
 			throw new AlertException('게시글 수정 DB 처리 실패');
 		}
 
+		// 첨부파일 삭제 버튼이 활성화됐을 시 기존 파일 지우기
+		if(isset($this->params['delete_file']) && $this->params['delete_file'] == 'on'){
+
+			$file = App::load(\Component\Core\File::class);
+
+			// fileGroup 조회
+			$fileGroup = $file->getFileGroup($postNo);
+
+			// 기존 파일 지우기
+			$result = $file->deleteFiles($fileGroup);
+
+			if($result === false){
+				throw new AlertException('업로드된 파일 삭제 실패');
+			}
+
+			// isFileExists 처리
+			$isFileExists = 0;
+			$sql = "UPDATE jmmk_board SET isFileExists = :isFileExists WHERE fileGroup = :fileGroup";
+
+			$stmt = db()->prepare($sql);
+
+			$stmt->bindValue(":isFileExists", $isFileExists, PDO::PARAM_INT);
+			$stmt->bindValue(":fileGroup", $fileGroup);
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('isFileExists 업데이트 실패');
+			}
+		}
+
 		// 새로 올라온 파일 있는지 확인
 		$files = request()->files();
 		$isUploadFileExists = false;
@@ -511,14 +542,12 @@ class Board{
 
 		// 새로 올라온 파일 있으면 기존 파일 지우고 업로드하기
 		if($isUploadFileExists){
-
-			// fileGroup 조회
 			$file = App::load(\Component\Core\File::class);
 
+			// fileGroup 조회
 			$fileGroup = $file->getFileGroup($postNo);
 
 			// 기존 파일 지우기
-
 			$result = $file->deleteFiles($fileGroup);
 
 			if($result === false){
@@ -531,6 +560,21 @@ class Board{
 
 			if($result === false){
 				throw new AlertException('파일 업로드 실패');
+			}
+
+			// isFileExists 처리
+			$isFileExists = 1;
+			$sql = "UPDATE jmmk_board SET isFileExists = :isFileExists WHERE fileGroup = :fileGroup";
+
+			$stmt = db()->prepare($sql);
+
+			$stmt->bindValue(":isFileExists", $isFileExists, PDO::PARAM_INT);
+			$stmt->bindValue(":fileGroup", $fileGroup);
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('isFileExists 업데이트 실패');
 			}
 		}
 

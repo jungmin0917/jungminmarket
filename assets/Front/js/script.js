@@ -127,16 +127,31 @@ $(document).ready(function(){
 
     /* 아이디 찾기 관련 S */
 
-    $('body').on('click', '#email', function(){
+    $('.member_findid_ul').on('click', '#email', function(){
         $(this).closest('ul').find('.email').removeClass('none');
         $(this).closest('ul').find('.phone').removeClass('none').addClass('none');
     });
 
-    $('body').on('click', '#phone', function(){
+    $('.member_findid_ul').on('click', '#phone', function(){
         $(this).closest('ul').find('.phone').removeClass('none');
         $(this).closest('ul').find('.email').removeClass('none').addClass('none');
     });
 
     /* 아이디 찾기 관련 E */
+
+
+    /* 첨부파일 삭제 버튼 관련 S */
+
+    $('.board_write_ul').on('click', '#delete_file', function(){
+        if($(this).is(":checked")){
+            $(this).closest('ul').find('.attach_file').removeClass('none').addClass('none');
+            $(this).closest('ul').find("input[type='file']").attr('disabled', true).val('');
+        }else{
+            $(this).closest('ul').find('.attach_file').removeClass('none');
+            $(this).closest('ul').find("input[type='file']").attr('disabled', false);
+        }
+    });
+
+    /* 첨부파일 삭제 버튼 관련 E */
 
 });

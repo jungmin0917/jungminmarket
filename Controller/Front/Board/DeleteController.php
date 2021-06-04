@@ -7,6 +7,17 @@ use App;
 class DeleteController extends \Controller\Front\FrontController{
 	public function __construct(){
 		$this->layoutBlank = true;
+
+		$postNo = request()->get('post');
+
+		$board = App::load(\Component\Board\Board::class);
+
+		$data = $board->getPost($postNo);
+
+		// 본인 확인
+		if($data['memNm'] !== getSession('member_memNm')){
+			alertBack('잘못된 접근입니다');
+		}
 	}
 
 	public function index(){
@@ -16,11 +27,6 @@ class DeleteController extends \Controller\Front\FrontController{
 			$board = App::load(\Component\Board\Board::class);
 
 			$postData = $board->getPost($postNo);
-
-			// 파일 삭제자 검증
-			if($postData['memNm'] !== getSession('member_memNm')){
-				alertBack('잘못된 접근입니다. 이전 페이지로 돌아갑니다');
-			}
 
 			// DB에서 게시글 삭제
 			$result = $board->deletePost($postNo);

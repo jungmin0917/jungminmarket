@@ -20,9 +20,18 @@
 					<?=$v['postNo']?>
 				</td>
 				<td>
+					<?php
+						$board = App::load(\Component\Member\Member::class);
+
+						$memberData = $board->getMemberByMemNm($v['memNm']);
+
+						if($memberData['memLv'] == '10'){
+							echo "<i class='xi-crown'></i>";
+						}
+					?>
 					<?=$v['memNm']?>
 				</td>
-				<td>
+				<td class='subject'>
 					<a href='<?=siteUrl("board/view?id={$v['boardId']}&post={$v['postNo']}")?>'>
 						<?php
 							if($v['isLocked'] == 'locked'){

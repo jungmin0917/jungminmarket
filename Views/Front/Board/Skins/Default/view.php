@@ -57,7 +57,7 @@
 			$nextPost = $board->getNextPost($boardId, $postNo);
 
 			if($prevPost){
-				echo "<li>";
+				echo "<li class='prev_li'>";
 				echo "<div class='title post'><i class='xi-angle-up-min'></i> 이전글</div>";
 				echo "<div class='content post'>";
 				echo "<a href='".siteUrl("board/view?id={$boardId}&post={$prevPost['postNo']}")."'>{$prevPost['subject']}</a>";
@@ -66,7 +66,7 @@
 			}
 
 			if($nextPost){
-				echo "<li>";
+				echo "<li class='next_li'>";
 				echo "<div class='title post'><i class='xi-angle-down-min'></i> 다음글</div>";
 				echo "<div class='content post'>";
 				echo "<a href='".siteUrl("board/view?id={$boardId}&post={$nextPost['postNo']}")."'>{$nextPost['subject']}</a>";
