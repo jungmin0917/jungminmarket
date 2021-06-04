@@ -470,4 +470,85 @@ class Board{
 
 		return $row;
 	}
+
+	public function getPrevPost($boardId, $postNo){ // 이전글이라 함은 더 나중에 작성된 글을 말함
+		try{
+			$sql = "SELECT * FROM jmmk_board WHERE boardId = :boardId AND idx > :postNo ORDER BY idx ASC LIMIT 1";
+
+			$stmt = db()->prepare($sql);
+
+			$stmt->bindValue(":boardId", $boardId);
+			$stmt->bindValue(":postNo", $postNo);
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('prevPost 조회 실패');
+			}
+
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+			if($row){ // $row가 존재하면 (이전글이 존재하면)
+				return [
+					'postNo' => $row['idx'],
+					'subject' => $row['subject'],
+				]; // 이전글 번호 반환
+			}else{
+				return false;
+			}
+
+		}catch(AlertException $e){
+			echo $e;
+			exit;
+		}
+	}
+
+	public function getNextPost($boardId, $postNo){ // 다음글 번호 구하기
+		try{
+			$sql = "SELECT * FROM jmmk_board WHERE boardId = :boardId AND idx < :postNo ORDER BY idx DESC LIMIT 1";
+
+			$stmt = db()->prepare($sql);
+
+			$stmt->bindValue(":boardId", $boardId);
+			$stmt->bindValue(":postNo", $postNo);
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('nextPost 조회 실패');
+			}
+
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+			if($row){
+				return [
+					'postNo' => $row['idx'],
+					'subject' => $row['subject'],
+				];
+			}else{
+				return false;
+			}
+
+		}catch(AlertException $e){
+			echo $e;
+			exit;
+		}
+	}
+
+	public function updateViews($boardId, $postNo){
+		$sql = "UPDATE jmmk_board SET views = views+1 WHERE boardId = :boardId AND idx = :postNo";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":boardId", $boardId);
+		$stmt->bindValue(":postNo", $postNo);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('조회수 업데이트 실패');
+		}
+
+		return $result;
+	}
 }

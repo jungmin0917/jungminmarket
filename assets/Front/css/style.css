@@ -1283,3 +1283,112 @@ html{
 }
 
 /* 게시글 작성 관련 E */
+
+
+/* 게시물 보기 관련 S */
+
+.board_view_wrap > .title{
+	font-size: 1.8rem;
+	margin-bottom: 15px;
+}
+
+.board_view_wrap > .sub_title{
+	font-size: 1.4rem;
+	color: #aaa;
+	margin-bottom: 40px;
+}
+
+.board_view_ul{
+	padding: 0 10px;
+	font-size: 1.3rem;
+}
+
+.board_view_ul li{
+	border-top: 1px solid #ddd;
+}
+
+.board_view_ul li:last-child{
+	border-bottom: 1px solid #ddd;
+}
+
+.board_view_ul li:after{
+	clear: both;
+	display: block;
+	content: '';
+}
+
+.board_view_ul li .title{
+	float: left;
+	width: 20%;
+	padding: 15px;
+}
+
+.board_view_ul li .content{
+	float: left;
+	width: 80%;
+	padding: 15px;
+}
+
+.board_view_ul li .title.post{
+	width: 15%;
+	padding: 0 15px;
+	line-height: 47px;
+}
+
+.board_view_ul li .content.post{
+	width: 85%;
+	padding: 0 15px;
+	line-height: 47px;
+}
+
+.board_view_ul li .title i{
+	position: relative;
+	top: 1px;
+}
+
+.board_view_ul li .contents{
+	width: 100%;
+	padding: 30px 20px;
+	min-height: 250px;
+}
+
+.board_view_ul li.buttons{
+	padding: 30px 0 60px 0;
+}
+
+.board_view_ul li.buttons:after{
+	clear: both;
+	display: block;
+	content: '';
+}
+
+.board_view_ul li.buttons .left{
+	float: left;
+	width: 20%;
+}
+
+.board_view_ul li.buttons .right{
+	float: right;
+	width: 80%;
+	text-align: right;
+}
+
+.board_view_ul li.buttons a{
+	display: inline-block;
+	padding: 10px 30px;
+	border-radius: 5px;
+	box-shadow: 0 0 3px dodgerblue;
+	transition: all 0.5s;
+}
+
+.board_view_ul li.buttons a:hover,
+.board_view_ul li.buttons a:focus{
+	background-color: skyblue;
+}
+
+.board_view_ul li.buttons a.modify{
+	margin-right: 10px;
+}
+
+
+/* 게시물 보기 관련 E */

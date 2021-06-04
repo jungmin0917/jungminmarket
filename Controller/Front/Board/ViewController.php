@@ -15,6 +15,8 @@ class ViewController extends \Controller\Front\FrontController{
 
 			$board = App::load(\Component\Board\Board::class);
 
+			$board->updateViews($boardId, $postNo);
+
 			$boardNm = $board->getBoardNm($boardId);
 
 			$data = $board->getPost($postNo);
