@@ -3,7 +3,7 @@ $(document).ready(function(){
 	console.log('로드됨');
 
     /* CKEDITOR 관련 */
-	CKEDITOR.replace("contents", {
+	var myeditor = CKEDITOR.replace("contents", {
         height:400,
     });
 
@@ -188,6 +188,7 @@ $(document).ready(function(){
         const url = $fileBox.data('url');
         const tag = `<img src='${url}'>`;
         CKEDITOR.instances.contents.insertHtml(tag);
+
     });
 
 
@@ -200,6 +201,7 @@ $(document).ready(function(){
 
         $fileBox = $(this).closest('.file_box');
         const fileNo = $fileBox.data('fileno');
+        const url = $fileBox.data('url');
 
         $.ajax({
             url: "/workspace/jungminmarket/file/delete",
@@ -211,6 +213,8 @@ $(document).ready(function(){
             success: function(res){
                 if(res == 1){ // echo 1 반환 시
                     $fileBox.remove(); // 해당 file_box 태그 없앰
+                    var data = myeditor.editable().$;
+                    $(data).find(`img[src='${url}']`).remove();
                 }else{ // echo 0 반환 시
                     alert("파일 삭제 실패");
                 }
