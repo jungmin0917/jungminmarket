@@ -495,6 +495,7 @@ input[type='file']{
 	margin:15px 0;
 	height: 250px;
 	overflow: scroll;
+	line-height: 1.7rem;
 }
 
 .member_join_agree .terms pre{
@@ -1271,10 +1272,9 @@ input[type='file']{
 	top: 1px;
 }
 
-.board_write_ul > li > .height{
+.board_write_ul .height{
 	float: left;
 	width: 80%;
-	height: 57px;
     line-height: 57px;
 }
 
@@ -1282,7 +1282,7 @@ input[type='file']{
 	padding: 15px 0;
 }
 
-.board_write_ul li > .height > input,
+.board_write_ul .height > input,
 .board_write_ul li .radio{
     font-family: 'RIDIBatang', sans-serif;
     font-size:1.4rem;
@@ -1292,9 +1292,9 @@ input[type='file']{
 	border-radius: 5px;
 }
 
-.board_write_ul li > .height > input{
+.board_write_ul .height > input{
 	position: relative;
-	top: 1.5px;
+	top: 2.5px;
 }
 
 .board_write_ul li .file_title{
@@ -1319,11 +1319,11 @@ input[type='file']{
 	margin-right: 10px;
 }
 
-.board_write_ul li > .height > input:focus{
+.board_write_ul .height > input:focus{
 	box-shadow: 0 0 3px red;
 }
 
-.board_write_ul li > .height > input.subject{
+.board_write_ul .height > input.subject{
 	width: 40%;
 }
 
@@ -1372,25 +1372,41 @@ input[type='file']{
 	color: red;
 }
 
-.board_write_ul li > .height > input[type='checkbox']{
+.board_write_ul .height > input[type='checkbox']{
 	transform : scale(1.5);
 	box-shadow: 0 0 0 #fff;
 }
 
-.board_write_ul li > .height > input[type='checkbox']:focus{
+.board_write_ul .height > input[type='checkbox']:focus{
 	box-shadow: 0 0 0 #fff;
 }
 
-.board_write_ul li > .height > input[type='radio']{
+.board_write_ul .height > input[type='radio']{
 	position: relative;
 	top: 1px;
 }
 
-.board_write_ul li > .height > input[name='subject']{
+.board_write_ul .height > input[name='subject']{
 	position: relative;
 	top: 0;
 }
 
+.board_write_ul .height .file_box{
+	box-shadow: 0 0 3px red;
+	border-radius: 5px;
+	margin: 15px 0;
+	padding: 0 10px;
+	line-height: 35px;
+}
+
+.board_write_ul .file_box i{
+	cursor: pointer;
+	padding: 5px;
+	position: relative;
+	top: 2px;
+}
+
+/* 첨부파일 삭제 버튼 관련 */
 .board_write_ul .none{
 	opacity: 0.3;
 }

@@ -179,6 +179,48 @@ $(document).ready(function(){
         }
     });
 
+
+    /* 업로드한 이미지 삽입 */
+
+    $('.attach_image').on('click', '.addImage', function(){
+        $fileBox = $(this).closest('.file_box');
+
+        const url = $fileBox.data('url');
+        const tag = `<img src='${url}'>`;
+        CKEDITOR.instances.contents.insertHtml(tag);
+    });
+
+
+    /* 업로드한 이미지 삭제 */
+
+    $('.attach_image').on('click', '.remove', function(){
+        if(!confirm("정말 삭제하시겠습니까?")){
+            return;
+        }
+
+        $fileBox = $(this).closest('.file_box');
+        const fileNo = $fileBox.data('fileno');
+
+        $.ajax({
+            url: "/workspace/jungminmarket/file/delete",
+            type: "post",
+            data: {
+                fileNo : fileNo
+            },
+            dataType: "text",
+            success: function(res){
+                if(res == 1){ // echo 1 반환 시
+                    $fileBox.remove(); // 해당 file_box 태그 없앰
+                }else{ // echo 0 반환 시
+                    alert("파일 삭제 실패");
+                }
+            },
+            error: function(err){
+                console.error(err);
+            }
+        });
+
+    });
 });
 
 function fileUploadCallback(data){
@@ -187,10 +229,10 @@ function fileUploadCallback(data){
     const tag = `<img src='${data.url}'>`;
     CKEDITOR.instances.contents.insertHtml(tag);
 
-    const html = `<span class='file_box' data-fileNo='${data.fileNo}' data-url='${data.url}'>
+    const html = `<div class='file_box' data-fileno='${data.fileNo}' data-url='${data.url}'>
+                <i class='addImage xi-file-upload-o'></i><i class='remove xi-file-remove-o'></i>
                 <a href='../file/download?file=${data.fileName}' target='_blank'>${data.fileName}</a>
-                <i class='remove xi-file-remove-o'></i>
-                </span>`;
+                </div>`;
 
     $('.image_upload_button').after(html);
 

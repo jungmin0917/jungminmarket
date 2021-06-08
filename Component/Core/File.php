@@ -237,7 +237,59 @@ class File{
 				throw new AlertException('파일 DB 지우기 실패');
 			}
 
-			return;
+			return $result;
+
+		}catch(AlertException $e){
+			echo $e;
+			exit;
+		}
+	}
+
+	// 파일 번호로 파일 지우기
+	public function deleteFileByNo($fileNo){
+		try{
+			$sql = "SELECT * FROM jmmk_file WHERE fileNo = :fileNo";
+
+			$stmt = db()->prepare($sql);
+
+			$stmt->bindValue(":fileNo", $fileNo);
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('파일 조회 실패');
+			}
+
+			$file = $stmt->fetch(PDO::FETCH_ASSOC);
+
+			$uploadPath = $this->uploadPath;
+
+			if($file['isImage'] == 1){ // 해당 파일이 이미지인 경우
+				$path = $uploadPath."Image/".$file['fileName'];
+			}else{ // 해당 파일이 단순 첨부 파일인 경우
+				$path = $uploadPath.$file['fileName'];
+			}
+
+			// 실제 파일 삭제
+			if(file_exists($path)){
+				unlink($path);
+			}
+
+			// DB 처리
+
+			$sql = "DELETE FROM jmmk_file WHERE fileNo = :fileNo";
+
+			$stmt = db()->prepare($sql);
+
+			$stmt->bindValue(":fileNo", $fileNo);
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('파일 삭제 DB 처리 실패');
+			}
+
+			return $result;
 
 		}catch(AlertException $e){
 			echo $e;

@@ -14,9 +14,11 @@ class DeleteController extends \Controller\Front\FrontController{
 
 		$data = $board->getPost($postNo);
 
-		// 본인 확인
-		if($data['memNm'] !== getSession('member_memNm')){
-			alertBack('잘못된 접근입니다');
+		// 관리자가 아닌 경우 본인 확인 진행
+		if(getSession('member_memLv') != 10){
+			if($data['memNm'] !== getSession('member_memNm')){
+				alertBack('잘못된 접근입니다');
+			}
 		}
 	}
 
