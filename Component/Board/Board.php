@@ -405,7 +405,7 @@ class Board{
 		$subject = $this->params['subject'];
 		$contents = $this->params['contents'];
 		$isLocked = $this->params['secure'];
-		$fileGroup = md5(uniqid());
+		$fileGroup = $this->params['fileGroup'];
 
 		// 게시글 작성 처리
 		$sql = "INSERT INTO jmmk_board (boardId, memNm, subject, contents, isLocked, fileGroup) VALUES (:boardId, :memNm, :subject, :contents, :isLocked, :fileGroup)";
@@ -461,6 +461,39 @@ class Board{
 
 			if($result === false){
 				throw new AlertException('isFileExists 업데이트 실패');
+			}
+		}
+
+		// isImageExists 처리
+		$isImage = 1;
+		$sql = "SELECT COUNT(*) as cnt FROM jmmk_file WHERE fileGroup = :fileGroup AND isImage = :isImage";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":fileGroup", $fileGroup);
+		$stmt->bindValue(":isImage", $isImage, PDO::PARAM_INT);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('파일 그룹 조회 실패');
+		}
+
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		if($row){
+			$isImageExists = 1;
+			$sql = "UPDATE jmmk_board SET isImageExists = :isImageExists WHERE fileGroup = :fileGroup";
+
+			$stmt = db()->prepare($sql);
+
+			$stmt->bindValue(":isImageExists", $isImageExists, PDO::PARAM_INT);
+			$stmt->bindValue(":fileGroup", $fileGroup);
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('isImageExists 업데이트 실패');
 			}
 		}
 

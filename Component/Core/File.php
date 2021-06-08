@@ -21,7 +21,6 @@ class File{
 				}
 
 				// DB 처리
-
 				$fileName = date("YmdHis")."_".$file['name'];
 				$fileType = $file['type'];
 
@@ -42,7 +41,6 @@ class File{
 				}
 
 				// 파일 위치 옮기기 (실질 업로드)
-
 				$uploadPath = $this->uploadPath;
 
 				// 폴더 없으면 만들도록 하기
@@ -50,16 +48,66 @@ class File{
 					mkdir($uploadPath);
 				}
 
-				if(file_exists($uploadPath)){
-					$result = move_uploaded_file($file['tmp_name'], $uploadPath.$fileName);
+				$result = move_uploaded_file($file['tmp_name'], $uploadPath.$fileName);
 
-					if($result === false){
-						throw new AlertException('파일 옮기기 실패');
-					}
+				if($result === false){
+					throw new AlertException('파일 옮기기 실패');
 				}
 			}
 
 			return $result;
+		}catch(AlertException $e){
+			echo $e;
+			exit;
+		}
+	}
+
+	public function uploadImage($fileGroup){
+		try{
+			$files = request()->files();
+
+			extract($files);
+
+			// DB 처리
+			$isImage = 1;
+			$fileName = date("YmdHis")."_".$file['name'];
+			$fileType = $file['type'];
+
+			$sql = "INSERT INTO jmmk_file (fileGroup, fileName, fileType, isImage) VALUES (:fileGroup, :fileName, :fileType, :isImage)";
+
+			$stmt = db()->prepare($sql);
+
+			$bindData = ['fileGroup', 'fileName', 'fileType', 'isImage'];
+
+			foreach($bindData as $v){
+				$stmt->bindValue(":{$v}", $$v);
+			}
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('파일 업로드 실패');
+			}
+
+			// 파일 위치 옮기기
+			$uploadPath = __DIR__ . "/../../assets/Upload/Image/";
+
+			// 폴더 없으면 만들기
+			if(!file_exists($uploadPath)){
+				mkdir($uploadPath);
+			}
+
+			$result = move_uploaded_file($file['tmp_name'], $uploadPath.$fileName);
+
+			if($result === false){
+				throw new AlertException('파일 옮기기 실패');
+			}
+
+			// 업로드된 파일 정보 조회
+
+			$fileNo = db()->lastInsertId();
+
+			return $fileNo;
 		}catch(AlertException $e){
 			echo $e;
 			exit;
@@ -84,6 +132,39 @@ class File{
 			$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 			return $rows;
+
+		}catch(AlertException $e){
+			echo $e;
+			exit;
+		}
+	}
+
+	// 파일 번호로 파일 정보 조회
+	public function getFileInfo($fileNo){
+		try{
+			$sql = "SELECT * FROM jmmk_file WHERE fileNo = :fileNo";
+
+			$stmt = db()->prepare($sql);
+
+			$stmt->bindValue(":fileNo", $fileNo);
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('파일 정보 조회 실패');
+			}
+
+			$data = $stmt->fetch(PDO::FETCH_ASSOC);
+
+			if($data){
+				if($data['isImage'] == 1){ // 업로드 경로 추가
+					$data['url'] = siteUrl("assets/Upload/Image/{$data['fileName']}");
+				}else{
+					$data['url'] = siteUrl("assets/Upload/{$data['fileName']}");
+				}
+			}
+
+			return $data;
 
 		}catch(AlertException $e){
 			echo $e;

@@ -40,6 +40,9 @@
 							if($v['isFileExists'] == 1){
 								echo "<i class='xi-file-text-o'></i>";
 							}
+							if($v['isImageExists'] == 1){
+								echo "<i class='xi-image-o'></i>";
+							}
 						?><?=$v['subject']?>
 					</a>
 				</td>

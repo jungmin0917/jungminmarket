@@ -2,7 +2,9 @@ $(document).ready(function(){
 	console.log('로드됨');
 
     /* CKEDITOR 관련 */
-	CKEDITOR.replace("contents");
+    CKEDITOR.replace("contents", {
+        height:400,
+    });
 	
 	/* 주소 검색 관련 */
 	$('body').on('click', '#memAd_search', function(){

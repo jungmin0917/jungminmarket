@@ -29,6 +29,8 @@ class WriteController extends \Controller\Front\FrontController{
 
 		$boardNm = $board->getBoardNm($boardId);
 
-		App::render("Front/Board/Skins/{$skin}/write", ['boardId' => $boardId, 'boardNm' => $boardNm]);
+		$fileGroup = md5(uniqid()); // 미리 생성해서 넘겨야 이미지 첨부 등에서 사용 가능함
+
+		App::render("Front/Board/Skins/{$skin}/write", ['boardId' => $boardId, 'boardNm' => $boardNm, 'fileGroup' => $fileGroup]);
 	}
 }

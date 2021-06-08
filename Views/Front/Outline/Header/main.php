@@ -18,3 +18,5 @@
 	<title>정민마켓</title>
 </head>
 <body>
+<div class='black dn'></div>
+<div class='layer_popup dn'></div>

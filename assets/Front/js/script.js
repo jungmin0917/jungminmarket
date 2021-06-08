@@ -1,4 +1,5 @@
 $(document).ready(function(){
+
 	console.log('로드됨');
 
     /* CKEDITOR 관련 */
@@ -154,4 +155,56 @@ $(document).ready(function(){
 
     /* 첨부파일 삭제 버튼 관련 E */
 
+
+    /* 이미지 업로드 관련 S */
+
+    $('.board_write_ul').on('click', '#image', function(){
+        layer_open();
+        var fileGroup = $("input[name='fileGroup']").val(); // fileGroup 따와서 upload 페이지의 쿼리스트링 값으로 사용
+        var html = "<iframe class='iframeImage' src='/workspace/jungminmarket/file/upload?fileGroup=" + fileGroup + "'></iframe>";
+        $('.layer_popup').html(html);
+    });
+
+    // 팝업 바깥 부분 눌렀을 때
+    $('body').on('click', '.black', function(){
+        layer_close();
+    });
+
+    // esc키 눌렀을 때
+    $(document).keydown(function(e){
+        if($('.black').hasClass('dn') == false){ // 팝업이 켜져 있을 때
+            if(e.keyCode == 27){ // 누른 키가 esc키일 때
+                layer_close();
+            }
+        }
+    });
+
 });
+
+function fileUploadCallback(data){
+
+    // 에디터에 이미지 추가
+    const tag = `<img src='${data.url}'>`;
+    CKEDITOR.instances.contents.insertHtml(tag);
+
+    const html = `<span class='file_box' data-fileNo='${data.fileNo}' data-url='${data.url}'>
+                <a href='../file/download?file=${data.fileName}' target='_blank'>${data.fileName}</a>
+                <i class='remove xi-file-remove-o'></i>
+                </span>`;
+
+    $('.image_upload_button').after(html);
+
+    layer_close();
+}
+
+// 레이어 팝업 열기
+function layer_open(){
+    $('.black').removeClass('dn');
+    $('.layer_popup').removeClass('dn');
+}
+
+// 레이어 팝업 닫기
+function layer_close(){
+    $('.black').removeClass('dn').addClass('dn');
+    $('.layer_popup').removeClass('dn').addClass('dn');
+}

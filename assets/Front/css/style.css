@@ -19,6 +19,58 @@ html{
 	margin:0 auto;
 }
 
+.black{
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	opacity: 0.5;
+	z-index: 10;
+}
+
+.dn{
+	display: none;
+}
+
+input[type='button']{
+    cursor: pointer;
+}
+
+input[type='file']{
+    cursor: pointer;
+}
+
+/* 파일 업로드 관련 S */
+
+.file_box{
+	
+}
+
+/* 파일 업로드 관련 E */
+
+/* 레이어 팝업 관련 S */
+
+.layer_popup{
+	position: fixed;
+	z-index: 11;
+	width: 600px;
+	height: 400px;
+	left: calc((100% - 600px) / 2);
+	top: calc((100% - 400px) / 2);
+	background-color: #fff;
+	border-radius: 10px;
+	box-shadow: 0 0 5px white;
+}
+
+.layer_popup iframe{
+	width: 100%;
+	height: 100%;
+}
+
+/* 레이어 팝업 관련 E */
+
 /* 탑 메뉴 관련 S */
 
 .top_menu_wrap{
@@ -90,7 +142,8 @@ html{
 }
 
 .top_menu_wrap .hello{
-	padding:20px;
+	line-height: 57px;
+	padding-right: 15px;
 	font-size:1.2rem;
 	color:black;
 }
@@ -1191,17 +1244,16 @@ html{
 	font-size: 1.4rem;
 }
 
+.board_write_ul > li{
+	border-bottom: 1px solid #ddd;
+}
+
 .board_write_ul > li:first-child{
 	border-top: 1px solid #ddd;
 }
 
 .board_write_ul > li:last-child{
 	border: 0;
-}
-
-.board_write_ul > li{
-	padding: 10px 0;
-	border-bottom: 1px solid #ddd;
 }
 
 .board_write_ul > li:after{
@@ -1214,56 +1266,64 @@ html{
 	float: left;
 	width: 20%;
 	padding: 0 20px;
-	line-height: 33px;
+	line-height: 57px;
+	position: relative;
+	top: 1px;
 }
 
-.board_write_ul label.file{
-	line-height: 39px;
+.board_write_ul > li > .height{
+	float: left;
+	width: 80%;
+	height: 57px;
+    line-height: 57px;
 }
 
-.board_write_ul label.secure{
-	line-height: 39px;
+.board_write_ul .textarea_li{
+	padding: 15px 0;
 }
 
-.board_write_ul > li > input,
+.board_write_ul li > .height > input,
 .board_write_ul li .radio{
     font-family: 'RIDIBatang', sans-serif;
     font-size:1.4rem;
     padding: 5px 10px;
-	float: left;
 	border: 0;
 	box-shadow: 0 0 3px black;
 	border-radius: 5px;
+}
+
+.board_write_ul li > .height > input{
+	position: relative;
+	top: 1.5px;
 }
 
 .board_write_ul li .file_title{
 	float: left;
 	width: 20%;
 	padding: 0 20px;
-	line-height: 38px;
+	line-height: 57px;
 }
 
 .board_write_ul li .file_content{
 	float: left;
 	width: 80%;
-	line-height: 38px;
+	line-height: 57px;
 }
 
 .board_write_ul li .radio{
 	box-shadow: 0 0 0 #fff;
 	padding:0;
-	line-height: 39px;
 }
 
 .board_write_ul li .radio label{
 	margin-right: 10px;
 }
 
-.board_write_ul > li > input:focus{
+.board_write_ul li > .height > input:focus{
 	box-shadow: 0 0 3px red;
 }
 
-.board_write_ul > li > input.subject{
+.board_write_ul li > .height > input.subject{
 	width: 40%;
 }
 
@@ -1312,18 +1372,23 @@ html{
 	color: red;
 }
 
-.board_write_ul input[type='checkbox']{
-	zoom: 1.8;
+.board_write_ul li > .height > input[type='checkbox']{
+	transform : scale(1.5);
 	box-shadow: 0 0 0 #fff;
 }
 
-.board_write_ul input[type='checkbox']:focus{
+.board_write_ul li > .height > input[type='checkbox']:focus{
 	box-shadow: 0 0 0 #fff;
 }
 
-.board_write_ul input[type='radio']{
+.board_write_ul li > .height > input[type='radio']{
 	position: relative;
 	top: 1px;
+}
+
+.board_write_ul li > .height > input[name='subject']{
+	position: relative;
+	top: 0;
 }
 
 .board_write_ul .none{

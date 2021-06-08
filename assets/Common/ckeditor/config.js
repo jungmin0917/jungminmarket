@@ -34,5 +34,6 @@ CKEDITOR.editorConfig = function( config ) {
 	config.format_tags = 'p;h1;h2;h3;pre';
 
 	// Simplify the dialog windows.
-	config.removeDialogTabs = 'image:advanced;link:advanced';
+	config.removeDialogTabs = 'image:Link;image:advanced;link:advanced'; // 삭제할 탭 (다이얼로그)
+
 };

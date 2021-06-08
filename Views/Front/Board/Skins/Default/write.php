@@ -5,6 +5,7 @@
 	<form method='post' action='indb' target='ifrm_hidden' autocomplete='off' class='board_write_form' id='board_write_form' enctype='multipart/form-data'>
 		<input type='hidden' name='mode' value='<?=isset($postNo)?"modify":"write"?>'>
 		<input type='hidden' name='boardId' value='<?=$boardId?>'>
+		<input type='hidden' name='fileGroup' value='<?=$fileGroup?>'>
 		<?php
 			if(isset($postNo)){
 				echo "<input type='hidden' name='postNo' value={$postNo}>";
@@ -13,24 +14,36 @@
 		<ul class='board_write_ul'>
 			<li>
 				<label for='subject'>제목</label>
-				<input type='text' name='subject' id='subject' class='subject' value='<?=isset($postNo)?$subject:""?>'>
+				<div class='height'>
+					<input type='text' name='subject' id='subject' class='subject' value='<?=isset($postNo)?$subject:""?>'>
+				</div>
 			</li>
-			<li>
+			<li class='textarea_li'>
 				<textarea name='contents' id='contents'><?=isset($postNo)?$contents:""?></textarea>
+			</li>
+			<li class='attach_image'>
+				<label for='image'>이미지 추가</label>
+				<div class='height'>
+					<input type='button' value='이미지 추가' id='image' name='image' class='image_upload_button'>
+				</div>
 			</li>
 			<li class='attach_file'>
 				<label for='file1' class='file'>첨부파일1</label>
-				<input type='file' name='file1' id='file1'>
-				<?php 
-					if(isset($isFileExists) && $isFileExists){
-						echo "<span class='notice'>*주의 : 첨부파일을 하나라도 첨부할 시 기존 첨부파일이 삭제됩니다</span>";
-					}
-				?>
+				<div class='height'>
+					<input type='file' name='file1' id='file1'>
+					<?php 
+						if(isset($isFileExists) && $isFileExists){
+							echo "<span class='notice'>*주의 : 첨부파일을 하나라도 첨부할 시 기존 첨부파일이 삭제됩니다</span>";
+						}
+					?>
+				</div>
 
 			</li>
 			<li class='attach_file'>
 				<label for='file2' class='file'>첨부파일2</label>
-				<input type='file' name='file2' id='file2'>
+				<div class='height'>
+					<input type='file' name='file2' id='file2'>
+				</div>
 			</li>
 			<?php
 				if(isset($isFileExists) && $isFileExists){
@@ -49,14 +62,18 @@
 
 			<li>
 				<label for='delete_file'>첨부파일 삭제</label>
-				<input type='checkbox' name='delete_file' id='delete_file'>
+				<div class='height'>
+					<input type='checkbox' name='delete_file' id='delete_file'>
+				</div>
 			</li>
 
 			<li class='secure'>
 				<label for='secure' class='secure'>비밀글 설정</label>
-				<div class='radio'>
-					<label for='secure_unlocked'><input type='radio' name='secure' id='secure_unlocked' value='unlocked' <?=!isset($postNo)?"checked":""?> <?php if(isset($postNo) && $isLocked == 'unlocked'){echo "checked";}?> >공개글</label>
-					<label for='secure_locked'><input type='radio' name='secure' id='secure_locked' value='locked' <?php if(isset($postNo) && $isLocked == 'locked'){echo "checked";}?> >비밀글</label>
+				<div class='height'>
+					<div class='radio'>
+						<label for='secure_unlocked'><input type='radio' name='secure' id='secure_unlocked' value='unlocked' <?=!isset($postNo)?"checked":""?> <?php if(isset($postNo) && $isLocked == 'unlocked'){echo "checked";}?> >공개글</label>
+						<label for='secure_locked'><input type='radio' name='secure' id='secure_locked' value='locked' <?php if(isset($postNo) && $isLocked == 'locked'){echo "checked";}?> >비밀글</label>
+					</div>
 				</div>
 			</li>
 
@@ -72,4 +89,5 @@
 			</li>
 		</ul>
 	</form>
+
 </div>
