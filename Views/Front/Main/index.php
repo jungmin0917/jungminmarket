@@ -17,7 +17,7 @@
 					<?php foreach($notice_list['list'] as $v) : ?>
 						<li>
 							<a href='<?=siteUrl("board/view?id={$notice_list['boardId']}&post={$v['postNo']}")?>'><?=$v['subject']?></a>
-							<a href='<?=siteUrl("board/view?id={$notice_list['boardId']}&post={$v['postNo']}")?>'>
+							<a href='<?=siteUrl("board/view?id={$notice_list['boardId']}&post={$v['postNo']}#comment_list_box")?>'>
 							<?php
 								$comment = App::load(\Component\Comment\Comment::class);
 
@@ -44,7 +44,7 @@
 					<?php foreach($event_list['list'] as $v) : ?>
 						<li>
 							<a href='<?=siteUrl("board/view?id={$event_list['boardId']}&post={$v['postNo']}")?>'><?=$v['subject']?></a>
-							<a href='<?=siteUrl("board/view?id={$event_list['boardId']}&post={$v['postNo']}")?>'>
+							<a href='<?=siteUrl("board/view?id={$event_list['boardId']}&post={$v['postNo']}#comment_list_box")?>'>
 							<?php
 								$comment = App::load(\Component\Comment\Comment::class);
 

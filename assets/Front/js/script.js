@@ -240,7 +240,7 @@ $(document).ready(function(){
             success: function(res){
                 // res는 rendering된 html인데 그걸 원하는 곳에 붙여넣음
                 $(".comment_list_box").html(res);
-                 $form.find('textarea').val(''); // 댓글 쓴 것 지우기
+                $form.find('textarea').val(''); // 댓글 쓴 것 지우기
             },
             error: function(err){
                 console.error(err);
@@ -257,6 +257,110 @@ $(document).ready(function(){
     });
 
     /* 게시판 댓글 등록 E */
+
+
+    /* 게시판 댓글 수정 S */
+
+    // 수정 폼 출력 관련
+    $('.comment_list_box').on('click', '.comment_modify', function(){
+        const commentNo = $(this).closest('ul').attr('class');
+        const postNo = $(this).closest('.board_view_wrap').find('#postNo').val();
+        const boardId = $(this).closest('.board_view_wrap').find('#boardId').val();
+
+        $this = $(this); // this를 미리 담아줘야 내가 가리키는 this로 쓸 수 있음
+
+        $.ajax({
+            url: "/workspace/jungminmarket/comment/modify",
+            type: "post",
+            data: {
+                mode : "formCreate",
+                commentNo : commentNo,
+                postNo : postNo,
+                boardId : boardId,
+            },
+            dataType: "html",
+            success: function(res){
+                $this.closest('.comment_list_box').find('.comment_modify_box').remove();
+                $this.closest('ul').after(res);
+            },
+            error: function(err){
+                console.error(err);
+            }
+        });
+    });
+
+    // 수정 확인 관련
+    $('.comment_list_box').on('click', '.comment_modify_submit', function(){
+        const commentNo = $(this).closest('ul').attr('class');
+        const postNo = $(this).closest('.board_view_wrap').find('#postNo').val();
+        const boardId = $(this).closest('.board_view_wrap').find('#boardId').val();
+        const comment = $(this).closest('form').find('textarea').val();
+
+        $this = $(this);
+
+        console.log('test');
+
+        $.ajax({
+            url: "/workspace/jungminmarket/comment/modify",
+            type: "post",
+            data: {
+                mode : "modify",
+                commentNo : commentNo,
+                postNo : postNo,
+                boardId : boardId,
+                comment : comment,
+            },
+            dataType: "html",
+            success: function(res){
+                $(".comment_list_box").html(res);
+            },
+            error: function(err){
+                console.error(err);
+            }
+        });
+    });
+
+    // 수정 취소 관련
+    $('.comment_list_box').on('click', '.comment_modify_cancel', function(){
+        if(!confirm('정말 취소하시겠습니까?')){
+            return false;
+        }
+        $(this).closest('.comment_list_box').find('.comment_modify_box').remove();
+    });
+
+    /* 게시판 댓글 수정 E */
+
+
+    /* 게시판 댓글 삭제 S */
+
+    $('.comment_list_box').on('click', '.comment_delete', function(){
+        if(!confirm('정말 삭제하시겠습니까?')){
+            return false;
+        }
+
+        const commentNo = $(this).closest('ul').attr('class');
+        const postNo = $(this).closest('.board_view_wrap').find('#postNo').val();
+        const boardId = $(this).closest('.board_view_wrap').find('#boardId').val();
+
+        $.ajax({
+            url: "/workspace/jungminmarket/comment/delete",
+            type: "post",
+            data: {
+                commentNo : commentNo,
+                postNo : postNo,
+                boardId : boardId,
+            },
+            dataType: "html",
+            success: function(res){
+                $(".comment_list_box").html(res);
+            },
+            error: function(err){
+                console.error(err);
+            }
+        });
+    });
+
+    /* 게시판 댓글 삭제 E */
 
 });
 

@@ -1,4 +1,6 @@
 <div class='board_view_wrap layout_width'>
+	<input type='hidden' name='postNo' id='postNo' value='<?=$postNo?>'>
+	<input type='hidden' name='boardId' id='boardId' value='<?=$boardId?>'>
 	<div class='title'><?=$boardNm?></div>
 	<div class='sub_title'><?=$boardNm?> 게시판</div>
 	
@@ -63,7 +65,7 @@
 			</div>
 		</li>
 
-		<div class='comment_list_box' name='comment_list_box'>
+		<div class='comment_list_box' name='comment_list_box' id='comment_list_box'>
 			<?=$commentList?>
 		</div>
 

@@ -45,7 +45,7 @@
 							}
 						?><?=$v['subject']?>
 					</a>
-					<a href='<?=siteUrl("board/view?id={$v['boardId']}&post={$v['postNo']}")?>'>
+					<a href='<?=siteUrl("board/view?id={$v['boardId']}&post={$v['postNo']}#comment_list_box")?>'>
 						<?php
 							$comment = App::load(\Component\Comment\Comment::class);
 

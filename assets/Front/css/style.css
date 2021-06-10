@@ -1694,10 +1694,10 @@ input[type='file']{
     font-size:1.3rem;
 	resize: none;
 	float: left;
-	height: 100px;
-	width: calc(90% - 15px);
+	height: 80px;
+	width: calc(92.5% - 15px);
 	margin-right: 15px;
-	padding: 5px 10px;
+	padding: 7px 10px;
 	border:0;
 	box-shadow: 0 0 5px #aaa;
 	border-radius: 5px;
@@ -1708,8 +1708,8 @@ input[type='file']{
     font-size:1.3rem;
 	float: left;
 	display: block;
-	height: 100px;
-	width: 10%;
+	height: 80px;
+	width: 7.5%;
 	cursor: pointer;
 	border-radius: 5px;
 	box-shadow: 0 0 5px #aaa;
@@ -1734,7 +1734,6 @@ input[type='file']{
 }
 
 .board_view_wrap .comment_list_wrap ul{
-	margin-bottom: 10px;
 	border-bottom: 2px solid #eee;
 }
 
@@ -1745,7 +1744,7 @@ input[type='file']{
 }
 
 .board_view_wrap .comment_list_wrap li{
-	padding: 10px 5px;
+	padding: 15px 5px;
 	float: left;
 }
 
@@ -1754,11 +1753,34 @@ input[type='file']{
 }
 
 .board_view_wrap .comment_list_wrap .regDt{
-	width: 40%;
+	width: 25%;
+}
+
+.board_view_wrap .comment_list_wrap .modDt{
+	width: 25%;
+	color: red;
 }
 
 .board_view_wrap .comment_list_wrap .buttons{
-	width: 40%;
+	width: 30%;
+	text-align: right;
+}
+
+.board_view_wrap .comment_list_wrap .buttons a{
+	padding: 7px 10px;
+	margin-right: 10px;
+	border-radius: 5px;
+	box-shadow: 0 0 3px dodgerblue;
+	transition: all 0.5s;
+}
+
+.board_view_wrap .comment_list_wrap .buttons a:last-child{
+	margin: 0;
+}
+
+.board_view_wrap .comment_list_wrap .buttons a:hover,
+.board_view_wrap .comment_list_wrap .buttons a:focus{
+	background-color: skyblue;
 }
 
 .board_view_wrap .comment_list_wrap .comment{
@@ -1768,3 +1790,78 @@ input[type='file']{
 }
 
 /* 게시판 댓글 보기 관련 E */
+
+/* 게시판 댓글 수정 관련 S */
+
+
+.board_view_wrap .comment_modify_box{
+	box-shadow: 0 0 3px #aaa;
+	border-radius: 5px;
+	background-color: #fafafa;
+	padding: 20px 25px;
+	margin-bottom: 30px;
+}
+
+.board_view_wrap .comment_modify_box .title{
+	font-size: 1.5rem;
+	margin-bottom: 10px;
+}
+
+.board_view_wrap .comment_modify_box ul{
+	border: 0;
+}
+
+.board_view_wrap .comment_modify_box li{
+	margin-bottom: 15px;
+	width: 100%;
+}
+
+.board_view_wrap .comment_modify_box li:last-child{
+	margin: 0;
+}
+
+.board_view_wrap .comment_modify_box li:after{
+	clear: both;
+	display: block;
+	content: '';
+}
+
+.board_view_wrap .comment_modify_box textarea{
+    font-family: 'RIDIBatang', sans-serif;
+    font-size:1.3rem;
+	resize: none;
+	float: left;
+	height: 80px;
+	width: calc(85% - 30px);
+	margin-right: 15px;
+	padding: 7px 10px;
+	border:0;
+	box-shadow: 0 0 5px #aaa;
+	border-radius: 5px;
+}
+
+.board_view_wrap .comment_modify_box button{
+    font-family: 'RIDIBatang', sans-serif;
+    font-size:1.3rem;
+	float: left;
+	display: block;
+	height: 80px;
+	margin-right: 15px;
+	width: 7.5%;
+	cursor: pointer;
+	border-radius: 5px;
+	box-shadow: 0 0 5px #aaa;
+	border: 0;
+	transition: all 0.5s;
+}
+
+.board_view_wrap .comment_modify_box button:last-child{
+	margin: 0;
+}
+
+.board_view_wrap .comment_modify_box button:focus,
+.board_view_wrap .comment_modify_box button:hover{
+	background-color: skyblue;
+}
+
+/* 게시판 댓글 수정 관련 E */
