@@ -40,7 +40,18 @@ class ViewController extends \Controller\Front\FrontController{
 			
 			$skin = $board->getSkin($boardId);
 
+			// 댓글 초기 로딩
+			$comment = App::load(\Component\Comment\Comment::class);
+
+			$commentList = $comment->getList($postNo);
+
+			// 댓글 출력
+			ob_start();
+			App::render("Front/Board/Skins/{$skin}/comment_list", ['commentList' => $commentList]);
+			$data['commentList'] = ob_get_clean(); // $data 배열 내에 commentList 속성 만들어서 거기에 집어넣음
+
 			App::render("Front/Board/Skins/{$skin}/view", $data);
+
 		}catch(AlertException $e){
 			echo $e;
 			exit;

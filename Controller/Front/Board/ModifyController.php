@@ -36,9 +36,18 @@ class ModifyController extends \Controller\Front\FrontController{
 			$data = $board->getPost($postNo);
 			$data = array_merge($data, ['boardNm' => $boardNm]);
 
+			$file = App::load(\Component\Core\File::class);
+
+			// '이미지 추가' 란에 기존 이미지 등록하기 위해 이미지 파일 리스트 구함
+			$imageList = $file->getImageList($data['fileGroup']);
+
+			// 이미지 리스트 기존 데이터 배열에 합침
+			$data = array_merge($data, ['imageList' => $imageList]);
+
 			$skin = $board->getSkin($boardId);
 
 			App::render("Front/Board/Skins/{$skin}/write", $data);
+
 		}catch(AlertException $e){
 			echo $e;
 			exit;

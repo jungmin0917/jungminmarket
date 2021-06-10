@@ -114,14 +114,45 @@ class File{
 		}
 	}
 
-	// 파일 그룹으로 파일 리스트 조회
+	// 파일 그룹으로 파일 리스트 조회 (이미지 첨부 파일 제외)
 	public function getFileList($fileGroup){
 		try{
-			$sql = "SELECT * FROM jmmk_file WHERE fileGroup = :fileGroup";
+			$isImage = 0;
+
+			$sql = "SELECT * FROM jmmk_file WHERE fileGroup = :fileGroup AND isImage = :isImage";
 
 			$stmt = db()->prepare($sql);
 
 			$stmt->bindValue(":fileGroup", $fileGroup);
+			$stmt->bindValue(":isImage", $isImage, PDO::PARAM_INT);
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('파일 그룹 조회 실패');
+			}
+
+			$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+			return $rows;
+
+		}catch(AlertException $e){
+			echo $e;
+			exit;
+		}
+	}
+
+	// 파일 그룹으로 이미지 리스트 조회 (단순 첨부 파일 제외)
+	public function getImageList($fileGroup){
+		try{
+			$isImage = 1;
+
+			$sql = "SELECT * FROM jmmk_file WHERE fileGroup = :fileGroup AND isImage = :isImage";
+
+			$stmt = db()->prepare($sql);
+
+			$stmt->bindValue(":fileGroup", $fileGroup);
+			$stmt->bindValue(":isImage", $isImage, PDO::PARAM_INT);
 
 			$result = $stmt->execute();
 
@@ -197,7 +228,7 @@ class File{
 		}
 	}
 
-	// 파일 그룹으로 해당 파일들 지우기
+	// 파일 그룹으로 해당 파일들 지우기 (전부)
 	public function deleteFiles($fileGroup){
 		try{
 			// 파일 지우기
@@ -244,6 +275,57 @@ class File{
 			exit;
 		}
 	}
+
+	// 첨부 파일만 지우기
+	public function deleteFilesExceptImage($fileGroup){
+		try{
+			$isImage = 0;
+			$sql = "SELECT * FROM jmmk_file WHERE fileGroup = :fileGroup AND isImage = :isImage";
+
+			$stmt = db()->prepare($sql);
+
+			$stmt->bindValue(":fileGroup", $fileGroup);
+			$stmt->bindValue(":isImage", $isImage, PDO::PARAM_INT);
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('지울 파일 조회 실패');
+			}
+
+			$uploadPath = $this->uploadPath; // 업로드 폴더 위치
+
+			$fileList = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+			foreach($fileList as $file){
+				$path = $uploadPath.$file['fileName'];
+				if(file_exists($path)){
+					unlink($path);
+				}
+			}
+
+			// 파일 DB 지우기
+			$sql = "DELETE FROM jmmk_file WHERE fileGroup = :fileGroup AND isImage = :isImage";
+
+			$stmt = db()->prepare($sql);
+
+			$stmt->bindValue(":fileGroup", $fileGroup);
+			$stmt->bindValue(":isImage", $isImage, PDO::PARAM_INT);
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('파일 DB 지우기 실패');
+			}
+
+			return $result;
+
+		}catch(AlertException $e){
+			echo $e;
+			exit;
+		}
+	}
+
 
 	// 파일 번호로 파일 지우기
 	public function deleteFileByNo($fileNo){

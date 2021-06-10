@@ -180,7 +180,7 @@ $(document).ready(function(){
     });
 
 
-    /* 업로드한 이미지 삽입 */
+    /* 업로드한 이미지 추가 삽입 */
 
     $('.attach_image').on('click', '.addImage', function(){
         $fileBox = $(this).closest('.file_box');
@@ -188,7 +188,6 @@ $(document).ready(function(){
         const url = $fileBox.data('url');
         const tag = `<img src='${url}'>`;
         CKEDITOR.instances.contents.insertHtml(tag);
-
     });
 
 
@@ -213,8 +212,10 @@ $(document).ready(function(){
             success: function(res){
                 if(res == 1){ // echo 1 반환 시
                     $fileBox.remove(); // 해당 file_box 태그 없앰
+
                     var data = myeditor.editable().$;
                     $(data).find(`img[src='${url}']`).remove();
+
                 }else{ // echo 0 반환 시
                     alert("파일 삭제 실패");
                 }
@@ -223,13 +224,46 @@ $(document).ready(function(){
                 console.error(err);
             }
         });
-
     });
+
+
+    /* 게시판 댓글 등록 S */
+
+    $('.comment_form_box').on('click', '.comment_submit', function(){
+        const $form = $('#comment_form');
+
+        $.ajax({
+            url: "/workspace/jungminmarket/comment/write",
+            type: "post",
+            data: $form.serialize(),
+            dataType: "html", // 반송되는 데이터 타입
+            success: function(res){
+                // res는 rendering된 html인데 그걸 원하는 곳에 붙여넣음
+                $(".comment_list_box").html(res);
+                 $form.find('textarea').val(''); // 댓글 쓴 것 지우기
+            },
+            error: function(err){
+                console.error(err);
+            }
+        });
+    });
+
+    // 엔터 치면 위의 함수 수행하도록 하기
+    $('.comment_form_box').find('textarea').keypress(function(e){
+        if(e.which == 13){
+            $('.comment_form_box').find('.comment_submit').click();
+            return false; // return false는 실제 엔터키 입력(개행) 자체는 안 되도록
+        }
+    });
+
+    /* 게시판 댓글 등록 E */
+
 });
 
+/* 이미지 업로드 후 콜백 */
 function fileUploadCallback(data){
 
-    // 에디터에 이미지 추가
+    // '이미지 추가' 버튼 아래에 이미지 리스트 추가
     const tag = `<img src='${data.url}'>`;
     CKEDITOR.instances.contents.insertHtml(tag);
 
@@ -238,7 +272,7 @@ function fileUploadCallback(data){
                 <a href='../file/download?file=${data.fileName}' target='_blank'>${data.fileName}</a>
                 </div>`;
 
-    $('.image_upload_button').after(html);
+    $('.attach_image').find('.height').append(html);
 
     layer_close();
 }

@@ -25,6 +25,24 @@
 				<label for='image'>이미지 추가</label>
 				<div class='height'>
 					<input type='button' value='이미지 추가' id='image' name='image' class='image_upload_button'>
+					<span class='upload_info'>*이미지는 최대 5장까지 올릴 수 있습니다</span>
+					<?php
+						if(isset($isImageExists) && $isImageExists){
+							// 파일 이름으로 URL 만들기
+							$mainUrl = "/workspace/jungminmarket/assets/Upload/Image/";
+
+							for($i=0;$i<count($imageList);$i++){
+								$url = $mainUrl.$imageList[$i]['fileName'];
+
+								echo "
+									<div class='file_box' data-fileno='{$imageList[$i]['fileNo']}' data-url='{$url}'>
+					                	<i class='addImage xi-file-upload-o'></i><i class='remove xi-file-remove-o'></i>
+					                	<a href='../file/download?file={$imageList[$i]['fileName']} target='_blank'>{$imageList[$i]['fileName']}</a>
+					                </div>
+								";
+							}
+						}
+					?>
 				</div>
 			</li>
 			<li class='attach_file'>

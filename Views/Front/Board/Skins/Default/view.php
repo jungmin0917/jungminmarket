@@ -33,7 +33,20 @@
 				for($i=0;$i<count($fileList);$i++){
 					echo "<li>";
 					echo "<div class='file_title'>첨부파일".($i+1)."</div>";
-					echo "<div class='file_content'><a href='".siteUrl("file/download?file={$fileList[$i]['fileName']}")."'; target='_blank'>{$fileList[$i]['fileName']}</a></div>";
+					echo "<div class='file_content'><a href='".siteUrl("file/download?file={$fileList[$i]['fileName']}")."' target='_blank'>{$fileList[$i]['fileName']}</a></div>";
+					echo "</li>";
+				}
+			}
+
+			if(isset($isImageExists) && $isImageExists){
+				$file = App::load(\Component\Core\File::class);
+
+				$fileList = $file->getImageList($fileGroup);
+
+				for($i=0;$i<count($fileList);$i++){
+					echo "<li>";
+					echo "<div class='file_title'>이미지파일".($i+1)."</div>";
+					echo "<div class='file_content'><a href='".siteUrl("file/download?file={$fileList[$i]['fileName']}")."' target='_blank'>{$fileList[$i]['fileName']}</a></div>";
 					echo "</li>";
 				}
 			}
@@ -49,6 +62,37 @@
 				<a href='<?=siteUrl("board/delete?id={$boardId}&post={$postNo}")?>' onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
 			</div>
 		</li>
+
+		<div class='comment_list_box'>
+			<?=$commentList?>
+		</div>
+
+		<?php
+			if(getSession('member_memNo')){
+				echo "
+				<div class='comment_form_box'>
+					<div class='title'>댓글 달기</div>
+					<form method='post' id='comment_form' name='comment_form'>
+						<input type='hidden' name='mode' value='write'>
+						<input type='hidden' name='postNo' value='{$postNo}'>
+						<input type='hidden' name='boardId' value='{$boardId}'>
+						<ul>
+							<li>
+								<textarea name='comment'></textarea>
+								<button type='button' class='comment_submit'>확인</button>
+							</li>
+						</ul>
+					</form>
+				</div>
+				";
+			}else{
+				echo "
+				<div class='comment_form_box'>
+					<div class='comment_info'>댓글을 작성하기 위해서는 로그인이 필요합니다</div>
+				</div>
+				";
+			}
+		?>
 
 		<?php
 			$board = App::load(\Component\Board\Board::class);

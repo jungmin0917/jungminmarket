@@ -45,6 +45,9 @@
 							}
 						?><?=$v['subject']?>
 					</a>
+					<a href='<?=siteUrl("board/view?id={$v['boardId']}&post={$v['postNo']}")?>'>
+						asdf
+					</a>
 				</td>
 				<td>
 					<?=date("Y-m-d", strtotime($v['regDt']))?><br>

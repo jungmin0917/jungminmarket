@@ -52,7 +52,7 @@ class Board{
 					throw new AlertException('제목을 입력해주세요');
 				}
 
-				if(strlen($this->params['subject']) > 100){
+				if(strlen($this->params['subject']) > 150){
 					throw new AlertException('제목이 너무 길어요');
 				}
 
@@ -66,7 +66,7 @@ class Board{
 					throw new AlertException('제목을 입력해주세요');
 				}
 
-				if(strlen($this->params['subject']) > 100){
+				if(strlen($this->params['subject']) > 150){
 					throw new AlertException('제목이 너무 길어요');
 				}
 
@@ -289,7 +289,7 @@ class Board{
 		}
 	}
 
-	// boardId에 따라 게시글 가져옴
+	// boardId에 따라 게시글 리스트 가져옴
 	public function getList($boardId, $page = 1, $limit = 10){
 		try{
 			$url = siteUrl("board/list?id={$boardId}"); // boardId에 따라 url 만듦
@@ -433,12 +433,14 @@ class Board{
 			throw new AlertException('파일 업로드 실패');
 		}
 
-		// isFileExists 처리
-		$sql = "SELECT COUNT(*) as cnt FROM jmmk_file WHERE fileGroup = :fileGroup";
+		// isFileExists 처리 (이미지 제외)
+		$isImage = 0;
+		$sql = "SELECT COUNT(*) as cnt FROM jmmk_file WHERE fileGroup = :fileGroup AND isImage = :isImage";
 
 		$stmt = db()->prepare($sql);
 
 		$stmt->bindValue(":fileGroup", $fileGroup);
+		$stmt->bindValue(":isImage", $isImage, PDO::PARAM_INT);
 
 		$result = $stmt->execute();
 
@@ -481,7 +483,7 @@ class Board{
 
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-		if($row){
+		if($row['cnt'] > 0){
 			$isImageExists = 1;
 			$sql = "UPDATE jmmk_board SET isImageExists = :isImageExists WHERE fileGroup = :fileGroup";
 
@@ -541,7 +543,7 @@ class Board{
 			$fileGroup = $file->getFileGroup($postNo);
 
 			// 기존 파일 지우기
-			$result = $file->deleteFiles($fileGroup);
+			$result = $file->deleteFilesExceptImage($fileGroup);
 
 			if($result === false){
 				throw new AlertException('업로드된 파일 삭제 실패');
@@ -581,7 +583,7 @@ class Board{
 			$fileGroup = $file->getFileGroup($postNo);
 
 			// 기존 파일 지우기
-			$result = $file->deleteFiles($fileGroup);
+			$result = $file->deleteFilesExceptImage($fileGroup); // 첨부파일만 지우기
 
 			if($result === false){
 				throw new AlertException('업로드된 파일 삭제 실패');
@@ -609,6 +611,47 @@ class Board{
 			if($result === false){
 				throw new AlertException('isFileExists 업데이트 실패');
 			}
+		}
+
+		// isImageExists 처리
+		$file = App::load(\Component\Core\File::class);
+
+		$fileGroup = $file->getFileGroup($postNo);
+
+		$isImage = 1;
+		$sql = "SELECT COUNT(*) as cnt FROM jmmk_file WHERE fileGroup = :fileGroup AND isImage = :isImage";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":fileGroup", $fileGroup);
+		$stmt->bindValue(":isImage", $isImage, PDO::PARAM_INT);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('파일 그룹 조회 실패');
+		}
+
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		// 이미지 존재 여부에 따라 isImageExists 값 변경
+		if($row['cnt'] > 0){
+			$isImageExists = 1;
+		}else{
+			$isImageExists = 0;
+		}
+
+		$sql = "UPDATE jmmk_board SET isImageExists = :isImageExists WHERE fileGroup = :fileGroup";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":isImageExists", $isImageExists, PDO::PARAM_INT);
+		$stmt->bindValue(":fileGroup", $fileGroup);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('isImageExists 업데이트 실패');
 		}
 
 		return $result;
