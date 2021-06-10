@@ -1695,9 +1695,12 @@ input[type='file']{
 	resize: none;
 	float: left;
 	height: 100px;
-	width: calc(90% - 10px);
-	margin-right: 10px;
+	width: calc(90% - 15px);
+	margin-right: 15px;
 	padding: 5px 10px;
+	border:0;
+	box-shadow: 0 0 5px #aaa;
+	border-radius: 5px;
 }
 
 .board_view_wrap .comment_form_box button{
@@ -1708,6 +1711,15 @@ input[type='file']{
 	height: 100px;
 	width: 10%;
 	cursor: pointer;
+	border-radius: 5px;
+	box-shadow: 0 0 5px #aaa;
+	border: 0;
+	transition: all 0.5s;
+}
+
+.board_view_wrap .comment_form_box button:focus,
+.board_view_wrap .comment_form_box button:hover{
+	background-color: skyblue;
 }
 
 /* 게시판 댓글 등록 관련 E */
@@ -1723,6 +1735,7 @@ input[type='file']{
 
 .board_view_wrap .comment_list_wrap ul{
 	margin-bottom: 10px;
+	border-bottom: 2px solid #eee;
 }
 
 .board_view_wrap .comment_list_wrap ul:after{
@@ -1733,12 +1746,25 @@ input[type='file']{
 
 .board_view_wrap .comment_list_wrap li{
 	padding: 10px 5px;
-	border-bottom: 1px solid #eee;
+	float: left;
 }
 
 .board_view_wrap .comment_list_wrap .memNm{
-	width: 15%;
-	float: left;
+	width: 20%;
+}
+
+.board_view_wrap .comment_list_wrap .regDt{
+	width: 40%;
+}
+
+.board_view_wrap .comment_list_wrap .buttons{
+	width: 40%;
+}
+
+.board_view_wrap .comment_list_wrap .comment{
+	width: 100%;
+	padding: 20px 5px;
+	border-top: 1px solid #eee;
 }
 
 /* 게시판 댓글 보기 관련 E */
