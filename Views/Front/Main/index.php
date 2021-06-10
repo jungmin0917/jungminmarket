@@ -17,6 +17,17 @@
 					<?php foreach($notice_list['list'] as $v) : ?>
 						<li>
 							<a href='<?=siteUrl("board/view?id={$notice_list['boardId']}&post={$v['postNo']}")?>'><?=$v['subject']?></a>
+							<a href='<?=siteUrl("board/view?id={$notice_list['boardId']}&post={$v['postNo']}")?>'>
+							<?php
+								$comment = App::load(\Component\Comment\Comment::class);
+
+								$amount = count($comment->getList($v['postNo']));
+
+								if($amount){
+									echo "[".$amount."]";
+								}
+							?>
+							</a>
 						</li>
 					<?php endforeach; ?>
 				</ul>
@@ -33,7 +44,19 @@
 					<?php foreach($event_list['list'] as $v) : ?>
 						<li>
 							<a href='<?=siteUrl("board/view?id={$event_list['boardId']}&post={$v['postNo']}")?>'><?=$v['subject']?></a>
+							<a href='<?=siteUrl("board/view?id={$event_list['boardId']}&post={$v['postNo']}")?>'>
+							<?php
+								$comment = App::load(\Component\Comment\Comment::class);
+
+								$amount = count($comment->getList($v['postNo']));
+
+								if($amount){
+									echo "[".$amount."]";
+								}
+							?>
+							</a>
 						</li>
+
 					<?php endforeach; ?>
 				</ul>
 			</div>

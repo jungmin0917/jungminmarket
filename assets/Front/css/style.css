@@ -120,7 +120,6 @@ input[type='file']{
 	width:100%;
 	display:block;
 }
-
 .title_logo a{
 	margin:0 auto;
 	width:150px;
@@ -1178,6 +1177,10 @@ input[type='file']{
 	max-width: 90%;
 }
 
+.board_list_table tbody td a:nth-child(2){
+	color: red;
+}
+
 .board_list_table .subject i{
 	padding-right: 2px;
 	position: relative;
@@ -1624,18 +1627,26 @@ input[type='file']{
 	border: 1px solid #aaa;
 	border-radius: 5px;
 	box-shadow: 0 0 5px #aaa;
-	height: 140px;
+	height: 150px;
 }
 
 .main_board_wrap .board_box .list_box li a{
+	display: inline-block;
 	padding: 3px;
-	display: block;
 	font-size: 1.2rem;
 	margin-bottom: 2px;
 	transition: all 0.5s;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+}
+
+.main_board_wrap .board_box .list_box li a:first-child{
+	max-width: 90%;
+}
+
+.main_board_wrap .board_box .list_box li a:nth-child(2){
+	color: red;
 }
 
 .main_board_wrap .board_box .list_box li a:focus,

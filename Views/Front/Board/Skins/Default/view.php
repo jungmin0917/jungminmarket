@@ -63,7 +63,7 @@
 			</div>
 		</li>
 
-		<div class='comment_list_box'>
+		<div class='comment_list_box' name='comment_list_box'>
 			<?=$commentList?>
 		</div>
 

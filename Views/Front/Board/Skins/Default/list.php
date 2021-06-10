@@ -46,7 +46,15 @@
 						?><?=$v['subject']?>
 					</a>
 					<a href='<?=siteUrl("board/view?id={$v['boardId']}&post={$v['postNo']}")?>'>
-						asdf
+						<?php
+							$comment = App::load(\Component\Comment\Comment::class);
+
+							$amount = count($comment->getList($v['postNo']));
+
+							if($amount){
+								echo "[".$amount."]";
+							}
+						?>
 					</a>
 				</td>
 				<td>
