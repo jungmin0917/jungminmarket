@@ -290,9 +290,17 @@ class Board{
 	}
 
 	// boardId에 따라 게시글 리스트 가져옴
-	public function getList($boardId, $page = 1, $limit = 10){
+	public function getList($boardId, $page = 1, $limit = 10, $searchType = null, $searchWord = null){
 		try{
-			$url = siteUrl("board/list?id={$boardId}"); // boardId에 따라 url 만듦
+			$url = $_SERVER['REQUEST_URI']; // 현재 url에서 따와서 page 앞까지 가져옴
+			// page=? 이건 마지막에 넣을 것임
+
+			if(strpos($url, "&page")){ // &page=? 있으면 그 앞까지만 따기 (정규표현식 사용)
+				$pattern = "/.+?(?=&page)/"; // 전방탐색
+				preg_match($pattern, $url, $matches);
+				$url = $matches[0];
+			}
+
 			$page = $page?$page:1;
 			$limit = $limit?$limit:10;
 			$offset = ($page - 1) * $limit;
@@ -315,25 +323,157 @@ class Board{
 
 			$total = $row['cnt'];
 
+			// list 및 total 구하기
 
-			// list 구하기
+			if($searchWord){ // 검색어 있을 경우
+				switch($searchType){
+					case 'subject': // 제목으로 검색했을 경우
 
-			$sql = "SELECT * FROM jmmk_board WHERE boardId = :boardId ORDER BY regDt DESC LIMIT :limit OFFSET :offset";
-			// WHERE 뒤에 ORDER BY랑 LIMIT 등 써야 오류 안 남
+						// list 구하기
 
-			$stmt = db()->prepare($sql);
+						$sql = "SELECT * FROM jmmk_board WHERE boardId = :boardId AND subject LIKE :subject ORDER BY regDt DESC LIMIT :limit OFFSET :offset";
 
-			$stmt->bindValue(":limit", $limit, PDO::PARAM_INT);
-			$stmt->bindValue(":offset", $offset, PDO::PARAM_INT);
-			$stmt->bindValue(":boardId", $boardId);
+						$stmt = db()->prepare($sql);
 
-			$result = $stmt->execute();
+						$stmt->bindValue(":limit", $limit, PDO::PARAM_INT);
+						$stmt->bindValue(":offset", $offset, PDO::PARAM_INT);
+						$stmt->bindValue(":boardId", $boardId);
+						$stmt->bindValue(":subject", "%".$searchWord."%");
 
-			if($result === false){
-				throw new AlertException('게시글 리스트 조회 실패');
+						$result = $stmt->execute();
+
+						if($result === false){
+							throw new AlertException('게시글 리스트 조회 실패');
+						}
+
+						$list = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+						// total 구하기
+
+						$sql = "SELECT * FROM jmmk_board WHERE boardId = :boardId AND subject LIKE :subject";
+
+						$stmt = db()->prepare($sql);
+
+						$stmt->bindValue(":boardId", $boardId);
+						$stmt->bindValue(":subject", "%".$searchWord."%");
+
+						$result = $stmt->execute();
+
+						if($result === false){
+							throw new AlertException('게시글 갯수 조회 실패');
+						}
+
+						$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+						$total = count($rows);
+
+						break;
+
+					case 'contents': // 내용으로 검색했을 경우
+
+						// list 구하기
+					
+						$sql = "SELECT * FROM jmmk_board WHERE boardId = :boardId AND contents LIKE :contents ORDER BY regDt DESC LIMIT :limit OFFSET :offset";
+
+						$stmt = db()->prepare($sql);
+
+						$stmt->bindValue(":limit", $limit, PDO::PARAM_INT);
+						$stmt->bindValue(":offset", $offset, PDO::PARAM_INT);
+						$stmt->bindValue(":boardId", $boardId);
+						$stmt->bindValue(":contents", "%".$searchWord."%");
+
+						$result = $stmt->execute();
+
+						if($result === false){
+							throw new AlertException('게시글 리스트 조회 실패');
+						}
+
+						$list = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+						// total 구하기
+
+						$sql = "SELECT * FROM jmmk_board WHERE boardId = :boardId AND contents LIKE :contents";
+
+						$stmt = db()->prepare($sql);
+
+						$stmt->bindValue(":boardId", $boardId);
+						$stmt->bindValue(":contents", "%".$searchWord."%");
+
+						$result = $stmt->execute();
+
+						if($result === false){
+							throw new AlertException('게시글 갯수 조회 실패');
+						}
+
+						$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+						$total = count($rows);
+
+						break;
+
+					case 'memNm': // 작성자로 검색했을 경우
+
+						// list 구하기
+					
+						$sql = "SELECT * FROM jmmk_board WHERE boardId = :boardId AND memNm = :memNm ORDER BY regDt DESC LIMIT :limit OFFSET :offset";
+
+						$stmt = db()->prepare($sql);
+
+						$stmt->bindValue(":limit", $limit, PDO::PARAM_INT);
+						$stmt->bindValue(":offset", $offset, PDO::PARAM_INT);
+						$stmt->bindValue(":boardId", $boardId);
+						$stmt->bindValue(":memNm", $searchWord);
+
+						$result = $stmt->execute();
+
+						if($result === false){
+							throw new AlertException('게시글 리스트 조회 실패');
+						}
+
+						$list = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+						// total 구하기
+
+						$sql = "SELECT * FROM jmmk_board WHERE boardId = :boardId AND memNm = :memNm";
+
+						$stmt = db()->prepare($sql);
+
+						$stmt->bindValue(":boardId", $boardId);
+						$stmt->bindValue(":memNm", $searchWord);
+
+						$result = $stmt->execute();
+
+						if($result === false){
+							throw new AlertException('게시글 갯수 조회 실패');
+						}
+
+						$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+						$total = count($rows);
+
+						break;
+
+					default:
+						break;
+				}
+			}else{
+				$sql = "SELECT * FROM jmmk_board WHERE boardId = :boardId ORDER BY regDt DESC LIMIT :limit OFFSET :offset";
+				// WHERE 뒤에 ORDER BY랑 LIMIT 등 써야 오류 안 남
+
+				$stmt = db()->prepare($sql);
+
+				$stmt->bindValue(":limit", $limit, PDO::PARAM_INT);
+				$stmt->bindValue(":offset", $offset, PDO::PARAM_INT);
+				$stmt->bindValue(":boardId", $boardId);
+
+				$result = $stmt->execute();
+
+				if($result === false){
+					throw new AlertException('게시글 리스트 조회 실패');
+				}
+
+				$list = $stmt->fetchAll(PDO::FETCH_ASSOC);
 			}
-
-			$list = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
 			// boardNm 구하기
@@ -509,6 +649,7 @@ class Board{
 		$contents = $this->params['contents'];
 		$isLocked = $this->params['secure'];
 		$postNo = $this->params['postNo'];
+		$isModified = 1;
 
 		// 잘못된 접근 처리 (postNo 바꿔서 수정하는 것 차단)
 		$session_postNo = getSession('board_postNo');
@@ -518,11 +659,11 @@ class Board{
 		}
 
 		// 게시글 수정 처리
-		$sql = "UPDATE jmmk_board SET subject = :subject, contents = :contents, isLocked = :isLocked WHERE postNo = :postNo";
+		$sql = "UPDATE jmmk_board SET subject = :subject, contents = :contents, isLocked = :isLocked, isModified = :isModified, modDt = now() WHERE postNo = :postNo";
 
 		$stmt = db()->prepare($sql);
 
-		$bindData = ['subject', 'contents', 'isLocked', 'postNo'];
+		$bindData = ['subject', 'contents', 'isLocked', 'postNo', 'isModified'];
 
 		foreach($bindData as $v){
 			$stmt->bindValue(":{$v}", $$v);

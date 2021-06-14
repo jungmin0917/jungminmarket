@@ -320,6 +320,15 @@ $(document).ready(function(){
         });
     });
 
+    // 수정 확인 엔터 버튼으로 처리
+    $('.comment_list_box').on('keypress', 'textarea', function(e){
+        console.log('test');
+        if(e.which == 13){
+            $('.comment_list_box').find('.comment_modify_submit').click();
+            return false;
+        }
+    });
+
     // 수정 취소 관련
     $('.comment_list_box').on('click', '.comment_modify_cancel', function(){
         if(!confirm('정말 취소하시겠습니까?')){
@@ -361,6 +370,43 @@ $(document).ready(function(){
     });
 
     /* 게시판 댓글 삭제 E */
+
+
+    /* 게시판 검색 관련 S */
+
+    // 게시판에서 검색한 글자 색깔 바꾸기
+    const searchWord = $('#searchWord').val(); // 일단 검색값 가져옴
+
+    if(searchWord){ // 검색어가 있을 때
+        // 해당 검색값 앞뒤로 span 붙여서 꾸미기
+        const span_before = "<span class='searched'>";
+        const span_after = "</span>";
+
+        const pattern = searchWord;
+
+        const regexAll = new RegExp(pattern, "g");
+
+        /* 이건 한 개만 바꾸기
+        var html = $('.board_list_table').find('.first').html();
+
+        html = html.replace(regexAll, span_before+searchWord+span_after);
+
+        $('.board_list_table').find('.first').html(html);
+        */
+
+        // 여기서부턴 모든 리스트 일일이 바꾸기
+        const htmlList = $('.board_list_table').find('.first');
+
+        for(i=0; i<htmlList.length; i++){
+            var html = $('.board_list_table').find('.first').eq(i).html();
+
+            html = html.replace(regexAll, span_before+searchWord+span_after);
+
+            $('.board_list_table').find('.first').eq(i).html(html);
+        }
+    }
+
+    /* 게시판 검색 관련 E */
 
 });
 

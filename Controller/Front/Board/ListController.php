@@ -19,7 +19,17 @@ class ListController extends \Controller\Front\FrontController{
 		$page = $page ?? 1;
 		$limit = 5;
 
-		$data = $board->getList($boardId, $page, $limit);
+		$searchType = request()->get('searchType');
+		$searchWord = request()->get('searchWord');
+
+		if($searchWord){ // 검색어 있을 경우
+			$data = $board->getList($boardId, $page, $limit, $searchType, $searchWord);
+
+			$data['searchWord'] = $searchWord;
+			$data['searchType'] = $searchType;
+		}else{
+			$data = $board->getList($boardId, $page, $limit);
+		}
 
 		App::render("Front/Board/Skins/{$skin}/list", $data); // input hidden값 Id에 따라 넣을 것임
 	}

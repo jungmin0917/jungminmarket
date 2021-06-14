@@ -203,14 +203,14 @@ input[type='file']{
 	color:dodgerblue;
 }
 
-.search_form{
+.sub_menu_wrap .search_form{
 	width:200px;
 	line-height:57px;
 	position:relative;
 	top:2px;
 }
 
-.search_form input[type='image']{
+.sub_menu_wrap .search_form input[type='image']{
 	width:30px;
 	position:absolute;
 	top:12px;
@@ -218,7 +218,7 @@ input[type='file']{
 	padding:5px;
 }
 
-.search_form label input[type='text']{
+.sub_menu_wrap .search_form label input[type='text']{
     font-family: 'RIDIBatang', sans-serif;
     font-size:1.2rem;
 	padding:5px 40px 5px 10px;
@@ -247,7 +247,7 @@ input[type='file']{
 /* 푸터 메뉴 관련 S */
 
 .footer_menu_wrap{
-	margin-top:100px;
+	margin-top:70px;
 	border-top:1px solid #ccc;
 	border-bottom:1px solid #ccc;
 }
@@ -324,7 +324,7 @@ input[type='file']{
 
 .footer_info_wrap .info_box{
 	float:left;
-	width:300px;
+	width:330px;
 	height:130px;
 	border-right:1px solid #ccc;
 	margin:30px 20px;
@@ -435,7 +435,7 @@ input[type='file']{
 	float:left;
     font-family: 'RIDIBatang', sans-serif;
     font-size:1.3rem;
-    padding:5px 10px;
+    padding:0 10px;
 	border:0;
 	box-shadow:0 0 3px #999;
 	margin-right:10px;
@@ -1163,7 +1163,7 @@ input[type='file']{
 }
 
 .board_list_table tbody tr:nth-child(2n+1){
-	background-color: aliceblue;
+	background-color: azure;
 }
 
 .board_list_table tbody td a{
@@ -1179,6 +1179,11 @@ input[type='file']{
 
 .board_list_table tbody td a:nth-child(2){
 	color: red;
+}
+
+.board_list_table .subject .searched{
+	background-color: skyblue;
+	color: dodgerblue;
 }
 
 .board_list_table .subject i{
@@ -1211,7 +1216,7 @@ input[type='file']{
 }
 
 .pagination{
-	margin-top: 20px;
+	margin: 20px 0;
 	text-align: center;
 }
 
@@ -1441,26 +1446,62 @@ input[type='file']{
 	font-size: 1.3rem;
 }
 
-.board_view_ul > li{
-	border-top: 1px solid #ddd;
+.board_view_ul .float_left li:nth-child(1){
+	width: 100%;
+	float: left;
 }
 
-.board_view_ul > li:after{
+.board_view_ul .float_left li:nth-child(2),
+.board_view_ul .float_left li:nth-child(3),
+.board_view_ul .float_left li:nth-child(4),
+.board_view_ul .float_left li:nth-child(5){
+	width: 50%;
+	float: left;
+}
+
+.board_view_ul .float_left:after{
 	clear: both;
 	display: block;
 	content: '';
 }
 
-.board_view_ul > li .title{
+.board_view_ul > li,
+.board_view_ul .float_left li{
+	border-top: 1px solid #ddd;
+}
+
+.board_view_ul > li:after,
+.board_view_ul .float_left li:after{
+	clear: both;
+	display: block;
+	content: '';
+}
+
+.board_view_ul > li .title,
+.board_view_ul .float_left li .title{
 	float: left;
 	width: 20%;
 	padding: 15px;
 }
 
-.board_view_ul > li .content{
+.board_view_ul > li .content,
+.board_view_ul .float_left li .content{
 	float: left;
 	width: 80%;
 	padding: 15px;
+}
+
+.board_view_ul .float_left li:first-child .title{
+	width: 10%;
+}
+
+.board_view_ul .float_left li:first-child .content{
+	width: 90%;
+}
+
+.board_view_ul .float_left li .content .modDt{
+	margin-left: 10px;
+	color: red;
 }
 
 .board_view_ul > li .title.post{
@@ -1753,7 +1794,7 @@ input[type='file']{
 }
 
 .board_view_wrap .comment_list_wrap .regDt{
-	width: 25%;
+	width: 20%;
 }
 
 .board_view_wrap .comment_list_wrap .modDt{
@@ -1762,7 +1803,7 @@ input[type='file']{
 }
 
 .board_view_wrap .comment_list_wrap .buttons{
-	width: 30%;
+	width: 35%;
 	text-align: right;
 }
 
@@ -1865,3 +1906,42 @@ input[type='file']{
 }
 
 /* 게시판 댓글 수정 관련 E */
+
+
+/* 게시판 검색 기능 관련 S */
+
+.search_box_wrap .search_form{
+	width: 300px;
+	margin: 0 auto;
+	position: relative;
+}
+
+.search_box_wrap .search_form select{
+    font-family: 'RIDIBatang', sans-serif;
+    font-size: 1.2rem;
+    width: 90px;
+    padding: 5px;
+    height: 33px;
+    border: 0;
+    box-shadow: 0 0 3px black;
+}
+
+.search_box_wrap .search_form input[type='text']{
+    font-family: 'RIDIBatang', sans-serif;
+    font-size: 1.2rem;
+    padding: 5px 40px 5px 10px;
+    width: 200px;
+    float: right;
+    border: 0;
+    box-shadow: 0 0 3px black;
+    height: 33px;
+}
+
+.search_box_wrap .search_form input[type='image']{
+	position: absolute;
+	width: 33px;
+	padding: 7px;
+	right: 0;
+}
+
+/* 게시판 검색 기능 관련 E */

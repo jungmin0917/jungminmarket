@@ -45,6 +45,9 @@ class IndbController extends \Controller\Front\FrontController{
 
 					alertGo("게시글 수정에 성공했습니다. 게시글 목록으로 이동합니다", "board/list?id={$boardId}", "parent");
 
+				case 'search':
+					go("board/list?id={$formData['boardId']}&searchType={$formData['searchType']}&searchWord={$formData['searchWord']}", 'parent');
+
 				default:
 					break;
 			}

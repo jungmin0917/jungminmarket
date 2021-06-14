@@ -308,12 +308,12 @@ html{
 }
 
 .member_register_title{
-    font-size:1.8rem;
+    font-size:1.6rem;
     margin-bottom:30px;
 }
-
+        
 .member_register_ul{
-    font-size:1.5rem;
+    font-size:1.3rem;
     margin-bottom:50px;
 }
 
@@ -334,7 +334,6 @@ html{
 
 .member_register_ul li label{
     float:left;
-    display:inline-block;
     width:200px;
     line-height:32px;
 }
@@ -354,7 +353,7 @@ html{
     float:left;
     font-family: 'RIDIBatang', sans-serif;
     font-size:1.3rem;
-    padding:5px 10px;
+    padding:0 10px;
     border:0;
     box-shadow:0 0 3px #999;
     margin-right:10px;
@@ -576,6 +575,7 @@ html{
     border: 0;
     border-radius: 5px;
     resize: none;
+    height: 33px;
 }
 
 .board_create_ul li input:focus,
@@ -610,3 +610,180 @@ html{
 }
 
 /* 게시판관리 - 게시판생성 관련 E */
+
+
+/* 상품관리 - 상품등록 관련 S */
+
+.goods_register_wrap .title{
+    font-size: 1.7rem;
+    margin-bottom: 30px;
+}
+
+.goods_register_form{
+    font-size: 1.3rem;
+}
+
+.goods_register_ul > li:first-child{
+    border-top: 1px solid #ccc;
+}
+
+.goods_register_ul > li{
+    border-bottom: 1px solid #ccc;
+    padding: 15px;
+}
+
+.goods_register_ul > li:after{
+    clear: both;
+    display: block;
+    content: '';
+}
+
+.goods_register_ul > li > label{
+    width: 200px;
+    line-height: 32px;
+    float: left;
+}
+
+.goods_register_ul > li > input,
+.goods_register_ul > li > select{
+    float: left;
+    font-family: 'RIDIBatang', sans-serif;
+    font-size: 1.3rem;
+    padding: 5px 10px;
+    border: 0;
+    box-shadow: 0 0 3px #999;
+    width: 250px;
+    height: 32px;
+}
+
+.goods_register_ul > li > select{
+    padding: 0 10px;
+}
+
+.goods_register_ul > li > .radio{
+    line-height: 32px;
+}
+
+.goods_register_ul > li > .radio{
+    line-height: 32px;
+}
+
+.goods_register_ul > li > .radio label{
+    margin-right: 30px;
+}
+
+.goods_register_ul > li > .radio input[type='radio']{
+    position: relative;
+    top: 3px;
+    margin-right: 5px;
+}
+
+/* 상품관리 - 상품등록 관련 E */
+
+
+
+/* 상품관리 - 분류설정 관련 S */
+
+.goods_category_wrap .title{
+    font-size: 1.7rem;
+    margin-bottom: 30px;
+    box-shadow: 0 0 5px black;
+}
+
+.goods_category_form{
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+}
+
+.goods_category_ul{
+    margin-bottom: 40px;
+}
+
+.goods_category_ul > li:first-child{
+    border-top: 1px solid #ccc;
+}
+
+.goods_category_ul > li{
+    border-bottom: 1px solid #ccc;
+    padding: 15px;
+}
+
+.goods_category_ul > li:after{
+    clear: both;
+    display: block;
+    content: '';
+}
+
+.goods_category_ul > li > label{
+    width: 200px;
+    line-height: 32px;
+    float: left;
+}
+
+.goods_category_ul > li > input{
+    float: left;
+    font-family: 'RIDIBatang', sans-serif;
+    font-size: 1.3rem;
+    padding: 5px 10px;
+    border: 0;
+    box-shadow: 0 0 3px #999;
+    width: 250px;
+    height: 32px;
+}
+
+.goods_category_form input[type='submit']{
+    font-family: 'RIDIBatang', sans-serif;
+    background-color:#2a2a2a;
+    color:white;
+    font-size:1.5rem;
+    padding:10px 40px;
+    cursor:pointer;
+    border-radius:5px;
+    border:0;
+}
+
+.goods_category_submit_wrap{
+    text-align: center;
+}
+
+.goods_category_table{
+    width: 1040px;
+    margin: 0 auto;
+}
+
+.goods_category_table thead{
+    font-size: 1.4rem;
+    background-color: lightblue;
+}
+
+.goods_category_table thead th{
+    padding: 15px 0;
+    border-right: 1px solid #fff;
+}
+
+.goods_category_table tbody{
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.goods_category_table tbody td{
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.goods_category_table tbody tr{
+    height: 59px;
+    line-height: 1.5rem;
+}
+
+.goods_category_table tbody tr:nth-child(2n){
+    background-color: lightcyan;
+}
+
+.goods_category_table input[type='checkbox']{
+    zoom: 1.4;
+    position: relative;
+    top: 1px;
+}
+
+/* 상품관리 - 분류설정 관련 E */

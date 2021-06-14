@@ -10,12 +10,16 @@
 			<?=$v['regDt']?>
 		</li>
 		<li class='modDt'>
-			<?=$v['modDt']?>
+			<?php if($v['modDt']){echo "(*수정됨 ".$v['modDt'].")";}?>
 		</li>
 		<li class='buttons'>
 			<?php if(getSession('member_memNo') == $v['memNo']) : ?>
 			
 				<a href="javascript:;" class='comment_modify'>수정</a>
+				<a href="javascript:;" class='comment_delete'>삭제</a>
+
+			<?php elseif(getSession('member_memLv') == 10) : ?>
+
 				<a href="javascript:;" class='comment_delete'>삭제</a>
 
 			<?php endif; ?>

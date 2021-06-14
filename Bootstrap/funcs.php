@@ -74,7 +74,7 @@ function setSession($key, $value = null, $expires = 0){
 	if($expires > 0){ // 만료시간 지정한 경우 값이 만료시간 자체가 됨
 		$_SESSION['expires_'.$key] = time() + $expires;
 	}
-
+	
 	return;
 }
 

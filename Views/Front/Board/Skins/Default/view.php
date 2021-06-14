@@ -5,22 +5,50 @@
 	<div class='sub_title'><?=$boardNm?> 게시판</div>
 	
 	<ul class='board_view_ul'>
-		<li>
-			<div class='title'>
-				제목
-			</div>
-			<div class='content'>
-				<?=$subject?>
-			</div>
-		</li>
-		<li>
-			<div class='title'>
-				작성자
-			</div>
-			<div class='content'>
-				<?=$memNm?>
-			</div>
-		</li>
+		<div class='float_left'>
+			<li>
+				<div class='title'>
+					제목
+				</div>
+				<div class='content'>
+					<?=$subject?>
+				</div>
+			</li>
+			<li>
+				<div class='title'>
+					번호
+				</div>
+				<div class='content'>
+					<?=$postNo?>
+				</div>
+			</li>
+			<li>
+				<div class='title'>
+					조회수
+				</div>
+				<div class='content'>
+					<?=$views?>
+				</div>
+			</li>
+			<li>
+				<div class='title'>
+					작성자
+				</div>
+				<div class='content'>
+					<?=$memNm?>
+				</div>
+			</li>
+			<li>
+				<div class='title'>
+					게시일
+				</div>
+				<div class='content'>
+					<?=$regDt?>
+					<span class='modDt'><?php if($modDt){echo "(*수정됨 ".$modDt.")";}?></span>
+				</div>
+			</li>
+		</div>
+
 		<li>
 			<div class='contents'>
 				<?=$contents?>
