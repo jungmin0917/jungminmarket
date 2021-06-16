@@ -1954,10 +1954,6 @@ input[type='file']{
 	margin-bottom: 30px;
 }
 
-.goods_list_ul{
-	padding: 0 20px;
-}
-
 .goods_list_ul:after{
 	clear: both;
 	display: block;
@@ -1965,30 +1961,115 @@ input[type='file']{
 }
 
 .goods_list_ul li{
-	width: calc((100% - 40px) / 3);
+	width: calc((100% - 60px) / 3);
 	float: left;
-	margin-right: 20px;
+	margin-right: 30px;
 }
 
 .goods_list_ul li:nth-child(3n+3){
 	margin: 0;
 }
 
-.goods_list_ul li a{
+.goods_list_ul li .goodsImg{
 	display: block;
 	text-align: center;
+	overflow: hidden;
 }
 
-.goods_list_ul li a img{
+.goods_list_ul li .goodsImg:hover img,
+.goods_list_ul li .goodsImg:focus img{
+	opacity: 0.7;
+}
+
+.goods_list_ul li:hover .goodsImg img,
+.goods_list_ul li:focus .goodsImg img{
+	transform: scale(1.1);
+}
+
+.goods_list_ul li .goodsImg img{
 	display: inline-block;
 	width: auto;
 	height: auto;
 	max-width: 100%;
 	max-height: 330px;
+	transition: all 0.5s;
+}
+
+.goods_list_ul li .goodsNm{
+	font-size: 1.4rem;
+	font-weight: bold;
+	border-bottom: 1px solid #ddd;
+	margin-bottom: 15px;
+}
+
+.goods_list_ul li .goodsNm a{
+	display: block;
+	padding: 20px 0 15px 0;
+}
+
+.goods_list_wrap .info_box_wrap{
+	padding: 15px 0;
+	border-bottom: 1px solid #ddd;
+}
+
+.goods_list_wrap .info_box{
+	height: 30px;
+}
+
+.goods_list_wrap .info_box:after{
+	clear: both;
+	display: block;
+	content: '';
 }
 
 .goods_list_wrap .info_box .item_count{
-	
+	font-size: 1.2rem;
+	float: left;
+	line-height: 30px;
+}
+
+.goods_list_wrap .info_box .item_count .count{
+	border-radius: 3px;
+	padding: 5px 10px;
+	border: 1px solid #aaa;
+}
+
+.goods_list_wrap .info_box .sort_select{
+	float: right;
+}
+
+.goods_list_wrap .info_box .sort_select select{
+    font-family: 'RIDIBatang', sans-serif;
+    font-size: 1.2rem;
+	height: 30px;
+	padding: 0 5px;
+	border-radius: 5px;
+	border: 0;
+	box-shadow: 0 0 3px black;
+}
+
+.goods_list_wrap .goods_list_ul_wrap{
+	padding: 30px 0;
+}
+
+.goods_list_ul li .shortDesc{
+	font-size: 1.2rem;
+	color: grey;
+	margin-bottom: 15px;
+}
+
+.goods_list_ul li .price{
+	font-size: 1.1rem;
+}
+
+.goods_list_ul li .price .defaultPrice{
+	text-decoration: line-through;
+	color: grey;
+}
+
+.goods_list_ul li .price .salePrice{
+	font-size: 1.3rem;
+	color: dodgerblue;
 }
 
 /* 상품 목록 관련 E */

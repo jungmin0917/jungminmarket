@@ -70,10 +70,10 @@
 						<?=$v['goodsNm']?>
 					</td>
 					<td>
-						<?=$v['defaultPrice']?>
+						<?=number_format($v['defaultPrice'])?>
 					</td>
 					<td>
-						<?=$v['salePrice']?>
+						<?=number_format($v['salePrice'])?>
 					</td>
 					<td>
 						<input type='text' name='stock[<?=$v['goodsNo']?>]' value='<?=$v['stock']?>'>
