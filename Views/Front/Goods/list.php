@@ -33,6 +33,15 @@
 						<span class='defaultPrice'><?=number_format($v['defaultPrice'])?>원</span> <span class='salePrice'><?=number_format($v['salePrice'])?>원</span>
 					</div>
 					<div class='stock_info'>
+						<?php
+							$regTime = strtotime($v['regDt']); // 등록 시간 초로
+							$nowTime = strtotime(date("Y-m-d H:i:s")); // 현재 시간 초로
+							// 1시간은 86400라고 함
+							if(($nowTime - $regTime) < 86400){ // 등록 시간이 24시간 이내일 경우
+								echo "<span class='new_item'>신상품</span>";
+							}
+						?>
+
 						<?php if($v['stock'] <= 10) : ?>
 							<span class='low_in_stock'>품절임박</span>
 						<?php endif; ?>

@@ -2094,4 +2094,12 @@ input[type='file']{
 	display: inline-block;
 }
 
+.goods_list_ul li .new_item{
+	padding: 5px;
+	background-color: green;
+	color: white;
+	border-radius: 5px;
+	display: inline-block;
+}
+
 /* 상품 목록 관련 E */

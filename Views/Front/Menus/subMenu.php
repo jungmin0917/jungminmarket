@@ -5,10 +5,10 @@
 				<i class='layer_menu xi-bars'></i>
 			</li>
 			<li>
-				<a href='<?=siteUrl("goods/list?category=best")?>'>BEST</a>
+				<a href='<?=siteUrl("goods/list?category=best")?>'>BEST 30</a>
 			</li>
 			<li>
-				<a href='<?=siteUrl("goods/list?category=new")?>'>NEW</a>
+				<a href='<?=siteUrl("goods/list?category=new")?>'>NEW 30</a>
 			</li>
 			<li>
 				<a href='<?=siteUrl("goods/list?category=top")?>'>상의</a>
