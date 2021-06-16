@@ -123,7 +123,7 @@ $(document).ready(function(){
     $('.goods_register_wrap').on('click', '.goodsImageSet', function(){
         layer_open();
 
-        const fileGroup = $(this).closest('form').find("input[name='gid']").val();
+        const fileGroup = $(this).closest('form').find("input[name='fileGroup']").val();
 
         const html = "<iframe src='/workspace/jungminmarket/file/upload?fileGroup=" + fileGroup + "'></iframe>";
 
@@ -143,7 +143,7 @@ $(document).ready(function(){
     $('.goods_register_wrap').on('click', '.longDescImageAdd', function(){
         layer_open();
 
-        const fileGroup = $(this).closest('form').find("input[name='gid']").val();
+        const fileGroup = $(this).closest('form').find("input[name='fileGroup']").val();
 
         const html = "<iframe src='/workspace/jungminmarket/file/upload?fileGroup=" + fileGroup + "'></iframe>";
 

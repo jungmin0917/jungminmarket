@@ -768,6 +768,11 @@ input[type='file']{
     transition: all 0.5s;
 }
 
+.goods_register_form input[type='submit']:focus,
+.goods_register_form input[type='submit']:hover{
+    opacity: 0.5;
+}
+
 .goods_register_submit_wrap{
     text-align: center;
 }

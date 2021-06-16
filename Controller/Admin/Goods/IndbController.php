@@ -28,6 +28,18 @@ class IndbController extends \Controller\Admin\AdminController{
 					alertReplace('상품 등록에 성공했습니다. 상품 목록으로 이동합니다', 'admin/goods/list', 'parent');
 
 					break;
+
+				case 'update':
+
+					$result = $goods->data($formData)->validator('update')->update();
+
+					if($result === false){
+						throw new AlertException('상품 수정 실패');
+					}
+
+					alertReplace('상품 수정에 성공했습니다. 상품 목록으로 이동합니다', 'admin/goods/list', 'parent');
+
+					break;
 				
 				case 'category_create':
 

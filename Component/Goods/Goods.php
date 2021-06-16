@@ -38,6 +38,28 @@ class Goods{
 
 				break;
 
+			case 'update':
+				if(!$this->params['goodsNm']){
+					throw new AlertException('상품명을 입력해주세요');
+				}
+				if(!$this->params['shortDesc']){
+					throw new AlertException('상품 간단설명을 입력해주세요');
+				}
+				if(!$this->params['defaultPrice']){
+					throw new AlertException('상품 원가를 입력해주세요');
+				}
+				if(!$this->params['salePrice']){
+					throw new AlertException('상품 판매가를 입력해주세요');
+				}
+
+				self::goodsNmValidate();
+				self::shortDescValidate();
+				self::defaultPriceValidate();
+				self::salePriceValidate();
+				self::goodsImageValidate();
+
+				break;
+
 			case 'category_create':
 				if(!$this->params['categoryCode']){
 					throw new AlertException('분류 코드를 입력해주세요');
@@ -97,6 +119,47 @@ class Goods{
 			throw new AlertException('상품 등록 DB 처리 실패');
 		}
 
+		// 임시파일 여부 변경 처리
+		$file = App::load(\Component\Core\File::class);
+
+		$result = $file->thisIsNotTemporary($fileGroup);
+
+		if($result === false){
+			throw new AlertException('임시파일 여부 변경 실패');
+		}
+
+		return $result;
+	}
+
+	public function update(){
+		$goodsNo = $this->params['goodsNo']; // 수정 시 필요
+		$categoryCode = $this->params['categoryCode'];
+		$goodsNm = $this->params['goodsNm'];
+		$shortDesc = $this->params['shortDesc'];
+		$longDesc = $this->params['longDesc'];
+		$defaultPrice = $this->params['defaultPrice'];
+		$salePrice = $this->params['salePrice'];
+		$stock = $this->params['stock'];
+		$isSoldout = $this->params['isSoldout'];
+		$isDisplay = $this->params['isDisplay'];
+		$fileGroup = $this->params['fileGroup'];
+
+		$sql = "UPDATE jmmk_goods SET categoryCode = :categoryCode, goodsNm = :goodsNm, shortDesc = :shortDesc, longDesc = :longDesc, defaultPrice = :defaultPrice, salePrice = :salePrice, stock = :stock, isSoldout = :isSoldout, isDisplay = :isDisplay WHERE goodsNo = :goodsNo";
+
+		$stmt = db()->prepare($sql);
+
+		$bindData = ['categoryCode', 'goodsNm', 'shortDesc', 'longDesc', 'defaultPrice', 'salePrice', 'stock', 'isSoldout', 'isDisplay', 'goodsNo'];
+
+		foreach($bindData as $v){
+			$stmt->bindValue(":{$v}", $$v);
+		}
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('상품 수정 DB 처리 실패');
+		}
+		
 		// 임시파일 여부 변경 처리
 		$file = App::load(\Component\Core\File::class);
 

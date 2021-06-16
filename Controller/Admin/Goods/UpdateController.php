@@ -26,7 +26,12 @@ class UpdateController extends \Controller\Admin\AdminController{
 
 			$categoryList = $goods->getCategoryList();
 
-			App::render("Admin/Goods/register", ['categoryList' => $categoryList, 'goodsData' => $goodsData]);
+			// 상세 설명 이미지 가져오기
+			$file = App::load(\Component\Core\File::class);
+
+			$imageList = $file->getImageListExceptGoodsImage($goodsData['fileGroup']);
+
+			App::render("Admin/Goods/register", ['categoryList' => $categoryList, 'goodsData' => $goodsData, 'imageList' => $imageList]);
 
 		}catch(AlertException $e){
 			echo $e;

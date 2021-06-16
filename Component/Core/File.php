@@ -227,6 +227,36 @@ class File{
 		}
 	}
 
+	// 파일 그룹으로 goodsImage 제외한 이미지 리스트 조회
+	public function getImageListExceptGoodsImage($fileGroup){
+		try{
+			$isImage = 1;
+			$isGoodsImage = 0;
+
+			$sql = "SELECT * FROM jmmk_file WHERE fileGroup = :fileGroup AND isImage = :isImage AND isGoodsImage = :isGoodsImage";
+
+			$stmt = db()->prepare($sql);
+
+			$stmt->bindValue(":fileGroup", $fileGroup);
+			$stmt->bindValue(":isImage", $isImage, PDO::PARAM_INT);
+			$stmt->bindValue(":isGoodsImage", $isGoodsImage, PDO::PARAM_INT);
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('파일 그룹 조회 실패');
+			}
+
+			$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+			return $rows;
+
+		}catch(AlertException $e){
+			echo $e;
+			exit;
+		}
+	}
+
 	// 파일 번호로 파일 정보 조회
 	public function getFileInfo($fileNo){
 		try{
