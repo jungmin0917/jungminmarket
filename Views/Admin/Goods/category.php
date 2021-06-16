@@ -17,42 +17,48 @@
 		</div>
 	</form>
 
-	<table class='goods_category_table'>
-		<thead>
-			<tr>
-				<th width='5%'>선택</th>
-				<th width='20%'>분류 코드</th>
-				<th width='30%'>분류명</th>
-				<th width='20%'>진열 여부</th>
-				<th width='15%'>등록일자</th>
-			</tr>
-		</thead>
-		<tbody>
-			<?php foreach($categoryList as $v) : ?>
-			<tr>
-				<td>
-					<input type='checkbox' name="categoryNo[<?=$v['categoryNo']?>]">
-				</td>
-				<td>
-					<?=$v['categoryCode']?>
-				</td>
-				<td>
-					<?=$v['categoryNm']?>
-				</td>
-				<td>
-					<label for='isDisplayOn'>
-						<input type='radio' name='isDisplay[<?=$v['categoryNo']?>]' id='isDisplayOn' value='1' <?php if($v['isDisplay'] == '1'){echo "checked";}?> >진열
-					</label>
-					<label for='isDisplayOff'>
-						<input type='radio' name='isDisplay[<?=$v['categoryNo']?>]' id='isDisplayOff' value='0' <?php if($v['isDisplay'] == '0'){echo "checked";}?> >미진열
-					</label>
-				</td>
-				<td>
-					<?=date("Y-m-d", strtotime($v['regDt']))?><br>
-					<?=date("H:i:s", strtotime($v['regDt']))?>
-				</td>
-			</tr>
-			<?php endforeach; ?>
-		</tbody>
-	</table>
+	<form method='post' action='indb' target='ifrm_hidden' autocomplete='off' class='goods_category_table_form'>
+		<input type='hidden' name='mode' value='category_modify'>
+		<table class='goods_category_table'>
+			<thead>
+				<tr>
+					<th width='5%'>선택</th>
+					<th width='20%'>분류 코드</th>
+					<th width='30%'>분류명</th>
+					<th width='20%'>진열 여부</th>
+					<th width='15%'>등록일자</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach($categoryList as $v) : ?>
+				<tr>
+					<td>
+						<input type='checkbox' name="categoryNo[<?=$v['categoryNo']?>]">
+					</td>
+					<td>
+						<?=$v['categoryCode']?>
+					</td>
+					<td>
+						<?=$v['categoryNm']?>
+					</td>
+					<td>
+						<label for='isDisplayOn[<?=$v['categoryNo']?>]'>
+							<input type='radio' name='isDisplay[<?=$v['categoryNo']?>]' id='isDisplayOn[<?=$v['categoryNo']?>]' value='1' <?php if($v['isDisplay'] == '1'){echo "checked";}?> >진열
+						</label>
+						<label for='isDisplayOff[<?=$v['categoryNo']?>]'>
+							<input type='radio' name='isDisplay[<?=$v['categoryNo']?>]' id='isDisplayOff[<?=$v['categoryNo']?>]' value='0' <?php if($v['isDisplay'] == '0'){echo "checked";}?> >미진열
+						</label>
+					</td>
+					<td>
+						<?=date("Y-m-d", strtotime($v['regDt']))?><br>
+						<?=date("H:i:s", strtotime($v['regDt']))?>
+					</td>
+				</tr>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
+		<div class='goods_category_submit_wrap'>
+			<input type='submit' value='선택 일괄 변경하기'>
+		</div>
+	</form>
 </div>

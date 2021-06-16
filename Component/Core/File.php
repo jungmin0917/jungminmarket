@@ -11,6 +11,7 @@ use Component\Exception\AlertException;
 class File{
 	private $uploadPath = __DIR__ . "/../../assets/Upload/";
 
+	// 일반 첨부파일 업로드 함수
 	public function upload($fileGroup){
 		try{
 			$fileData = request()->files();
@@ -62,6 +63,7 @@ class File{
 		}
 	}
 
+	// 이미지 업로드 함수
 	public function uploadImage($fileGroup){
 		try{
 			$files = request()->files();
@@ -78,6 +80,61 @@ class File{
 			$stmt = db()->prepare($sql);
 
 			$bindData = ['fileGroup', 'fileName', 'fileType', 'isImage'];
+
+			foreach($bindData as $v){
+				$stmt->bindValue(":{$v}", $$v);
+			}
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('파일 업로드 실패');
+			}
+
+			// 파일 위치 옮기기
+			$uploadPath = __DIR__ . "/../../assets/Upload/Image/";
+
+			// 폴더 없으면 만들기
+			if(!file_exists($uploadPath)){
+				mkdir($uploadPath);
+			}
+
+			$result = move_uploaded_file($file['tmp_name'], $uploadPath.$fileName);
+
+			if($result === false){
+				throw new AlertException('파일 옮기기 실패');
+			}
+
+			// 업로드된 파일 정보 조회
+
+			$fileNo = db()->lastInsertId();
+
+			return $fileNo;
+		}catch(AlertException $e){
+			echo $e;
+			exit;
+		}
+	}
+
+
+	// 상품 이미지 업로드 함수
+	public function uploadGoodsImage($fileGroup){
+		try{
+			$files = request()->files();
+
+			extract($files);
+
+			// DB 처리
+			$isImage = 1;
+			$isGoodsImage = 1;
+			$fileName = date("YmdHis")."_".$file['name'];
+			$fileType = $file['type'];
+
+			$sql = "INSERT INTO jmmk_file (fileGroup, fileName, fileType, isImage, isGoodsImage) VALUES (:fileGroup, :fileName, :fileType, :isImage, :isGoodsImage)";
+
+			$stmt = db()->prepare($sql);
+
+			$bindData = ['fileGroup', 'fileName', 'fileType', 'isImage', 'isGoodsImage'];
 
 			foreach($bindData as $v){
 				$stmt->bindValue(":{$v}", $$v);
@@ -196,6 +253,32 @@ class File{
 			}
 
 			return $data;
+
+		}catch(AlertException $e){
+			echo $e;
+			exit;
+		}
+	}
+
+	public function getGoodsImageFileInfo($fileGroup){
+		try{
+			$isGoodsImage = 1;
+			$sql = "SELECT * FROM jmmk_file WHERE fileGroup = :fileGroup AND isGoodsImage = :isGoodsImage";
+
+			$stmt = db()->prepare($sql);
+
+			$stmt->bindValue(":isGoodsImage", $isGoodsImage, PDO::PARAM_INT);
+			$stmt->bindValue(":fileGroup", $fileGroup);
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('파일 정보 조회 실패');
+			}
+
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+			return $row;
 
 		}catch(AlertException $e){
 			echo $e;
@@ -382,8 +465,31 @@ class File{
 	public function download($fileName){
 
 		$uploadPath = $this->uploadPath;
-		
-		$filePath = $uploadPath.$fileName;
+
+		// 해당 파일명이 이미지인지 확인
+
+		$file = App::load(\Component\Core\File::class);
+
+		$sql = "SELECT * FROM jmmk_file WHERE fileName = :fileName";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":fileName", $fileName);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('파일명으로 파일 조회 실패');
+		}
+
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		if($row['isImage'] == 1){
+			$filePath = $uploadPath."Image/".$fileName;
+		}else{
+			$filePath = $uploadPath.$fileName;
+		}
+
 		$fileSize = filesize($filePath);
 
 		header("Pragma: no-cache"); // 캐싱 방지
@@ -396,5 +502,54 @@ class File{
 		ob_clean();
 		flush();
 		readfile($filePath);
+	}
+
+	// 임시 파일 전부 지우기
+	public function deleteTemporaryFiles(){
+		// 조건은 jmmk_file의 isNotTemporary 값이 0일 경우
+
+		$isNotTemporary = 0;
+		$sql = "SELECT * FROM jmmk_file WHERE isNotTemporary = :isNotTemporary";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":isNotTemporary", $isNotTemporary, PDO::PARAM_INT);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('isNotTemporary로 레코드 조회 실패');
+		}
+
+		$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		// 파일 지우기
+		foreach($rows as $v){
+			self::deleteFileByNo($v['fileNo']);
+		}
+	}
+
+	public function thisIsNotTemporary($fileGroup){
+		try{
+			$isNotTemporary = 1;
+			$sql = "UPDATE jmmk_file SET isNotTemporary = :isNotTemporary WHERE fileGroup = :fileGroup";
+
+			$stmt = db()->prepare($sql);
+
+			$stmt->bindValue(":fileGroup", $fileGroup);
+			$stmt->bindValue(":isNotTemporary", $isNotTemporary);
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('임시파일 여부 변경 DB 처리 실패');
+			}
+
+			return $result;
+
+		}catch(AlertException $e){
+			echo $e;
+			exit;
+		}
 	}
 }

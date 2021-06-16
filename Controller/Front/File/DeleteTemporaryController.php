@@ -5,7 +5,7 @@ namespace Controller\Front\File;
 use App;
 use Component\Exception\AlertException;
 
-class DownloadController extends \Controller\Front\FrontController{
+class DeleteTemporaryController extends \Controller\Front\FrontController{
 
 	public function __construct(){
 		$this->layoutBlank = true;
@@ -13,10 +13,15 @@ class DownloadController extends \Controller\Front\FrontController{
 
 	public function index(){
 		try{
-			$fileName = request()->get('file');
 			$file = App::load(\Component\Core\File::class);
 
-			$file->download($fileName);
+			$result = $file->deleteTemporaryFiles();
+
+			if($result === false){
+				throw new AlertException('임시파일 삭제 실패');
+			}
+
+			alertReload('임시파일이 전부 삭제되었습니다', 'parent');
 		}catch(AlertException $e){
 			echo $e;
 			exit;

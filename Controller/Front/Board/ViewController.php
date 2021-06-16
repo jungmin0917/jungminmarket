@@ -32,9 +32,10 @@ class ViewController extends \Controller\Front\FrontController{
 			$board = App::load(\Component\Board\Board::class);
 
 			$boardNm = $board->getBoardNm($boardId);
-			$data = $board->getPost($postNo);
 
+			// 조회수 업데이트
 			$board->updateViews($boardId, $postNo);
+			$data = $board->getPost($postNo);
 
 			$data = array_merge($data, ['boardNm' => $boardNm]);
 			

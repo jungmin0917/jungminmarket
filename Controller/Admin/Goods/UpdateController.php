@@ -5,10 +5,11 @@ namespace Controller\Admin\Goods;
 use App;
 use Component\Exception\AlertException;
 
-class CategoryController extends \Controller\Admin\AdminController{
+class UpdateController extends \Controller\Admin\AdminController{
+
 	public function __construct(){
 		$this->topMenuCode = 'goods';
-		$this->subMenuCode = 'goods_category';
+		$this->subMenuCode = 'goods_update';
 	}
 
 	public function subMenu(){
@@ -19,9 +20,13 @@ class CategoryController extends \Controller\Admin\AdminController{
 		try{
 			$goods = App::load(\Component\Goods\Goods::class);
 
+			$goodsNo = request()->get('goodsNo');
+
+			$goodsData = $goods->getGoods($goodsNo);
+
 			$categoryList = $goods->getCategoryList();
 
-			App::render("Admin/Goods/category", ['categoryList' => $categoryList]);
+			App::render("Admin/Goods/register", ['categoryList' => $categoryList, 'goodsData' => $goodsData]);
 
 		}catch(AlertException $e){
 			echo $e;

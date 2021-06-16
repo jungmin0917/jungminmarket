@@ -18,3 +18,5 @@
 	<title>어드민 페이지</title>
 </head>
 <body>
+<div class='black dn'></div>
+<div class='layer_popup dn'></div>

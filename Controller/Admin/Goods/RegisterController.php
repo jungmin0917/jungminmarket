@@ -17,8 +17,10 @@ class RegisterController extends \Controller\Admin\AdminController{
 	public function index(){
 		$goods = App::load(\Component\Goods\Goods::class);
 
-		$categoryList = $goods->getCategory();
+		$categoryList = $goods->getCategoryList();
 
-		App::render("Admin/Goods/register");
+		$fileGroup = md5(uniqid());
+
+		App::render("Admin/Goods/register", ['categoryList' => $categoryList, 'fileGroup' => $fileGroup]);
 	}
 }

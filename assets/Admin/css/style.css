@@ -19,6 +19,48 @@ html{
     margin:0 auto;
 }
 
+.black{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+    opacity: 0.5;
+    z-index: 10;
+}
+
+.dn{
+    display: none;
+}
+
+input[type='button']{
+    cursor: pointer;
+}
+
+input[type='file']{
+    cursor: pointer;
+}
+
+/* 레이어 팝업 관련 S */
+
+.layer_popup{
+    position: fixed;
+    z-index: 11;
+    width: 600px;
+    height: 400px;
+    left: calc((100% - 600px) / 2);
+    top: calc((100% - 400px) / 2);
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 5px white;
+}
+
+.layer_popup iframe{
+    width: 100%;
+    height: 100%;
+}
+
 /* 관리자 로그인 관련 S */
 
 .admin_login_wrap{
@@ -237,9 +279,12 @@ html{
 
 .member_list_table tbody select{
     font-family: 'RIDIBatang', sans-serif;
+    border: 0;
+    box-shadow: 0 0 3px black;
+    border-radius: 5px;
     font-size:1.1rem;
     height: 30px;
-    width: 65px;
+    width: 60px;
     padding-left: 2px;
 }
 
@@ -453,6 +498,9 @@ html{
 
 .board_list_table tbody select{
     font-family: 'RIDIBatang', sans-serif;
+    border: 0;
+    box-shadow: 0 0 3px black;
+    border-radius: 5px;
     font-size:1.1rem;
     height: 30px;
     width: 80px;
@@ -475,8 +523,12 @@ html{
 
 .board_list_form input[type='text']{
     font-family: 'RIDIBatang', sans-serif;
+    border: 0;
+    height: 30px;
+    box-shadow: 0 0 3px black;
+    border-radius: 5px;
     font-size: 1.2rem;
-    padding: 2px 5px;
+    padding: 0 10px;
     display: block;
     width: 90%;
     margin: 0 auto;
@@ -619,8 +671,17 @@ html{
     margin-bottom: 30px;
 }
 
+.goods_register_wrap .red{
+    color: red;
+    font-size: 1.2rem;
+}
+
 .goods_register_form{
     font-size: 1.3rem;
+}
+
+.goods_register_ul{
+    margin-bottom: 50px;
 }
 
 .goods_register_ul > li:first-child{
@@ -636,6 +697,12 @@ html{
     clear: both;
     display: block;
     content: '';
+}
+
+.goods_register_ul > li i{
+    position: relative;
+    top: 2.5px;
+    margin-right: 3px;
 }
 
 .goods_register_ul > li > label{
@@ -654,14 +721,16 @@ html{
     box-shadow: 0 0 3px #999;
     width: 250px;
     height: 32px;
+    transition: all 0.5s;
+}
+
+.goods_register_ul > li > input:focus,
+.goods_register_ul > li > select:focus{
+    box-shadow: 0 0 3px dodgerblue;
 }
 
 .goods_register_ul > li > select{
     padding: 0 10px;
-}
-
-.goods_register_ul > li > .radio{
-    line-height: 32px;
 }
 
 .goods_register_ul > li > .radio{
@@ -674,12 +743,133 @@ html{
 
 .goods_register_ul > li > .radio input[type='radio']{
     position: relative;
-    top: 3px;
+    top: 2px;
     margin-right: 5px;
 }
 
-/* 상품관리 - 상품등록 관련 E */
+.goods_register_ul .shortDesc input{
+    width: 500px;
+}
 
+.goods_register_ul > li > div{
+    float: left;
+    width: calc(100% - 200px);
+}
+
+.goods_register_form input[type='submit']{
+    font-family: 'RIDIBatang', sans-serif;
+    background-color:#2a2a2a;
+    color:white;
+    font-size:1.5rem;
+    padding:10px 40px;
+    cursor:pointer;
+    border-radius:5px;
+    border:0;
+    transition: all 0.5s;
+}
+
+.goods_register_submit_wrap{
+    text-align: center;
+}
+
+.goods_register_ul .goodsImage_wrap:after{
+    clear: both;
+    display: block;
+    content: '';
+}
+
+.goods_register_ul .goodsImage div{
+    height: 200px;
+}
+
+.goods_register_ul .goodsImage .red{
+    color: red;
+}
+
+.goods_register_ul .goodsImage input[type='button']{
+    font-family: 'RIDIBatang', sans-serif;
+    font-size: 1.2rem;
+    background-color: #fff;
+    border: 0;
+    box-shadow: 0 0 3px dodgerblue;
+    padding: 5px 10px;
+    float: left;
+    margin-right: 20px;
+    height: 100%;
+    transition: all 0.5s;
+}
+
+.goods_register_ul .goodsImage input[type='button']:hover,
+.goods_register_ul .goodsImage input[type='button']:focus{
+    background-color: skyblue;
+}
+
+.goods_register_ul .goodsImage .goodsImage_preview{
+    width: 200px;
+    height: 100%;
+    box-shadow: 0 0 3px dodgerblue;
+    float: left;
+    padding: 5px;
+}
+
+.goods_register_ul .goodsImage_preview img{
+    width: 100%;
+    height: 100%;
+}
+
+.goods_register_ul .longDesc .red{
+    color: red;
+}
+
+.goods_register_ul .longDesc .file_box_wrap:after{
+    clear: both;
+    display: block;
+    content: '';
+}
+
+.goods_register_ul .longDesc input[type='button']{
+    font-family: 'RIDIBatang', sans-serif;
+    font-size: 1.2rem;
+    background-color: #fff;
+    border: 0;
+    box-shadow: 0 0 3px dodgerblue;
+    padding: 5px 10px;
+    float: left;
+    margin-right: 10px;
+    height: 100%;
+    margin-top: 20px;
+    transition: all 0.5s;
+    float: left;
+    margin-bottom: 10px;
+}
+
+.goods_register_ul .longDesc input[type='button']:hover,
+.goods_register_ul .longDesc input[type='button']:focus{
+    background-color: skyblue;
+}
+
+.goods_register_ul .longDesc .file_box{
+    float: left;
+    width: 100%;
+    padding: 10px 15px;
+    box-shadow: 0 0 3px red;
+    border-radius: 10px;
+    margin: 10px 0 5px 0;
+}
+
+.goods_register_ul .longDesc .file_box i{
+    cursor: pointer;
+    margin-right: 5px;
+    position: relative;
+    top: 1px;
+}
+
+.goods_register_ul .longDesc .file_box a{
+    position: relative;
+    top: -1px;
+}
+
+/* 상품관리 - 상품등록 관련 E */
 
 
 /* 상품관리 - 분류설정 관련 S */
@@ -687,12 +877,11 @@ html{
 .goods_category_wrap .title{
     font-size: 1.7rem;
     margin-bottom: 30px;
-    box-shadow: 0 0 5px black;
 }
 
 .goods_category_form{
     font-size: 1.3rem;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
 }
 
 .goods_category_ul{
@@ -729,6 +918,11 @@ html{
     box-shadow: 0 0 3px #999;
     width: 250px;
     height: 32px;
+    transition: all 0.5s;
+}
+
+.goods_category_ul > li > input:focus{
+    box-shadow: 0 0 3px dodgerblue;
 }
 
 .goods_category_form input[type='submit']{
@@ -786,4 +980,181 @@ html{
     top: 1px;
 }
 
+.goods_category_table input[type='radio']{
+    position: relative;
+    top: 2px;
+}
+
+.goods_category_table td label:first-child{
+    margin-right: 5px;
+}
+
+.goods_category_table_form input[type='submit']{
+    font-family: 'RIDIBatang', sans-serif;
+    background-color:#2a2a2a;
+    color:white;
+    font-size:1.5rem;
+    padding:10px 40px;
+    cursor:pointer;
+    border-radius:5px;
+    border:0;
+    margin-top: 30px;
+}
+
+.goods_category_submit_wrap{
+    text-align: center;
+}
+
 /* 상품관리 - 분류설정 관련 E */
+
+
+/* 상품관리 - 상품목록 관련 S */
+
+.goods_list_table{
+    width: 1040px;
+    margin: 0 auto;
+}
+
+.goods_list_table thead{
+    font-size: 1.3rem;
+    background-color: lightblue;
+}
+
+.goods_list_table tbody{
+    font-size: 1.1rem;
+}
+
+.goods_list_table thead th{
+    padding: 15px 0;
+    border-right: 1px solid #fff;
+}
+
+.goods_list_table tbody td{
+    text-align: center;
+    vertical-align: middle;
+}
+
+.goods_list_table tbody .goodsImg{
+    padding: 10px;
+}
+
+.goods_list_table tbody .goodsImg a{
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    position: relative;
+    top: 2px;
+}
+
+.goods_list_table tbody .goodsImg img{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+.goods_list_table tbody .goodsNm{
+    text-align: left;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 73px;
+    margin: 0 10px;
+}
+
+.goods_list_table tbody tr:nth-child(2n){
+    background-color: lightcyan;
+}
+
+.goods_list_table tbody td select{
+    font-family: 'RIDIBatang', sans-serif;
+    height: 30px;
+    border: 0;
+    box-shadow: 0 0 3px black;
+    border-radius: 5px;
+}
+
+.goods_list_table tbody .buttons a{
+    display: inline-block;
+    padding: 8px;
+    border-radius: 5px;
+    box-shadow: 0 0 3px dodgerblue;
+    transition: all 0.5s;
+    background-color: skyblue;
+}
+
+.goods_list_table tbody .buttons a:first-child{
+    margin-right: 10px;
+}
+
+.goods_list_table tbody .buttons a:focus,
+.goods_list_table tbody .buttons a:hover{
+    background-color: dodgerblue;
+    color: white;
+}
+
+.goods_list_table tbody input[type='text']{
+    font-family: 'RIDIBatang', sans-serif;
+    width: 50px;
+    height: 30px;
+    border: 0;
+    box-shadow: 0 0 3px black;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.goods_list_wrap .table_list_submit_wrap{
+    text-align: center;
+}
+
+.goods_list_table_form input[type='submit']{
+    font-family: 'RIDIBatang', sans-serif;
+    background-color:#2a2a2a;
+    color:white;
+    font-size:1.5rem;
+    padding:10px 40px;
+    cursor:pointer;
+    border-radius:5px;
+    border:0;
+    margin-top: 30px;
+    transition: all 0.5s;
+}
+
+.goods_list_table_form input[type='submit']:focus,
+.goods_list_table_form input[type='submit']:hover{
+    opacity: 0.5;
+}
+
+.goods_list_table_form input[type='checkbox']{
+    zoom: 1.5;
+}
+
+
+/* 상품관리 - 상품목록 관련 E */
+
+
+/* 기타설정 - 임시파일 관련 S */
+
+.etc_temporary_wrap .title{
+    font-size: 1.7rem;
+    margin-bottom: 30px;
+}
+
+.etc_temporary_wrap input[type='submit']{
+    font-family: 'RIDIBatang', sans-serif;
+    background-color:#2a2a2a;
+    color:white;
+    font-size:1.5rem;
+    padding:10px 40px;
+    cursor:pointer;
+    border-radius:5px;
+    border:0;
+    transition: all 0.5s;
+}
+
+.etc_temporary_wrap input[type='submit']:focus,
+.etc_temporary_wrap input[type='submit']:hover{
+    opacity: 0.5;
+}
+
+/* 기타설정 - 임시파일 관련 E */

@@ -639,6 +639,13 @@ class Board{
 			}
 		}
 
+		// 임시파일 여부 변경 처리
+		$result = $file->thisIsNotTemporary($fileGroup);
+
+		if($result === false){
+			throw new AlertException('임시파일 여부 변경 실패');
+		}
+
 		return $result;
 	}
 
@@ -793,6 +800,13 @@ class Board{
 
 		if($result === false){
 			throw new AlertException('isImageExists 업데이트 실패');
+		}
+
+		// 임시파일 여부 변경 처리
+		$result = $file->thisIsNotTemporary($fileGroup);
+
+		if($result === false){
+			throw new AlertException('임시파일 여부 변경 실패');
 		}
 
 		return $result;

@@ -12,5 +12,8 @@
 		<li>
 			<a href='<?=siteUrl("admin/order")?>' <?php if($topMenuCode == 'order'){echo " class = 'on'";}?> >주문관리</a>
 		</li>
+		<li>
+			<a href='<?=siteUrl("admin/etc")?>' <?php if($topMenuCode == 'etc'){echo " class = 'on'";}?> >기타설정</a>
+		</li>
 	</ul>
 </div>

@@ -9,5 +9,10 @@
 		<li>
 			<a href='<?=siteUrl("admin/goods/category")?>' <?php if($subMenuCode == 'goods_category'){echo " class='on'";}?> >분류설정</a>
 		</li>
+		<?php if($subMenuCode == 'goods_update') : ?>
+		<li>
+			<a class='on'>상품수정중</a>
+		</li>
+		<?php endif; ?>
 	</ul>
 </div>
