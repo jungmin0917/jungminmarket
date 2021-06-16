@@ -1964,6 +1964,8 @@ input[type='file']{
 	width: calc((100% - 60px) / 3);
 	float: left;
 	margin-right: 30px;
+	margin-bottom: 50px;
+	height: 480px;
 }
 
 .goods_list_ul li:nth-child(3n+3){
@@ -1989,7 +1991,7 @@ input[type='file']{
 .goods_list_ul li .goodsImg img{
 	display: inline-block;
 	width: auto;
-	height: auto;
+	height: 330px;
 	max-width: 100%;
 	max-height: 330px;
 	transition: all 0.5s;
@@ -2005,6 +2007,9 @@ input[type='file']{
 .goods_list_ul li .goodsNm a{
 	display: block;
 	padding: 20px 0 15px 0;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
 .goods_list_wrap .info_box_wrap{
@@ -2049,7 +2054,7 @@ input[type='file']{
 }
 
 .goods_list_wrap .goods_list_ul_wrap{
-	padding: 30px 0;
+	padding-top: 30px;
 }
 
 .goods_list_ul li .shortDesc{
@@ -2060,6 +2065,7 @@ input[type='file']{
 
 .goods_list_ul li .price{
 	font-size: 1.1rem;
+	margin-bottom: 10px;
 }
 
 .goods_list_ul li .price .defaultPrice{
@@ -2070,6 +2076,22 @@ input[type='file']{
 .goods_list_ul li .price .salePrice{
 	font-size: 1.3rem;
 	color: dodgerblue;
+}
+
+.goods_list_ul li .soldout{
+	padding: 5px;
+	background-color: red;
+	color: white;
+	border-radius: 5px;
+	display: inline-block;
+}
+
+.goods_list_ul li .low_in_stock{
+	padding: 5px;
+	background-color: orange;
+	color: white;
+	border-radius: 5px;
+	display: inline-block;
 }
 
 /* 상품 목록 관련 E */

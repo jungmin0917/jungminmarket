@@ -13,11 +13,16 @@ class ListController extends \Controller\Front\FrontController{
 
 			$goods = App::load(\Component\Goods\Goods::class);
 
-			$goodsList = $goods->getGoodsByCategory($category);
+			$page = request()->get('page');
+
+			$page = $page?$page:1;
+			$limit = 6;
+
+			$goodsData = $goods->getGoodsByCategory($category, $page, $limit);
 
 			$categoryNm = $goods->getCategoryNm($category);
 
-			App::render("Front/Goods/list", ['goodsList' => $goodsList, 'categoryNm' => $categoryNm]);
+			App::render("Front/Goods/list", ['goodsList' => $goodsData['list'], 'categoryNm' => $categoryNm, 'pagination' => $goodsData['pagination']]);
 
 		}catch(AlertException $e){
 			echo $e;

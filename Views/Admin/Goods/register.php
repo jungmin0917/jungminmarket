@@ -62,7 +62,7 @@
 				</div>
 			</li>
 			<li class='goodsImage'>
-				<label for='goodsImage'>이미지 설정 <span class='red'>*</span><br><span class='red'>*1개만 등록 가능합니다<br>추가 이미지는 아래의<br>상세설명에 넣어주세요<br>새 이미지 추가 시<br>기존 이미지가 삭제됩니다</span></label>
+				<label for='goodsImage'>이미지 설정 <span class='red'>*</span><br><span class='red'>*1개만 등록 가능합니다<br>추가 이미지는 아래의<br>상세설명에 넣어주세요<br>*새 이미지 추가 시<br>기존 이미지가 삭제됩니다</span></label>
 				<div class='goodsImage_wrap'>
 					<input type='button' value='이미지 설정' name='goodsImage' id='goodsImage' class='goodsImageSet'>
 					<div class='goodsImage_preview'>

@@ -431,21 +431,68 @@ class Goods{
 		return $row;
 	}
 
-	public function getGoodsByCategory($category){
-		$sql = "SELECT * FROM jmmk_goods WHERE categoryCode = :categoryCode";
+	public function getGoodsByCategory($category, $page = 1, $limit = 6){
+
+		$url = siteUrl("goods/list?category={$category}");
+		$page = $page?$page:1;
+		$limit = $limit?$limit:6;
+		$offset = ($page - 1) * $limit;
+
+
+		// total 구하기
+
+		$isDisplay = 1;
+		$sql = "SELECT COUNT(*) as cnt FROM jmmk_goods WHERE categoryCode = :categoryCode AND isDisplay = :isDisplay";
 
 		$stmt = db()->prepare($sql);
 
 		$stmt->bindValue(":categoryCode", $category);
+		$stmt->bindValue(":isDisplay", $isDisplay, PDO::PARAM_INT);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('카테고리 걸어서 상품 총 개수 조회 실패');
+		}
+
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		$total = $row['cnt'];
+
+
+
+		// list 구하기
+
+		$isDisplay = 1;
+		$sql = "SELECT * FROM jmmk_goods WHERE categoryCode = :categoryCode AND isDisplay = :isDisplay ORDER BY regDt DESC LIMIT :limit OFFSET :offset";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":categoryCode", $category);
+		$stmt->bindValue(":isDisplay", $isDisplay, PDO::PARAM_INT);
+		$stmt->bindValue(":limit", $limit, PDO::PARAM_INT);
+		$stmt->bindValue(":offset", $offset, PDO::PARAM_INT);
 
 		$result = $stmt->execute();
 
 		if($result === false){
 			throw new AlertException('카테고리로 상품 조회 실패');
-		}
+		}	
 
-		$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		$list = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-		return $rows;
+
+		// 페이징하기
+
+		$paginator = App::load(\Component\Core\Pagination::class, $page, $limit, $total, $url);
+
+		$pagination = $paginator->getHTML();
+
+		$data = [
+			'list' => $list,
+			'pagination' => $pagination,
+		];
+
+		return $data;
 	}
 }

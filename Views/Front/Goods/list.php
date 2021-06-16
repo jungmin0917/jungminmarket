@@ -32,9 +32,20 @@
 					<div class='price'>
 						<span class='defaultPrice'><?=number_format($v['defaultPrice'])?>원</span> <span class='salePrice'><?=number_format($v['salePrice'])?>원</span>
 					</div>
+					<div class='stock_info'>
+						<?php if($v['stock'] <= 10) : ?>
+							<span class='low_in_stock'>품절임박</span>
+						<?php endif; ?>
+
+						<?php if($v['isSoldout'] == 1) : ?>
+							<span class='soldout'>품절됨</span>
+						<?php endif; ?>
+					</div>
 				</li>
 			<?php endforeach; ?>
 		</ul>
 	</div>
+
+	<?=$pagination?>
 
 </section>
