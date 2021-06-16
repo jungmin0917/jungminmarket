@@ -2078,7 +2078,7 @@ input[type='file']{
 	color: dodgerblue;
 }
 
-.goods_list_ul li .soldout{
+.goods_list_ul li .stock_info .soldout{
 	padding: 5px;
 	background-color: red;
 	color: white;
@@ -2086,7 +2086,7 @@ input[type='file']{
 	display: inline-block;
 }
 
-.goods_list_ul li .low_in_stock{
+.goods_list_ul li .stock_info .low_in_stock{
 	padding: 5px;
 	background-color: orange;
 	color: white;
@@ -2094,7 +2094,7 @@ input[type='file']{
 	display: inline-block;
 }
 
-.goods_list_ul li .new_item{
+.goods_list_ul li .stock_info .new_item{
 	padding: 5px;
 	background-color: green;
 	color: white;
@@ -2103,3 +2103,156 @@ input[type='file']{
 }
 
 /* 상품 목록 관련 E */
+
+/* 상품 보기 관련 S */
+
+.goods_view_box{
+	padding: 0 20px;
+}
+
+.goods_view_box:after{
+	clear: both;
+	display: block;
+	content: '';
+}
+
+.goods_view_box .goodsImg{
+	float: left;
+	width: calc((100% - 50px) / 2);
+	margin-right: 50px;
+	text-align: center;
+}
+
+.goods_view_box .goodsInfo{
+	float: left;
+	width: calc((100% - 50px) / 2);
+	border-top: 2px solid #000;
+}
+
+.goods_view_box .goodsImg img{
+	display: inline-block;
+	width: auto;
+	height: 100%;
+	max-width: 100%;
+	max-height: 495px;
+}
+
+.goods_view_box .goodsInfo > .goodsNm{
+	font-size: 1.5rem;
+	padding: 20px 20px 17px 20px;
+	border-bottom: 1px solid #ccc;
+}
+
+.goods_view_box .stock_info{
+	margin-top: 10px;
+	font-size: 1rem;
+}
+
+.goods_view_box .stock_info .soldout{
+	padding: 5px;
+	background-color: red;
+	color: white;
+	border-radius: 5px;
+	display: inline-block;
+}
+
+.goods_view_box .stock_info .low_in_stock{
+	padding: 5px;
+	background-color: orange;
+	color: white;
+	border-radius: 5px;
+	display: inline-block;
+}
+
+.goods_view_box .stock_info .new_item{
+	padding: 5px;
+	background-color: green;
+	color: white;
+	border-radius: 5px;
+	display: inline-block;
+}
+
+.goods_view_box .price{
+	padding: 20px;
+	border-bottom: 1px solid #ccc;
+}
+
+.goods_view_box .price:after{
+	clear: both;
+	display: block;
+	content: '';
+}
+
+.goods_view_box .price .title{
+	float: left;
+	width: 30%;
+	font-size: 1.3rem;
+}
+
+.goods_view_box .price .content{
+	float: left;
+	width: 70%;
+}
+
+.goods_view_box .price .content .defaultPrice{
+	text-decoration: line-through;
+	color: grey;
+	font-size: 1.1rem;
+	margin-right: 5px;
+}
+
+
+.goods_view_box .price .content .salePrice{
+	font-size: 1.3rem;
+	color: dodgerblue;
+}
+
+.goods_view_box .option{
+	padding: 20px;
+	border-bottom: 1px solid #ccc;
+}
+
+.goods_view_box .option .title{
+	font-size: 1.3rem;
+	margin-bottom: 15px;
+}
+
+.goods_view_box .item_count{
+	padding: 20px;
+	font-size: 1.2rem;
+}
+
+.goods_view_box .item_count:after{
+	clear: both;
+	display: block;
+	content: '';
+}
+
+.goods_view_box .item_count .goods_name{
+	width: 50%;
+	float: left;
+	line-height: 25px;
+}
+
+.goods_view_box .item_count .goods_count{
+	width: 25%;
+	float: left;
+}
+
+.goods_view_box .item_count .goods_count input{
+	width: 70%;
+    font-family: 'RIDIBatang', sans-serif;
+    font-size: 1.2rem;
+    height: 25px;
+    padding: 0 10px;
+    border: 0;
+    box-shadow: 0 0 3px black;
+    border-radius: 5px;
+}
+
+.goods_view_box .item_count .total_price{
+	width: 25%;
+	float: left;
+}
+
+/* 상품 보기 관련 E */

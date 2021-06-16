@@ -431,6 +431,24 @@ class Goods{
 		return $row;
 	}
 
+	public function getGoodsCountByCategory($category){
+		$sql = "SELECT COUNT(*) as cnt FROM jmmk_goods WHERE categoryCode = :categoryCode";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":categoryCode", $category);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('전체 상품 조회 실패');
+		}
+
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		return $row['cnt'];
+	}
+
 	public function getGoodsByCategory($category, $page = 1, $limit = 6){
 
 		$url = siteUrl("goods/list?category={$category}");

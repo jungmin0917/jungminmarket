@@ -3,7 +3,7 @@
 
 	<div class='info_box_wrap'>
 		<div class='info_box'>
-			<div class='item_count'><span class='count'><?=count($goodsList)?></span> items</div>
+			<div class='item_count'><span class='count'><?=$goodsCount?></span> items</div>
 			<div class='sort_select'>
 				<select name='sort_method'>
 					<option value='new'>신상품순</option>
