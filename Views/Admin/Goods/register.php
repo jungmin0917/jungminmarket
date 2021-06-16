@@ -84,12 +84,14 @@
 					<textarea name='longDesc' id='contents'><?php if(isset($goodsData)){echo $goodsData['longDesc'];}?></textarea>
 					<div class='file_box_wrap'>
 						<input type='button' value='이미지 추가' name='longDescImage' id='longDescImage' class='longDescImageAdd'>
-						<?php foreach($imageList as $v) : ?>
-							<div class='file_box' data-fileno='<?=$v['fileNo']?>' data-url="/workspace/jungminmarket/assets/Upload/Image/<?=$v['fileName']?>">
-								<i class='addImage xi-file-upload-o'></i><i class='remove xi-file-remove-o'></i>
-								<a href="/workspace/jungminmarket/file/download?file=<?=$v['fileName']?>"><?=$v['fileName']?></a>
-							</div>
-						<?php endforeach; ?>
+						<?php if(isset($goodsData)) : ?>
+							<?php foreach($imageList as $v) : ?>
+								<div class='file_box' data-fileno='<?=$v['fileNo']?>' data-url="/workspace/jungminmarket/assets/Upload/Image/<?=$v['fileName']?>">
+									<i class='addImage xi-file-upload-o'></i><i class='remove xi-file-remove-o'></i>
+									<a href="/workspace/jungminmarket/file/download?file=<?=$v['fileName']?>"><?=$v['fileName']?></a>
+								</div>
+							<?php endforeach; ?>
+						<?php endif; ?>
 					</div>
 				</div>
 			</li>

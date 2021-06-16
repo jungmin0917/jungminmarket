@@ -11,19 +11,19 @@
 				<a href='<?=siteUrl("goods/list?category=new")?>'>NEW</a>
 			</li>
 			<li>
-				<a href='<?=siteUrl("goods/list?category=1")?>'>상의</a>
+				<a href='<?=siteUrl("goods/list?category=top")?>'>상의</a>
 			</li>
 			<li>
-				<a href='<?=siteUrl("goods/list?category=2")?>'>하의</a>
+				<a href='<?=siteUrl("goods/list?category=bottom")?>'>하의</a>
 			</li>
 			<li>
-				<a href='<?=siteUrl("goods/list?category=3")?>'>신발</a>
+				<a href='<?=siteUrl("goods/list?category=shoes")?>'>신발</a>
 			</li>
 			<li>
-				<a href='<?=siteUrl("goods/list?category=4")?>'>속옷</a>
+				<a href='<?=siteUrl("goods/list?category=underwear")?>'>속옷</a>
 			</li>
 			<li>
-				<a href='<?=siteUrl("goods/list?category=5")?>'>악세서리</a>
+				<a href='<?=siteUrl("goods/list?category=accessory")?>'>악세서리</a>
 			</li>
 		</ul>
 		<ul class='sub_menu_right'>

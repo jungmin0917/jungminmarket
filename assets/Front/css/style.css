@@ -1945,3 +1945,50 @@ input[type='file']{
 }
 
 /* 게시판 검색 기능 관련 E */
+
+
+/* 상품 목록 관련 S */
+
+.goods_list_wrap .title{
+	font-size: 1.8rem;
+	margin-bottom: 30px;
+}
+
+.goods_list_ul{
+	padding: 0 20px;
+}
+
+.goods_list_ul:after{
+	clear: both;
+	display: block;
+	content: '';
+}
+
+.goods_list_ul li{
+	width: calc((100% - 40px) / 3);
+	float: left;
+	margin-right: 20px;
+}
+
+.goods_list_ul li:nth-child(3n+3){
+	margin: 0;
+}
+
+.goods_list_ul li a{
+	display: block;
+	text-align: center;
+}
+
+.goods_list_ul li a img{
+	display: inline-block;
+	width: auto;
+	height: auto;
+	max-width: 100%;
+	max-height: 330px;
+}
+
+.goods_list_wrap .info_box .item_count{
+	
+}
+
+/* 상품 목록 관련 E */

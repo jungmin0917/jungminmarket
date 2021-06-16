@@ -463,6 +463,12 @@ input[type='file']{
     cursor:pointer;
     border-radius:5px;
     border:0;
+    transition: all 0.5s;
+}
+
+.member_register_form input[type='submit']:focus,
+.member_register_form input[type='submit']:hover{
+    opacity: 0.5;
 }
 
 .member_register_submit_wrap{
@@ -1086,10 +1092,11 @@ input[type='file']{
     box-shadow: 0 0 3px dodgerblue;
     transition: all 0.5s;
     background-color: skyblue;
+    margin-right: 10px;
 }
 
-.goods_list_table tbody .buttons a:first-child{
-    margin-right: 10px;
+.goods_list_table tbody .buttons a:last-child{
+    margin:0;
 }
 
 .goods_list_table tbody .buttons a:focus,

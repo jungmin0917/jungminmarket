@@ -91,8 +91,9 @@
 						</select>
 					</td>
 					<td class='buttons'>
-						<a href='<?=siteUrl("admin/goods/update?goodsNo={$v['goodsNo']}")?>'>수정하기</a>
-						<a href='<?=siteUrl("goods/view?goodsNo={$v['goodsNo']}")?>'>미리보기</a>
+						<a href='<?=siteUrl("admin/goods/update?goodsNo={$v['goodsNo']}")?>'>수정</a>
+						<a href='<?=siteUrl("admin/goods/delete?goodsNo={$v['goodsNo']}")?>' onclick="return confirm('정말 삭제하시겠습니까?');">삭제</a>
+						<a href='<?=siteUrl("goods/view?goodsNo={$v['goodsNo']}")?>'>보기</a>
 					</td>
 				</tr>
 				<?php endforeach; ?>

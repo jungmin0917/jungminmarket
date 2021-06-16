@@ -172,6 +172,22 @@ class Goods{
 		return $result;
 	}
 
+	public function delete($goodsNo){
+		$sql = "DELETE FROM jmmk_goods WHERE goodsNo = :goodsNo";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":goodsNo", $goodsNo);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('상품 삭제 DB 처리 실패');
+		}
+
+		return $result;
+	}
+
 	public function goodsNmValidate(){
 		$goodsNm = $this->params['goodsNm'];
 
@@ -272,6 +288,24 @@ class Goods{
 		$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 		return $rows;
+	}
+
+	public function getCategoryNm($categoryCode){
+		$sql = "SELECT * FROM jmmk_goods_category WHERE categoryCode = :categoryCode";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":categoryCode", $categoryCode);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('카테고리명 조회 실패');
+		}
+
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		return $row['categoryNm'];
 	}
 
 	public function modifyCategory(){
@@ -395,5 +429,23 @@ class Goods{
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 		return $row;
+	}
+
+	public function getGoodsByCategory($category){
+		$sql = "SELECT * FROM jmmk_goods WHERE categoryCode = :categoryCode";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":categoryCode", $category);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('카테고리로 상품 조회 실패');
+		}
+
+		$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		return $rows;
 	}
 }
