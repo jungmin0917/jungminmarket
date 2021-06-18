@@ -19,8 +19,8 @@
 						<?php
 							$regTime = strtotime($goodsData['regDt']); // 등록 시간 초로
 							$nowTime = strtotime(date("Y-m-d H:i:s")); // 현재 시간 초로
-							// 1시간은 86400라고 함
-							if(($nowTime - $regTime) < 86400){ // 등록 시간이 24시간 이내일 경우
+							// 24시간은 86400라고 함
+							if(($nowTime - $regTime) < 604800){ // 등록 시간이 일주일 이내일 경우
 								echo "<span class='new_item'>신상품</span>";
 							}
 						?>

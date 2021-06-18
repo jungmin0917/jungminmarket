@@ -25,7 +25,7 @@ class OrderController extends \Controller\Front\FrontController{
 					// 기존의 바로구매 목록 삭제
 					debug($formData);
 					exit;
-					
+
 					$result = $goods->deleteBuyNowCart();
 
 					if($result === false){
@@ -40,36 +40,27 @@ class OrderController extends \Controller\Front\FrontController{
 					if($result === false){
 						throw new AlertException('바로구매 목록 등록 실패');
 					}
-
-					$goodsData = $goods->getGoods($formData['goodsNo']);
-
-					$memberData = $member->getMember($formData['memNo']);
 					
 					break;
 
 				case 'order_all': // 장바구니 모든 상품 주문
-					debug($formData);
-					exit;
 
+					// cartNo -> 
 					$cartData = [];
-					$goodsData = [];
-
 					foreach($formData['cartNo'] as $k => $v){
-						$cartData[] = $goods->getCart($v);
+						$cartData[$v] = $goods->getCart($v);
 					}
 
-					foreach($cartList as $k => $v){
-						$goodsList[] = $goods->getGoods($v['goodsNo']);
+					foreach($cartData as $k => $v){
+						$cartData[$k]['goodsData'] = $goods->getGoods($v['goodsNo']);
 					}
 
-					$memberData = $member->getMember($cartList[0]['memNo']);
+					// memberData 구하기
+					$memNo = getSession('member_memNo');
 
-					debug($memberData);
+					$memberData = $member->getMember($memNo);
 
-					debug($cartData);
-
-					debug($goodsData);
-					exit;
+					App::render("Front/Order/order", ['memberData' => $memberData, 'cartData' => $cartData]);
 
 					break;
 
@@ -88,8 +79,6 @@ class OrderController extends \Controller\Front\FrontController{
 				default:
 					break;
 			}
-
-			App::render("Front/Order/order", $memberData, );
 
 		}catch(AlertException $e){
 			echo $e;
