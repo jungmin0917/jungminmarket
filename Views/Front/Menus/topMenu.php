@@ -27,7 +27,7 @@
 				<?php if(isLogin()){ echo "<a href='".siteUrl("member/modify")."'>정보수정</a>"; } else{ echo "<a href='".siteUrl("member/join")."'>회원가입</a>"; }?>
 			</li>
 			<li>
-				<a href='<?=siteUrl("order/basket")?>'>장바구니</a>
+				<a href='<?=siteUrl("order/cart")?>'>장바구니</a>
 			</li>
 			<li>
 				<a href='<?=siteUrl("order/list")?>'>주문내역</a>

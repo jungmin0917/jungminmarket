@@ -513,4 +513,126 @@ class Goods{
 
 		return $data;
 	}
+
+
+	public function addCart(){
+		$memNo = $this->params['memNo'];
+		$goodsNo = $this->params['goodsNo'];
+		$goodsCount = $this->params['goodsCount'];
+		$optionNo = $this->params['optionNo'] ?? ''; // 선택
+		$isDirect = $this->params['isDirect'];
+
+		$sql = "INSERT INTO jmmk_cart (memNo, goodsNo, goodsCount, optionNo, isDirect) VALUES (:memNo, :goodsNo, :goodsCount, :optionNo, :isDirect)";
+
+		$stmt = db()->prepare($sql);
+
+		$bindData = ['memNo', 'goodsNo', 'goodsCount', 'optionNo', 'isDirect'];
+
+		foreach($bindData as $v){
+			$stmt->bindValue(":{$v}", $$v);
+		}
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('장바구니 추가 DB 처리 실패');
+		}
+
+		return $result;
+	}
+
+	public function getCartList($memNo){
+
+		// isDirect가 0인 상품만 가져오기
+
+		$isDirect = 0;
+		$sql = "SELECT * FROM jmmk_cart WHERE memNo = :memNo AND isDirect = :isDirect";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":memNo", $memNo);
+		$stmt->bindValue(":isDirect", $isDirect, PDO::PARAM_INT);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('장바구니 조회 DB 처리 실패');
+		}
+
+		$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		return $rows;
+	}
+
+	public function deleteBuyNowCart(){
+		$isDirect = 1;
+		$sql = "DELETE FROM jmmk_cart WHERE isDirect = :isDirect";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":isDirect", $isDirect, PDO::PARAM_INT);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('바로구매 목록 삭제 DB 처리 실패');
+		}
+
+		return $result;
+	}
+
+	public function updateCart(){
+		$cartNo = $this->params['cartNo'];
+		$goodsCount = $this->params['goodsCount'];
+
+		$sql = "UPDATE jmmk_cart SET goodsCount = :goodsCount WHERE cartNo = :cartNo";
+
+		$stmt = db()->prepare($sql);
+
+		$bindData = ['cartNo', 'goodsCount'];
+
+		foreach($bindData as $v){
+			$stmt->bindValue(":{$v}", $$v);
+		}
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('장바구니 업데이트 DB 처리 실패');
+		}
+
+		return $result;
+	}
+
+	public function deleteCart($cartNo){
+		$sql = "DELETE FROM jmmk_cart WHERE cartNo = :cartNo";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":cartNo", $cartNo);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('장바구니 상품 삭제 DB 처리 실패');
+		}
+
+		return $result;
+	}
+
+	public function deleteCartAll($memNo){
+		$sql = "DELETE FROM jmmk_cart WHERE memNo = :memNo";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":memNo", $memNo);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('장바구니 비우기 DB 처리 실패');
+		}
+
+		return $result;
+	}
 }

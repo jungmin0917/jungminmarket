@@ -9,22 +9,29 @@ class ListController extends \Controller\Front\FrontController{
 
 	public function index(){
 		try{
+
 			$category = request()->get('category');
 
-			$goods = App::load(\Component\Goods\Goods::class);
+			if($category == 'new'){ // new인 경우
 
-			$page = request()->get('page');
+			}else if($category == 'best'){ // best인 경우
 
-			$page = $page?$page:1;
-			$limit = 6;
+			}else{ // 나머지
+				$goods = App::load(\Component\Goods\Goods::class);
 
-			$goodsCount = $goods->getGoodsCountByCategory($category);
+				$page = request()->get('page');
 
-			$goodsData = $goods->getGoodsByCategory($category, $page, $limit);
+				$page = $page?$page:1;
+				$limit = 6;
 
-			$categoryNm = $goods->getCategoryNm($category);
+				$goodsCount = $goods->getGoodsCountByCategory($category);
 
-			App::render("Front/Goods/list", ['goodsList' => $goodsData['list'], 'categoryNm' => $categoryNm, 'pagination' => $goodsData['pagination'], 'goodsCount' => $goodsCount]);
+				$goodsData = $goods->getGoodsByCategory($category, $page, $limit);
+
+				$categoryNm = $goods->getCategoryNm($category);
+
+				App::render("Front/Goods/list", ['goodsList' => $goodsData['list'], 'categoryNm' => $categoryNm, 'pagination' => $goodsData['pagination'], 'goodsCount' => $goodsCount]);
+			}
 
 		}catch(AlertException $e){
 			echo $e;

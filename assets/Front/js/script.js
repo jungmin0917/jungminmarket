@@ -408,6 +408,338 @@ $(document).ready(function(){
 
     /* 게시판 검색 관련 E */
 
+
+
+
+    /* 상품 보기 - 상품 가격 계산 관련 S */
+
+    // 최초 로딩 시 할인율 계산해서 넣기
+
+    if($('.goods_view_wrap').length > 0){ // 해당 요소가 있을 때만, 초기 로딩 시
+        var defaultPrice = $('.goods_view_wrap').find('.defaultPrice').html();
+        defaultPrice = defaultPrice.replace(/[^0-9]/g, "");
+        var salePrice = $('.goods_view_wrap').find('.salePrice').html();
+        salePrice = salePrice.replace(/[^0-9]/g, "");
+
+        var discountRate = Math.round((1 - salePrice / defaultPrice) * 100); // 반올림하기 (Math.round)
+
+        $('.goods_view_wrap').find('.discountRate').html(discountRate);
+
+
+        // 최초 로딩 시 1개 가격 넣기
+        var price = $('.goods_view_wrap').find('.salePrice').html();
+        price = price.replace(/[^0-9]/g, "");
+        commaPrice = Number(price).toLocaleString('ko-KR'); // 바꿀 값이 숫자여야 함
+        $('.goods_view_wrap').find('.price_number').html(commaPrice);
+
+
+        // 최초 로딩 시 총 가격 구하기
+
+        var total = 0; // 총 가격 초기화
+
+        var prices = $('.goods_view_wrap').find('.price_number').each(function(index, item){
+            var price = $(item).html();
+            price = Number(price.replace(/[^0-9]/g, ""));
+
+            total += price;
+        });
+
+        total = Number(total).toLocaleString('ko-KR');
+        $('.goods_view_wrap').find('.total_price').html(total);
+    }
+
+    // 상품 보기에서 input 내 값 변경 시 계산해서 총 가격 넣기
+    $('.goods_view_wrap').on('change paste', '.goods_count_input', function(){
+        var price = $(this).closest('.goodsInfo').find('.salePrice').html();
+        var count = $(this).val();
+
+        if(count < 1){ // 1 미만 입력 방지
+            $(this).val(1);
+            count = 1;
+        }
+
+        if(count > 10){ // 10 초과 입력 방지
+            $(this).val(10);
+            count = 10;
+        }
+
+        price = price.replace(/[^0-9]/g, "");
+
+        var totalPrice = price * count;
+
+        totalPrice = Number(totalPrice).toLocaleString('ko-KR'); // 한국 단위로 콤마 붙이기 (toLocaleString 함수)
+
+        $(this).closest('.item_count').find('.price_number').html(totalPrice); // 넣기
+
+
+        // 상품 총 계산 가격 변경하기
+        var total = 0; // 총 가격 초기화
+
+        $('.goods_view_wrap').find('.price_number').each(function(index, item){
+            var price = $(item).html();
+            price = Number(price.replace(/[^0-9]/g, ""));
+
+            total += price;
+        });
+
+        total = Number(total).toLocaleString('ko-KR');
+        $(this).closest('.goodsInfo').find('.total_price').html(total);
+    });
+
+    /* 상품 보기 - 상품 가격 계산 관련 E */
+
+    /* 상품 보기 - 상품 바로구매 관련 S */
+
+    $('.goods_view_box').on('click', '.buy_now', function(){
+        $(this).closest('form').find("input[name='mode']").val('buy_now');
+
+        $(this).closest('form').submit();
+    });
+
+
+    /* 상품 보기 - 상품 바로구매 관련 E */
+
+
+    /* 상품 보기 - 상품 장바구니 관련 S */
+
+    $('.goods_view_box').on('click', '.add_cart', function(){
+        $(this).closest('form').find("input[name='mode']").val('add_cart');
+
+        $(this).closest('form').submit();
+    });
+
+    /* 상품 보기 - 상품 장바구니 관련 E */
+
+
+    /* 상품 보기 - 관심상품 넣기 관련 S */
+
+    $('.goods_view_box').on('click', '.add_wishlist', function(){
+        $(this).closest('form').find("input[name='mode']").val('add_wishlist');
+        
+        $(this).closest('form').submit();
+    });
+
+    /* 상품 보기 - 관심상품 넣기 관련 E */
+
+
+    /* 장바구니 - 금액 계산 관련 S */
+
+    // 초기 로딩 시 구매금액 및 포인트 넣기
+
+    // 장바구니 페이지에서만 해당 스크립트 사용함
+    if($('.order_cart_table_wrap').length > 0){ // 초기 로딩 시
+        $('.order_cart_table_wrap').find('.goods_count_input').each(function(index, item){
+            var goodsPrice = $(item).closest('tr').find("input[type='checkbox']").data('price');
+
+            var goodsCount = $(item).closest('tr').find('.goods_count_input').val();
+
+            var goodsTotalPrice = goodsPrice * goodsCount;
+
+            goodsTotalPriceString = Number(goodsTotalPrice).toLocaleString('ko-KR');
+
+            $(item).closest('tr').find('.goodsTotalPrice').find('.price').html(goodsTotalPriceString);
+
+            // 포인트는 상품 금액의 1%로 해서 계산하기 (반올림)
+
+            var rewardPoint = Math.round(goodsTotalPrice / 100);
+
+            rewardPoint = Number(rewardPoint).toLocaleString('ko-KR');
+
+            $(item).closest('tr').find('.rewardPoint').find('.price').html(rewardPoint);
+
+        });
+
+        // 총 가격 계산
+        var totalPrice = 0;
+
+        $('.order_cart_table_wrap').find('.goodsTotalPrice').find('.price').each(function(index, item){
+            var price = $(item).html();
+
+            price = price.replace(/[^0-9]/g, "");
+
+            price = Number(price);
+
+            totalPrice += price;
+        });
+
+        totalPriceString = Number(totalPrice).toLocaleString('ko-KR');
+
+        totalPriceString = totalPriceString + "원";
+
+        $('.order_cart_price_table').find('.total_price').html(totalPriceString);
+
+        var deliveryFee = 3000;
+
+        deliveryFeeString = Number(deliveryFee).toLocaleString('ko-KR');
+
+        deliveryFeeString = deliveryFeeString + "원";
+
+        $('.order_cart_price_table').find('.delivery_fee').html(deliveryFeeString);
+
+        var finalPrice = 0;
+
+        finalPrice = totalPrice + deliveryFee;
+
+        finalPriceString = Number(finalPrice).toLocaleString('ko-KR');
+
+        finalPriceString = finalPriceString + "원";
+
+        $('.order_cart_price_table').find('.final_price').html(finalPriceString);
+    }
+
+
+
+
+    // 장바구니에서 input 내 값 변경 시 계산해서 총 가격 넣기
+    $('.order_cart_table_wrap').on('click', "input[type='checkbox']", function(){
+        updateTotal($(this));
+    });
+
+    $('.order_cart_table_wrap').on('change paste', '.goods_count_input', function(){
+        updateTotal($(this));
+    });
+
+    function updateTotal(obj){
+        // ajax로 장바구니 값 변경 시 DB의 값도 업데이트 해야 함
+        $this = obj;
+        const ajax_cartNo = $this.closest('tr').find('.cartNo_input').val();
+        const ajax_goodsCount = $this.closest('tr').find('.goods_count_input').val();
+
+        $.ajax({
+            url: "/workspace/jungminmarket/goods/updateCart",
+            type: 'post',
+            data: {
+                cartNo : ajax_cartNo,
+                goodsCount : ajax_goodsCount,
+            },
+            dataType: 'html',
+            success: function(res){
+                if(res == 1){
+
+                }else{
+                    alert('장바구니 값 변경 처리 실패');
+                }
+            },
+            error: function(err){
+                console.error(err);
+            }
+        });
+
+        var count = $this.val();
+
+        if(count < 1){ // 1 미만 입력 방지
+            $this.val(1);
+            count = 1;
+        }
+
+        if(count > 10){ // 10 초과 입력 방지
+            $this.val(10);
+            count = 10;
+        }
+
+        var goodsPrice = $this.closest('tr').find("input[type='checkbox']").data('price');
+
+        var goodsCount = $this.closest('tr').find('.goods_count_input').val();
+
+        var goodsTotalPrice = goodsPrice * goodsCount;
+
+        goodsTotalPriceString = Number(goodsTotalPrice).toLocaleString('ko-KR');
+
+        $this.closest('tr').find('.goodsTotalPrice').find('.price').html(goodsTotalPriceString);
+
+        // 포인트는 상품 금액의 1%로 해서 계산하기 (반올림)
+
+        var rewardPoint = Math.round(goodsTotalPrice / 100);
+
+        rewardPoint = Number(rewardPoint).toLocaleString('ko-KR');
+
+        $this.closest('tr').find('.rewardPoint').find('.price').html(rewardPoint);
+
+
+        // 총 가격 계산
+        var totalPrice = 0;
+
+        $('.order_cart_table_wrap').find("input[type='checkbox']:checked").each(function(index, item){
+            var price = $(item).closest('tr').find('.goodsTotalPrice').find('.price').html();
+
+            price = price.replace(/[^0-9]/g, "");
+
+            price = Number(price);
+
+            totalPrice += price;
+        });
+
+        totalPriceString = Number(totalPrice).toLocaleString('ko-KR');
+
+        totalPriceString = totalPriceString + "원";
+
+        $('.order_cart_price_table').find('.total_price').html(totalPriceString);
+
+        var deliveryFee = 3000;
+
+        deliveryFeeString = Number(deliveryFee).toLocaleString('ko-KR');
+
+        deliveryFeeString = deliveryFeeString + "원";
+
+        $('.order_cart_price_table').find('.delivery_fee').html(deliveryFeeString);
+
+        var finalPrice = 0;
+
+        finalPrice = totalPrice + deliveryFee;
+
+        finalPriceString = Number(finalPrice).toLocaleString('ko-KR');
+
+        finalPriceString = finalPriceString + "원";
+
+        $('.order_cart_price_table').find('.final_price').html(finalPriceString);
+    };
+
+    /* 장바구니 - 금액 계산 관련 E */
+
+
+
+    /* 장바구니 - 각종 버튼 관련 S */
+
+    // 장바구니 비우기 버튼
+    $('.order_cart_wrap').on('click', '.remove_all', function(){
+        if(!confirm('정말 비우시겠습니까?')){
+            return;
+        }
+        // 먼저 mode 값을 remove_all로 바꿔주기
+        $('.order_cart_wrap').find('.order_cart_form').find("input[name='mode']").val('remove_all');
+
+        $('.order_cart_wrap').find('.order_cart_form').submit();
+    });
+
+
+    // 선택 상품 삭제 버튼
+    $('.order_cart_wrap').on('click', '.remove_select', function(){
+        if(!confirm('정말 삭제하시겠습니까?')){
+            return;
+        }
+        // mode 값 remove_select로 바꾸기
+        $('.order_cart_wrap').find('.order_cart_form').find("input[name='mode']").val('remove_select');
+
+        $('.order_cart_wrap').find('.order_cart_form').submit();
+    });
+
+    // 전체 상품 주문 버튼
+    $('.order_cart_wrap').on('click', '.order_all', function(){
+
+        // form의 action 값을 order로 바꿔주기
+        $('.order_cart_wrap').find('.order_cart_form').attr('action', 'order');
+        $('.order_cart_wrap').find('.order_cart_form').attr('target', '_self');
+
+        // 먼저 mode 값을 remove_all로 바꿔주기
+        $('.order_cart_wrap').find('.order_cart_form').find("input[name='mode']").val('order_all');
+
+        $('.order_cart_wrap').find('.order_cart_form').submit();
+    });
+
+    // 선택 상품 주문 버튼
+
+    /* 장바구니 - 각종 버튼 관련 E */
+
 });
 
 /* 이미지 업로드 후 콜백 */
