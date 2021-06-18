@@ -2519,6 +2519,9 @@ input[type='file']{
 .order_cart_price_table tbody td{
 	font-size: 1.3rem;
 	padding: 20px 0;
+}
+
+.order_cart_price_table tbody td.final_price{
 	font-weight: bold;
 }
 
@@ -2562,13 +2565,13 @@ input[type='file']{
 
 /* 주문하기 관련 S */
 
-.order_order_wrap{
-
+.order_order_form{
+	padding: 20px;
 }
 
 .order_order_wrap .title{
 	font-size: 1.8rem;
-	margin-bottom: 50px;
+	margin-bottom: 30px;
 }
 
 .order_order_wrap .sub_title{
@@ -2632,13 +2635,235 @@ input[type='file']{
 .order_info_box{
 	padding: 0 20px;
 	margin-bottom: 50px;
+	font-size: 1.3rem;
 }
 
+.order_info_ul li:first-child{
+	border-top: 1px solid #ccc;
+}
+
+.order_info_ul li{
+	padding: 15px;
+	border-bottom: 1px solid #ccc;
+}
+
+.order_info_ul li:after{
+	clear: both;
+	display: block;
+	content: '';
+}
+
+.order_info_ul li label{
+	width: 20%;
+	float: left;
+	line-height: 34px;
+}
+
+.order_info_ul li input{
+    font-family: 'RIDIBatang', sans-serif;
+    font-size: 1.3rem;
+	width: 400px;
+	float: left;
+	padding: 7px 10px;
+	border: 0;
+	box-shadow: 0 0 3px #999;
+}
+
+.order_info_ul li input:focus{
+	box-shadow: 0 0 3px red;
+}
 
 
 .receiver_info_box{
 	padding: 0 20px;
 	margin-bottom: 50px;
+	font-size: 1.3rem;
+}
+
+
+.receiver_info_ul > li:first-child{
+	border-top: 1px solid #ccc;
+}
+
+.receiver_info_ul > li{
+	padding: 15px;
+	border-bottom: 1px solid #ccc;
+}
+
+.receiver_info_ul > li:after{
+	clear: both;
+	display: block;
+	content: '';
+}
+
+.receiver_info_ul > li > label{
+	width: 20%;
+	float: left;
+	line-height: 34px;
+}
+
+.receiver_info_ul > li > input{
+    font-family: 'RIDIBatang', sans-serif;
+    font-size: 1.3rem;
+	width: 400px;
+	float: left;
+	padding: 7px 10px;
+	border: 0;
+	box-shadow: 0 0 3px #999;
+}
+
+.receiver_info_ul > li > input:focus{
+	box-shadow: 0 0 3px red;
+}
+
+.receiver_info_ul > li > ul{
+	float: left;
+	width: 80%;
+}
+
+.receiver_info_ul > li > ul > li{
+	padding-bottom: 15px;
+}
+
+.receiver_info_ul > li > ul > li > input[type='text']{
+    font-family: 'RIDIBatang', sans-serif;
+    font-size: 1.3rem;
+	width: 400px;
+	padding: 7px 10px;
+	border: 0;
+	box-shadow: 0 0 3px #999;
+}
+
+.receiver_info_ul > li > ul > li > input[type='button']{
+    font-family: 'RIDIBatang', sans-serif;
+    font-size: 1.3rem;
+	width: 130px;
+	padding: 7px 10px;
+	border: 0;
+	box-shadow: 0 0 3px #999;
+}
+
+.receiver_info_ul > li > ul > li > input[type='text']:focus,
+.receiver_info_ul > li > ul > li > input[type='button']:focus{
+	box-shadow: 0 0 3px red;
+}
+
+.receiver_info_ul > li > ul > li:first-child input:first-child{
+	width: 150px;
+	margin-right: 10px;
+}
+
+.receiver_info_ul > li > ul > li:last-child{
+	padding-bottom: 0;
+}
+
+
+
+.payment_info_box{
+	padding: 0 20px;
+	margin-bottom: 50px;
+	font-size: 1.3rem;
+}
+
+.payment_info_ul > li:first-child{
+	border-top: 1px solid #ccc;
+}
+
+.payment_info_ul > li{
+	padding: 15px;
+	border-bottom: 1px solid #ccc;
+}
+
+.payment_info_ul > li:after{
+	clear: both;
+	display: block;
+	content: '';
+}
+
+.payment_info_ul > li > label{
+	width: 20%;
+	float: left;
+	line-height: 34px;
+}
+
+.payment_info_ul > li > input{
+    font-family: 'RIDIBatang', sans-serif;
+    font-size: 1.3rem;
+	width: 400px;
+	float: left;
+	padding: 7px 10px;
+	border: 0;
+	box-shadow: 0 0 3px #999;
+}
+
+.payment_info_ul > li > input:focus{
+	box-shadow: 0 0 3px red;
+}
+
+.payment_info_ul > li > div > label{
+	line-height: 34px;
+	margin-right: 15px;
+}
+
+.payment_info_ul > li > div > label > input[type='radio']{
+	position: relative;
+	top: 2px;
+	display: inline-block;
+	margin-right: 5px;
+}
+
+.payment_info_ul > li > div{
+	float: left;
+	width: 80%;
+	line-height: 34px;
+}
+
+.payment_info_ul > li > div.finalPrice{
+	font-weight: bold;
+}
+
+.payment_info_ul > li > div > select{
+	display: block;
+    font-family: 'RIDIBatang', sans-serif;
+    font-size: 1.3rem;
+	width: 400px;
+	padding: 7px 10px;
+	border: 0;
+	box-shadow: 0 0 3px #999;
+	height: 34px;
+	margin-bottom: 15px;
+}
+
+.payment_info_ul > li > div > input{
+	display: block;
+    font-family: 'RIDIBatang', sans-serif;
+    font-size: 1.3rem;
+	width: 400px;
+	padding: 7px 10px;
+	border: 0;
+	box-shadow: 0 0 3px #999;
+	height: 34px;
+}
+
+.order_order_form input[type='submit']{
+	font-family: 'RIDIBatang', sans-serif;
+    background-color: #2a2a2a;
+    color: white;
+    font-size: 1.5rem;
+    padding: 10px 40px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 0;
+    transition: all 0.5s;
+}
+
+.order_order_form input[type='submit']:focus,
+.order_order_form input[type='submit']:hover{
+	opacity: 0.5;
+}
+
+.order_order_form_submit_wrap{
+	text-align: center;
 }
 
 /* 주문하기 관련 E */

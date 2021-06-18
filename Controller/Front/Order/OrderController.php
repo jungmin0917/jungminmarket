@@ -7,6 +7,12 @@ use Component\Exception\AlertException;
 
 class OrderController extends \Controller\Front\FrontController{
 
+	public function __construct(){
+		if(!isLogin()){
+			alertReplace('로그인이 필요한 페이지입니다', "member/login");
+		}
+	}
+
 	public function index(){
 		try{
 			$formData = request()->all();
@@ -60,7 +66,14 @@ class OrderController extends \Controller\Front\FrontController{
 
 					$memberData = $member->getMember($memNo);
 
-					App::render("Front/Order/order", ['memberData' => $memberData, 'cartData' => $cartData]);
+					$deliveryFee = 3000;
+					$totalPrice = 0;
+
+					foreach($cartData as $k => $v){
+						$totalPrice = $totalPrice + $v['goodsCount'] * $v['goodsData']['salePrice'];
+					}
+
+					App::render("Front/Order/order", ['memberData' => $memberData, 'cartData' => $cartData, 'totalPrice' => $totalPrice, 'deliveryFee' => $deliveryFee]);
 
 					break;
 

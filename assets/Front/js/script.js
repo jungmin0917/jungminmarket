@@ -775,6 +775,24 @@ $(document).ready(function(){
 
     /* 상품목록 - 정렬순서 변경 관련 E */
 
+
+    /* 주문하기 - 주소 검색 관련 S */
+
+    $('body').on('click', '#receiverAd_search', function(){
+        execDaumPostcode();
+    });
+
+    function execDaumPostcode() {
+        new daum.Postcode({
+            oncomplete: function(data) {
+                $('#receiverAdNum').val(data.zonecode);
+                $('#receiverAdMain').val(data.address);
+            }
+        }).open();
+    }
+
+    /* 주문하기 - 주소 검색 관련 E */
+
 });
 
 /* 이미지 업로드 후 콜백 */

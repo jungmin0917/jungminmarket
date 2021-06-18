@@ -1,7 +1,7 @@
 <section class='order_order_wrap layout_width'>
+	<div class='title'>주문하기</div>
 	<form method='post' action='indb' target='ifrm_hidden' autocomplete='off' class='order_order_form'>
 		<input type='hidden' name='mode' value='order'>
-		<div class='title'>주문하기</div>
 
 		<div class='sub_title'>주문 상품</div>
 
@@ -54,7 +54,7 @@
 				</li>
 				<li>
 					<label for='orderEmail'>주문자 이메일</label>
-					<input type='text' name='orderEmail' id='orderEmail' value='<?=$memberData['memEm']?>'>
+					<input type='email' name='orderEmail' id='orderEmail' value='<?=$memberData['memEm']?>'>
 				</li>
 			</ul>
 		</div>
@@ -93,15 +93,15 @@
 			<ul class='payment_info_ul'>
 				<li>
 					<label>주문상품 금액</label>
-					<div></div>
+					<div><?=number_format($totalPrice)?>원</div>
 				</li>
 				<li>
 					<label>배송비</label>
-					<div></div>
+					<div><?=number_format($deliveryFee)?>원</div>
 				</li>
 				<li>
 					<label>결제금액</label>
-					<div></div>
+					<div class='finalPrice'><?=number_format($totalPrice + $deliveryFee)?>원</div>
 				</li>
 				<li>
 					<label>결제수단</label>
@@ -128,6 +128,9 @@
 					</div>
 				</li>
 			</ul>
+		</div>
+		<div class='order_order_form_submit_wrap'>
+			<input type='submit' value='주문하기' onclick="return confirm('정말 주문하시겠습니까?');">
 		</div>
 	</form>
 

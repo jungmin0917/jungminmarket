@@ -22,6 +22,9 @@ class IndbController extends \Controller\Front\FrontController{
 
 			switch($formData['mode']){
 				case 'add_cart':
+					if(!isLogin()){
+						alertReplace('로그인이 필요한 페이지입니다', "member/login", "parent");
+					}
 
 					// 먼저 장바구니에 넣기 DB 처리
 					$formData['isDirect'] = 0;
@@ -44,6 +47,9 @@ class IndbController extends \Controller\Front\FrontController{
 					break;
 
 				case 'add_wishlist':
+					if(!isLogin()){
+						alertReplace('로그인이 필요한 페이지입니다', "member/login", "parent");
+					}
 
 					break;
 			}
