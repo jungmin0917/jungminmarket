@@ -492,10 +492,11 @@ $(document).ready(function(){
 
     $('.goods_view_box').on('click', '.buy_now', function(){
         $(this).closest('form').find("input[name='mode']").val('buy_now');
+        $(this).closest('form').attr('action', '/workspace/jungminmarket/order/order');
+        $(this).closest('form').attr('target', '_self');
 
         $(this).closest('form').submit();
     });
-
 
     /* 상품 보기 - 상품 바로구매 관련 E */
 
@@ -723,6 +724,22 @@ $(document).ready(function(){
         $('.order_cart_wrap').find('.order_cart_form').submit();
     });
 
+    // 각 상품 우측에 주문하기 버튼으로 주문
+    $('.order_cart_wrap').on('click', '.order_select_item', function(){
+        // 내가 누른 버튼 제외하면 전부 check를 해제하기 (모두 체크 해제 후 내가 누른 것만 체크 다시 해주기)
+        $(this).closest('form').find('.cartNo_input').prop('checked', false);
+        $(this).closest('tr').find('.cartNo_input').prop('checked', true);
+
+        // form의 action 값을 order로 바꿔주기
+        $('.order_cart_wrap').find('.order_cart_form').attr('action', 'order');
+        $('.order_cart_wrap').find('.order_cart_form').attr('target', '_self');
+
+        // 먼저 mode 값을 remove_all로 바꿔주기
+        $('.order_cart_wrap').find('.order_cart_form').find("input[name='mode']").val('order_select_item');
+
+        $('.order_cart_wrap').find('.order_cart_form').submit();
+    });
+
     // 전체 상품 주문 버튼
     $('.order_cart_wrap').on('click', '.order_all', function(){
 
@@ -737,8 +754,26 @@ $(document).ready(function(){
     });
 
     // 선택 상품 주문 버튼
+    $('.order_cart_wrap').on('click', '.order_select', function(){
+        $('.order_cart_wrap').find('.order_cart_form').attr('action', 'order');
+        $('.order_cart_wrap').find('.order_cart_form').attr('target', '_self');
+
+        $('.order_cart_wrap').find('.order_cart_form').find("input[name='mode']").val('order_select');
+
+        $('.order_cart_wrap').find('.order_cart_form').submit();
+    });
 
     /* 장바구니 - 각종 버튼 관련 E */
+
+
+    /* 상품목록 - 정렬순서 변경 관련 S */
+
+    $('.goods_list_wrap').on('change', '.sort_method', function(){
+        // form으로 감싸서 폼 submit하기
+        $('.goods_list_wrap').find('.sort_method_form').submit();
+    });
+
+    /* 상품목록 - 정렬순서 변경 관련 E */
 
 });
 

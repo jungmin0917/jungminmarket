@@ -1,4 +1,4 @@
-<div class='sub_menu_wrap'>
+<div class='sub_menu_wrap'>	
 	<div class='layout_width'>
 		<ul class='sub_menu_left'>
 			<li>
@@ -28,7 +28,7 @@
 		</ul>
 		<ul class='sub_menu_right'>
 			<li>
-				<form method='post' target='_self' action='<?=siteUrl("search/indb")?>' class='search_form'>
+				<form method='get' target='_self' action='<?=siteUrl("goods/search")?>' class='search_form'>
 					<label for='search_word'>
 						<input type='hidden' name='mode' value='search'>
 						<input type='text' id='search_word' name='search_word' placeholder='검색어를 입력하세요'>

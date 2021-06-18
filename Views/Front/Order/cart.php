@@ -70,7 +70,7 @@
 							<span class='price'></span>원
 						</td>
 						<td class='buttons'>
-							<a href='<?=siteUrl("order/order?cartNo={$v['cartNo']}")?>'>주문하기</a>
+							<a href='javascript:;' class='order_select_item'>주문하기</a>
 							<a href='<?=siteUrl("order/delete?cartNo={$v['cartNo']}")?>' class='delete' onclick="return confirm('정말 삭제하시겠습니까?');"><i class='xi-close'></i>삭제</a>
 						</td>
 					</tr>
@@ -79,6 +79,12 @@
 			</table>
 		</div>
 	</form>
+
+	<?php if(!$cartList) : ?>
+
+		<div class='order_empty_info'>장바구니에 상품이 없습니다</div>
+
+	<?php endif; ?>
 
 	<div class='order_cart_price_wrap'>
 		<table class='order_cart_price_table'>

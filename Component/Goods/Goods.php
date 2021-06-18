@@ -449,9 +449,23 @@ class Goods{
 		return $row['cnt'];
 	}
 
-	public function getGoodsByCategory($category, $page = 1, $limit = 6){
+	public function getGoodsByCategory($category, $page = 1, $limit = 6, $sort = null){
 
-		$url = siteUrl("goods/list?category={$category}");
+		// $url을 정제해야 한다.
+		$url = $_SERVER['REQUEST_URI'];
+
+		if(preg_match("/$page/", $url)){
+
+			$pattern = "/.+?(?=&page)/";
+
+			preg_match($pattern, $url, $matches);
+
+			$url = $matches[0];
+		}else{
+			// $url 그대로
+		}
+
+		// 정규표현식 쓰기
 		$page = $page?$page:1;
 		$limit = $limit?$limit:6;
 		$offset = ($page - 1) * $limit;
@@ -482,7 +496,15 @@ class Goods{
 		// list 구하기
 
 		$isDisplay = 1;
-		$sql = "SELECT * FROM jmmk_goods WHERE categoryCode = :categoryCode AND isDisplay = :isDisplay ORDER BY regDt DESC LIMIT :limit OFFSET :offset";
+		if(!$sort || $sort == 'new'){
+			$sql = "SELECT * FROM jmmk_goods WHERE categoryCode = :categoryCode AND isDisplay = :isDisplay ORDER BY regDt DESC LIMIT :limit OFFSET :offset";
+		}else if($sort == 'low_cost'){
+			$sql = "SELECT * FROM jmmk_goods WHERE categoryCode = :categoryCode AND isDisplay = :isDisplay ORDER BY salePrice ASC LIMIT :limit OFFSET :offset";
+		}else if($sort == 'high_cost'){
+			$sql = "SELECT * FROM jmmk_goods WHERE categoryCode = :categoryCode AND isDisplay = :isDisplay ORDER BY salePrice DESC LIMIT :limit OFFSET :offset";
+		}else if($sort == 'sell_point'){
+			$sql = "SELECT * FROM jmmk_goods WHERE categoryCode = :categoryCode AND isDisplay = :isDisplay ORDER BY salePoint DESC LIMIT :limit OFFSET :offset";
+		}
 
 		$stmt = db()->prepare($sql);
 
@@ -539,6 +561,24 @@ class Goods{
 		}
 
 		return $result;
+	}
+
+	public function getCart($cartNo){
+		$sql = "SELECT * FROM jmmk_cart WHERE cartNo = :cartNo";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":cartNo", $cartNo);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('장바구니 조회 DG 처리 실패');
+		}
+
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		return $row;
 	}
 
 	public function getCartList($memNo){
@@ -634,5 +674,135 @@ class Goods{
 		}
 
 		return $result;
+	}
+
+	public function getNewGoods($page, $limit){
+		$url = siteUrl("goods/list?category=new");
+		$page = $page?$page:1;
+		$limit = $limit?$limit:6;
+		$offset = ($page - 1) * $limit;
+
+
+		// total 구하기 (30개 고정이긴 한데 30개보다 적을 수 있으니 구함)
+
+		$isDisplay = 1;
+		$limit_total = 30;
+		$sql = "SELECT * FROM jmmk_goods WHERE isDisplay = :isDisplay LIMIT :limit";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":isDisplay", $isDisplay, PDO::PARAM_INT);
+		$stmt->bindValue(":limit", $limit_total, PDO::PARAM_INT);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('NEW 상품 총 개수 조회 실패');
+		}
+
+		$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		$total = count($rows); // 30개 이하로만 나옴
+
+
+		// list 구하기
+
+		$isDisplay = 1;
+		$sql = "SELECT * FROM jmmk_goods WHERE isDisplay = :isDisplay ORDER BY regDt DESC LIMIT :limit OFFSET :offset";
+		// 신상품 순 30개
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":isDisplay", $isDisplay, PDO::PARAM_INT);
+		$stmt->bindValue(":limit", $limit, PDO::PARAM_INT);
+		$stmt->bindValue(":offset", $offset, PDO::PARAM_INT);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('카테고리로 상품 조회 실패');
+		}	
+
+		$list = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+		// 페이징하기
+
+		$paginator = App::load(\Component\Core\Pagination::class, $page, $limit, $total, $url);
+
+		$pagination = $paginator->getHTML();
+
+		$data = [
+			'list' => $list,
+			'pagination' => $pagination,
+			'total' => $total,
+		];
+
+		return $data;
+	}
+
+	public function getBestGoods($page, $limit){
+		$url = siteUrl("goods/list?category=best");
+		$page = $page?$page:1;
+		$limit = $limit?$limit:6;
+		$offset = ($page - 1) * $limit;
+
+
+		// total 구하기 (30개 고정이긴 한데 30개보다 적을 수 있으니 구함)
+
+		$isDisplay = 1;
+		$limit_total = 30;
+		$sql = "SELECT * FROM jmmk_goods WHERE isDisplay = :isDisplay LIMIT :limit";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":isDisplay", $isDisplay, PDO::PARAM_INT);
+		$stmt->bindValue(":limit", $limit_total, PDO::PARAM_INT);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('NEW 상품 총 개수 조회 실패');
+		}
+
+		$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		$total = count($rows); // 30개 이하로만 나옴
+
+
+		// list 구하기
+
+		$isDisplay = 1;
+		$sql = "SELECT * FROM jmmk_goods WHERE isDisplay = :isDisplay ORDER BY salePoint DESC LIMIT :limit OFFSET :offset";
+		// 신상품 순 30개
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":isDisplay", $isDisplay, PDO::PARAM_INT);
+		$stmt->bindValue(":limit", $limit, PDO::PARAM_INT);
+		$stmt->bindValue(":offset", $offset, PDO::PARAM_INT);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('카테고리로 상품 조회 실패');
+		}	
+
+		$list = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+		// 페이징하기
+
+		$paginator = App::load(\Component\Core\Pagination::class, $page, $limit, $total, $url);
+
+		$pagination = $paginator->getHTML();
+
+		$data = [
+			'list' => $list,
+			'pagination' => $pagination,
+			'total' => $total,
+		];
+
+		return $data;
 	}
 }

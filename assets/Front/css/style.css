@@ -1074,6 +1074,11 @@ input[type='file']{
 	line-height:2rem;
 }
 
+.mypage_index_wrap .info_box .right .text4{
+	margin-left: 20px;
+	margin-right: 5px;
+}
+
 .mypage_index_wrap .benefit_info{
 	font-size:1.3rem;
 	padding:40px 0;
@@ -1951,7 +1956,13 @@ input[type='file']{
 
 .goods_list_wrap .title{
 	font-size: 1.8rem;
+	margin-bottom: 15px;
+}
+
+.goods_list_wrap .sub_title{
+	font-size: 1.3rem;
 	margin-bottom: 30px;
+	color: #999;
 }
 
 .goods_list_ul:after{
@@ -1965,7 +1976,7 @@ input[type='file']{
 	float: left;
 	margin-right: 30px;
 	margin-bottom: 50px;
-	height: 480px;
+	height: 510px;
 }
 
 .goods_list_ul li:nth-child(3n+3){
@@ -2097,6 +2108,18 @@ input[type='file']{
 .goods_list_ul li .stock_info .new_item{
 	padding: 5px;
 	background-color: green;
+	color: white;
+	border-radius: 5px;
+	display: inline-block;
+}
+
+.goods_list_ul li .salePoint_wrap{
+	margin-bottom: 5px;
+}
+
+.goods_list_ul li .salePoint_wrap .salePoint{
+	padding: 5px;
+	background-color: dodgerblue;
 	color: white;
 	border-radius: 5px;
 	display: inline-block;
@@ -2526,6 +2549,12 @@ input[type='file']{
 
 .order_cart_wrap .order_buttons a:last-child{
 	margin: 0;
+}
+
+.order_cart_wrap .order_empty_info{
+	font-size: 2rem;
+	text-align: center;
+	margin-bottom: 50px;
 }
 
 /* 장바구니 보기 관련 E */

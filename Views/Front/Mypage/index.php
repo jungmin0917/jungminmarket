@@ -9,13 +9,12 @@
 		<div class='right'>
 			<div class='text1'>환영합니다. <?=$memNm?> 회원님!</div>
 			<div class='text2'>
-				<a href='<?=siteUrl("order/list")?>'><i class='xi-won'></i>주문내역</a>ㆍ<a href='<?=siteUrl("order/basket")?>'><i class='xi-cart-o'></i>장바구니</a>ㆍ<a href='<?=siteUrl("mypage/wishlist")?>'><i class='xi-gift-o'></i>관심상품</a>
+				<a href='<?=siteUrl("order/list")?>'><i class='xi-won'></i>주문내역</a>ㆍ<a href='<?=siteUrl("order/cart")?>'><i class='xi-cart-o'></i>장바구니</a>ㆍ<a href='<?=siteUrl("mypage/wishlist")?>'><i class='xi-gift-o'></i>관심상품</a>
 			</div>
 			<div class='text3'>
-				총 주문 : 회<br>
-				예치금 : 원<br>
-				가용 포인트 : 원<br>
-				사용 포인트 : 원
+				총 주문 횟수 : <span class='text4'><?=$orderTime?></span>회<br>
+				총 주문 금액 : <span class='text4'><?=$orderCost?></span>원<br>
+				적립 포인트 : <span class='text4'><?=$point?></span>원
 			</div>
 		</div>
 	</div>
