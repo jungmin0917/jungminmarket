@@ -3,6 +3,10 @@
 	<form method='post' action='indb' target='ifrm_hidden' autocomplete='off' class='order_order_form'>
 		<input type='hidden' name='mode' value='order'>
 
+		<?php foreach($cartData as $k => $v) : ?>
+			<input type='hidden' name='cartNo[]' value='<?=$k?>'>
+		<?php endforeach; ?>
+
 		<div class='sub_title'>주문 상품</div>
 
 		<div class='order_order_table_wrap'>
@@ -38,6 +42,30 @@
 					</tr>
 					<?php endforeach; ?>
 				</tbody>
+				<tfoot>
+					<tr>
+						<th colspan='2' width='30%'>
+							총 합계
+						</th>
+						<th width='20%'>
+							배송비
+						</th>
+						<th width='50%'>
+							최종
+						</th>
+					</tr>
+					<tr>
+						<td class='totalPrice' colspan='2' width='30%'>
+							<?=number_format($totalPrice)?>원
+						</td>
+						<td class='deliveryFee' width='20%'>
+							<?=number_format($deliveryFee)?>원
+						</td>
+						<td class='finalPrice' width='50%'>
+							<?=number_format($totalPrice + $deliveryFee)?>원
+						</td>
+					</tr>
+				</tfoot>
 			</table>
 		</div>
 
@@ -50,7 +78,17 @@
 				</li>
 				<li>
 					<label for='orderPhone'>주문자 전화번호</label>
-					<input type='text' name='orderPhone' id='orderPhone' value='<?=$memberData['memPh']?>'>
+					<select name='orderPhone[]' id='orderPhone_1'>
+						<option value='010' <?php if($memPhArray[0] == '010'){echo "selected";}?> >010</option>
+						<option value='011' <?php if($memPhArray[0] == '011'){echo "selected";}?> >011</option>
+						<option value='016' <?php if($memPhArray[0] == '016'){echo "selected";}?> >016</option>
+						<option value='017' <?php if($memPhArray[0] == '017'){echo "selected";}?> >017</option>
+						<option value='018' <?php if($memPhArray[0] == '018'){echo "selected";}?> >018</option>
+						<option value='019' <?php if($memPhArray[0] == '019'){echo "selected";}?> >019</option>
+					</select>
+					<input type='text' name='orderPhone[]' id='orderPhone_2' value='<?=$memPhArray[1]?>' class='orderPhone_input' maxlength='4'>
+					<input type='text' name='orderPhone[]' id='orderPhone_3' value='<?=$memPhArray[2]?>' class='orderPhone_input' maxlength='4'>
+
 				</li>
 				<li>
 					<label for='orderEmail'>주문자 이메일</label>
@@ -60,6 +98,9 @@
 		</div>
 
 		<div class='sub_title'>배송지 정보</div>
+
+		<label for='isEqual' class='isEqual'><input type='checkbox' id='isEqual' class='isEqual'>주문자 정보와 같음</label>
+		
 		<div class='receiver_info_box'>
 			<ul class='receiver_info_ul'>
 				<li>
@@ -68,7 +109,16 @@
 				</li>
 				<li>
 					<label for='receiverPhone'>수신자 전화번호</label>
-					<input type='text' name='receiverPhone' id='receiverPhone' value=''>
+					<select name='receiverPhone[]' id='receiverPhone_1'>
+						<option value='010'>010</option>
+						<option value='011'>011</option>
+						<option value='016'>016</option>
+						<option value='017'>017</option>
+						<option value='018'>018</option>
+						<option value='019'>019</option>
+					</select>
+					<input type='text' name='receiverPhone[]' id='receiverPhone_2' class='receiverPhone_input' maxlength='4'>
+					<input type='text' name='receiverPhone[]' id='receiverPhone_3' class='receiverPhone_input' maxlength='4'>
 				</li>
 				<li>
 					<label for='receiverAd_search'>수신자 주소</label>
@@ -105,9 +155,9 @@
 				</li>
 				<li>
 					<label>결제수단</label>
-					<div>
+					<div class='paymentMethod'>
 						<label for='paymentMethod1'>
-							<input type='radio' name='paymentMethod' id='paymentMethod1' class='paymentMethod1' value='무통장입금'>무통장입금
+							<input type='radio' name='paymentMethod' id='paymentMethod1' class='paymentMethod1' value='무통장입금' checked>무통장입금
 						</label>
 						<label for='paymentMethod2'>
 							<input type='radio' name='paymentMethod' id='paymentMethod2' class='paymentMethod2' value='신용카드'>신용카드

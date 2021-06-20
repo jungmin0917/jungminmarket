@@ -573,12 +573,32 @@ class Goods{
 		$result = $stmt->execute();
 
 		if($result === false){
-			throw new AlertException('장바구니 조회 DG 처리 실패');
+			throw new AlertException('장바구니 조회 DB 처리 실패');
 		}
 
 		$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 		return $row;
+	}
+
+	public function getisDirectCart($memNo){
+		$isDirect = 1;
+		$sql = "SELECT * FROM jmmk_cart WHERE isDirect = :isDirect AND memNo = :memNo";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":isDirect", $isDirect, PDO::PARAM_INT);
+		$stmt->bindValue(":memNo", $memNo);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('바로구매 목록 삭제 DB 처리 실패');
+		}
+
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		return $row['cartNo'];
 	}
 
 	public function getCartList($memNo){
@@ -604,13 +624,14 @@ class Goods{
 		return $rows;
 	}
 
-	public function deleteBuyNowCart(){
+	public function deleteBuyNowCart($memNo){
 		$isDirect = 1;
-		$sql = "DELETE FROM jmmk_cart WHERE isDirect = :isDirect";
+		$sql = "DELETE FROM jmmk_cart WHERE isDirect = :isDirect AND memNo = :memNo";
 
 		$stmt = db()->prepare($sql);
 
 		$stmt->bindValue(":isDirect", $isDirect, PDO::PARAM_INT);
+		$stmt->bindValue(":memNo", $memNo);
 
 		$result = $stmt->execute();
 

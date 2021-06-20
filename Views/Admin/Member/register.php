@@ -42,12 +42,12 @@
 				?>
 				<label for='memPh'>전화번호</label>
 				<select id='memPh_1' name='memPh[]'>
-					<option value='010' <?php if($memPhArray[0] == '010'){echo 'selected';}?> >010</option>
-					<option value='011' <?php if($memPhArray[0] == '011'){echo 'selected';}?> >011</option>
-					<option value='016' <?php if($memPhArray[0] == '016'){echo 'selected';}?> >016</option>
-					<option value='017' <?php if($memPhArray[0] == '017'){echo 'selected';}?> >017</option>
-					<option value='018' <?php if($memPhArray[0] == '018'){echo 'selected';}?> >018</option>
-					<option value='019' <?php if($memPhArray[0] == '019'){echo 'selected';}?> >019</option>
+					<option value='010' <?php if(isset($memPhArray) && $memPhArray[0] == '010'){echo 'selected';}?> >010</option>
+					<option value='011' <?php if(isset($memPhArray) && $memPhArray[0] == '011'){echo 'selected';}?> >011</option>
+					<option value='016' <?php if(isset($memPhArray) && $memPhArray[0] == '016'){echo 'selected';}?> >016</option>
+					<option value='017' <?php if(isset($memPhArray) && $memPhArray[0] == '017'){echo 'selected';}?> >017</option>
+					<option value='018' <?php if(isset($memPhArray) && $memPhArray[0] == '018'){echo 'selected';}?> >018</option>
+					<option value='019' <?php if(isset($memPhArray) && $memPhArray[0] == '019'){echo 'selected';}?> >019</option>
 				</select>
 				<input id='memPh_2' name='memPh[]' maxlength='4' class='memPh' value='<?php if(isset($memNo)){echo $memPhArray[1];}?>'>
 				<input id='memPh_3' name='memPh[]' maxlength='4' class='memPh' value='<?php if(isset($memNo)){echo $memPhArray[2];}?>'>

@@ -793,6 +793,46 @@ $(document).ready(function(){
 
     /* 주문하기 - 주소 검색 관련 E */
 
+    /* 주문하기 - 결제수단 선택 관련 S */
+
+    $('.order_order_wrap .paymentMethod').on('click', "input[type='radio']", function(){
+        if($(this).val() != '무통장입금'){ // 무통장입금이 아니면 dn 붙여서 없애고
+            $(this).closest('ul').find('.paymentMethod1_li').removeClass('dn').addClass('dn');
+            // 값도 없애기
+            $(this).closest('ul').find("input[type='text']").val('');
+
+        }else{ // 무통장입금이면 dn 없애서 보이게 한다
+            $(this).closest('ul').find('.paymentMethod1_li').removeClass('dn');
+        }
+    });
+
+    /* 주문하기 - 결제수단 선택 관련 E */
+
+    /* 주문하기 - 주문자 정보와 같음 S */
+
+    $('.order_order_wrap').on('click', '#isEqual', function(){
+        if($(this).prop('checked') == true){
+            const orderName = $('#orderName').val();
+            $('#receiverName').val(orderName);
+
+            const orderPhone_1 = $('#orderPhone_1').val();
+            $('#receiverPhone_1').val(orderPhone_1);
+            const orderPhone_2 = $('#orderPhone_2').val();
+            $('#receiverPhone_2').val(orderPhone_2);
+            const orderPhone_3 = $('#orderPhone_3').val();
+            $('#receiverPhone_3').val(orderPhone_3);
+
+        }else{
+            $('#receiverName').val('');
+            $('#receiverPhone_1').val('');
+            $('#receiverPhone_2').val('');
+            $('#receiverPhone_3').val('');
+        }
+    });
+
+
+    /* 주문하기 - 주문자 정보와 같음 E */
+
 });
 
 /* 이미지 업로드 후 콜백 */

@@ -3,6 +3,7 @@
 namespace Controller\Front\Order;
 
 use App;
+use Component\Exception\AlertException;
 
 class IndbController extends \Controller\Front\FrontController{
 	public function __construct(){
@@ -19,8 +20,27 @@ class IndbController extends \Controller\Front\FrontController{
 
 			$goods = App::load(\Component\Goods\Goods::class);
 
+			$order = App::load(\Component\Order\Order::class);
+
 			switch($formData['mode']){
+
+				case 'order':
+
+					$result = $order->data($formData)->validator('order')->order();
+
+					if($result === false){
+						throw new AlertException('주문에 실패했습니다');
+					}
+
+					alertReplace('주문에 성공했습니다. 주문내역 페이지로 이동합니다', 'order/list', 'parent');
+
+					break;
+
 				case 'remove_all':
+
+					if(!isset($formData['cartNo'])){
+						alertReplace('선택된 상품이 없습니다', 'order/cart');
+					}
 
 					$memNo = $_SESSION['member_memNo'];
 
@@ -35,6 +55,10 @@ class IndbController extends \Controller\Front\FrontController{
 					break;
 
 				case 'remove_select':
+
+					if(!isset($formData['cartNo'])){
+						alertReplace('선택된 상품이 없습니다', 'order/cart');
+					}
 
 					// v 값이 cartNo 값임을 이용하여 순회하여 제거
 				

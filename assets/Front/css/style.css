@@ -2579,7 +2579,6 @@ input[type='file']{
 	margin-bottom: 30px;
 }
 
-
 .order_order_wrap .order_order_table_wrap{
 	padding: 0 20px;
 	margin-bottom: 50px;
@@ -2624,6 +2623,32 @@ input[type='file']{
 	font-size: 1.2rem;
 }
 
+.order_order_table tfoot{
+	border-bottom: 1px solid #ccc;
+}
+
+.order_order_table tfoot td,
+.order_order_table tfoot th{
+	padding: 15px 0;
+	text-align: center;
+}
+
+.order_order_table tfoot th{
+	font-size: 1.25rem;
+	background-color: #fafafa;
+	border-bottom: 1px solid #ccc;
+}
+
+.order_order_table tfoot td{
+	font-size: 1.3rem;
+	padding: 30px 0;
+}
+
+.order_order_table tfoot td.finalPrice{
+	font-size: 1.4rem;
+	font-weight: bold;
+}
+
 .order_order_table .goodsImg img{
 	display: inline-block;
 	width: auto;
@@ -2659,20 +2684,50 @@ input[type='file']{
 	line-height: 34px;
 }
 
+.order_info_ul li select{
+    font-family: 'RIDIBatang', sans-serif;
+    font-size: 1.3rem;
+	width: 80px;
+	float: left;
+	padding: 0 10px;
+	border: 0;
+	box-shadow: 0 0 3px #999;
+	height: 34px;
+	margin-right: 10px;
+}
+
 .order_info_ul li input{
     font-family: 'RIDIBatang', sans-serif;
     font-size: 1.3rem;
-	width: 400px;
+	width: 300px;
 	float: left;
 	padding: 7px 10px;
 	border: 0;
 	box-shadow: 0 0 3px #999;
 }
 
+.order_info_ul li input.orderPhone_input{
+	width: 100px;
+	margin-right: 10px;
+}
+
+.order_info_ul li select:focus,
 .order_info_ul li input:focus{
 	box-shadow: 0 0 3px red;
 }
 
+.order_order_wrap .isEqual{
+	margin-left: 15px;
+	margin-bottom: 20px;
+	font-size: 1.4rem;
+	color: red;
+}
+
+.order_order_wrap .isEqual input[type='checkbox']{
+	top: 2px;
+	position: relative;
+	margin-right: 7px;
+}
 
 .receiver_info_box{
 	padding: 0 20px;
@@ -2705,15 +2760,32 @@ input[type='file']{
 .receiver_info_ul > li > input{
     font-family: 'RIDIBatang', sans-serif;
     font-size: 1.3rem;
-	width: 400px;
+	width: 300px;
 	float: left;
 	padding: 7px 10px;
 	border: 0;
 	box-shadow: 0 0 3px #999;
 }
 
+.receiver_info_ul > li > select{
+    font-family: 'RIDIBatang', sans-serif;
+    font-size: 1.3rem;
+	width: 80px;
+	float: left;
+	padding: 0 10px;
+	border: 0;
+	box-shadow: 0 0 3px #999;
+	margin-right: 10px;
+	height: 34px;
+}
+
 .receiver_info_ul > li > input:focus{
 	box-shadow: 0 0 3px red;
+}
+
+.receiver_info_ul > li > input.receiverPhone_input{
+	width: 100px;
+	margin-right: 10px;
 }
 
 .receiver_info_ul > li > ul{
@@ -2728,7 +2800,7 @@ input[type='file']{
 .receiver_info_ul > li > ul > li > input[type='text']{
     font-family: 'RIDIBatang', sans-serif;
     font-size: 1.3rem;
-	width: 400px;
+	width: 300px;
 	padding: 7px 10px;
 	border: 0;
 	box-shadow: 0 0 3px #999;
@@ -2756,8 +2828,6 @@ input[type='file']{
 .receiver_info_ul > li > ul > li:last-child{
 	padding-bottom: 0;
 }
-
-
 
 .payment_info_box{
 	padding: 0 20px;
@@ -2789,7 +2859,7 @@ input[type='file']{
 .payment_info_ul > li > input{
     font-family: 'RIDIBatang', sans-serif;
     font-size: 1.3rem;
-	width: 400px;
+	width: 300px;
 	float: left;
 	padding: 7px 10px;
 	border: 0;
@@ -2826,8 +2896,8 @@ input[type='file']{
 	display: block;
     font-family: 'RIDIBatang', sans-serif;
     font-size: 1.3rem;
-	width: 400px;
-	padding: 7px 10px;
+	width: 300px;
+	padding: 0 10px;
 	border: 0;
 	box-shadow: 0 0 3px #999;
 	height: 34px;
@@ -2838,7 +2908,7 @@ input[type='file']{
 	display: block;
     font-family: 'RIDIBatang', sans-serif;
     font-size: 1.3rem;
-	width: 400px;
+	width: 300px;
 	padding: 7px 10px;
 	border: 0;
 	box-shadow: 0 0 3px #999;
