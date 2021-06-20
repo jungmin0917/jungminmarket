@@ -13,8 +13,9 @@
 			</div>
 			<div class='text3'>
 				총 주문 횟수 : <span class='text4'><?=$orderTime?></span>회<br>
-				총 주문 금액 : <span class='text4'><?=$orderCost?></span>원<br>
-				적립 포인트 : <span class='text4'><?=$point?></span>원
+				총 주문 금액 : <span class='text4'><?=number_format($orderCost)?></span>원<br>
+				적립 포인트 : <span class='text4'><?=number_format($rewardPoint)?></span>원<br>
+				사용 포인트 : <span class='text4'><?=number_format($usedPoint)?></span>원
 			</div>
 		</div>
 	</div>

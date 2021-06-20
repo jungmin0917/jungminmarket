@@ -4,6 +4,7 @@ namespace Component\Member;
 
 use App;
 use PDO;
+use PDOException;
 use Component\Exception\AlertException;
 
 class Member{
@@ -840,6 +841,26 @@ class Member{
 					}
 				}
 			}
+		}
+
+		return $result;
+	}
+
+	public function updateOrderTimeAndCost($memNo, $orderCost, $rewardPoint){ // time은 어차피 1번씩 늘어남
+		$sql = "UPDATE jmmk_member SET orderCost = orderCost + :orderCost, orderTime = orderTime + 1, rewardPoint = rewardPoint + :rewardPoint WHERE memNo = :memNo";
+
+		$stmt = db()->prepare($sql);
+
+		$bindData = ['orderCost', 'rewardPoint', 'memNo'];
+
+		foreach($bindData as $v){
+			$stmt->bindValue(":{$v}", $$v);
+		}
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new PDOException('회원 주문 정보 업데이트 실패');
 		}
 
 		return $result;

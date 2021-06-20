@@ -170,6 +170,8 @@ class Order{
 				$cartData[] = $goods->getCart($v); 
 			}
 
+			$orderCost = 0;
+
 			foreach($cartData as $k => $v){
 				$sql = "INSERT INTO jmmk_order_goods (orderNo, goodsNo, goodsNm, goodsCount, salePrice, totalGoodsPrice) VALUES (:orderNo, :goodsNo, :goodsNm, :goodsCount, :salePrice, :totalGoodsPrice)";
 
@@ -180,6 +182,7 @@ class Order{
 				$goodsCount = $v['goodsCount'];
 				$salePrice = $goodsData['salePrice'];
 				$totalGoodsPrice = $goodsCount * $salePrice;
+				$orderCost = $orderCost + $totalGoodsPrice;
 
 				$stmt = db()->prepare($sql);
 
@@ -191,6 +194,14 @@ class Order{
 
 				$result = $stmt->execute();
 			}
+
+			// 여기부터는 총 주문횟수, 총 주문금액 업데이트 작업
+
+			$rewardPoint = round($orderCost / 100);
+
+			$member = App::load(\Component\Member\Member::class);
+
+			$member->updateOrderTimeAndCost($memNo, $orderCost, $rewardPoint);
 
 			
 			// 여기부터는 주문 성공한 상품 장바구니에서 제거 작업
@@ -211,6 +222,38 @@ class Order{
 	}
 
 	public function getOrder($memNo){
-		
+		$sql = "SELECT * FROM jmmk_order WHERE memNo = :memNo";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":memNo", $memNo);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('주문내역 조회 실패');
+		}
+
+		$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		return $rows;
+	}
+
+	public function getOrderGoods($orderNo){
+		$sql = "SELECT * FROM jmmk_order_goods WHERE orderNo = :orderNo";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":orderNo", $orderNo);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('주문상품 조회 실패');
+		}
+
+		$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		return $rows;
 	}
 }

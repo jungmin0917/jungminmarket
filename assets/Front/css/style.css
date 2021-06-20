@@ -2937,3 +2937,13 @@ input[type='file']{
 }
 
 /* 주문하기 관련 E */
+
+
+/* 주문내역 관련 S */
+
+.order_list_wrap .title{
+	font-size: 1.8rem;
+	margin-bottom: 30px;
+}
+
+/* 주문내역 관련 E */
