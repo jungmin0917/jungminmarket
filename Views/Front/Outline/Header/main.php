@@ -6,12 +6,14 @@
 
 	<link rel='shortcut icon' href="<?=siteUrl('assets/Front/image/favicon.png')?>">
 
+	<link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css" />
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xeicon@2.3.3/xeicon.min.css">
 	<link rel='stylesheet' type='text/css' href='<?=siteUrl("assets/Front/css/reset.css")?>'>
 	<link rel='stylesheet' type='text/css' href='<?=siteUrl("assets/Front/css/style.css")?>'>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
 	<script src='<?=siteUrl("assets/Common/ckeditor/ckeditor.js")?>'></script>
 	<script src='<?=siteUrl("assets/Front/js/script.js")?>' charset='utf-8'></script>
 

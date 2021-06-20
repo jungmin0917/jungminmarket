@@ -2941,9 +2941,124 @@ input[type='file']{
 
 /* 주문내역 관련 S */
 
+.order_list_wrap{
+	font-size: 1.2rem;
+}
+
 .order_list_wrap .title{
 	font-size: 1.8rem;
+	margin-bottom: 50px;
+}
+
+.order_list_wrap .order_list_box{
+	padding: 0 30px;
+}
+
+.order_list_wrap .order_list_ul{
+	border-radius: 20px;
+	box-shadow: 0 0 3px black;
+	padding: 20px 30px;
+}
+
+.order_list_wrap .order_list_ul .orderTitle{
+	font-size: 1.5rem;
+}
+
+.order_list_wrap .order_list_ul{
 	margin-bottom: 30px;
+}
+
+.order_list_wrap .order_list_ul:last-child{
+	margin: 0;
+}
+
+.order_list_ul .orderTitle{
+	line-height: 20px;
+	margin-bottom: 20px;
+	font-weight: bold;
+}
+
+.order_list_ul .orderTitle:after{
+	clear: both;
+	display: block;
+	content: '';
+}
+
+.order_list_ul .orderTitle .orderDate{
+	float: left;
+	width: 50%;
+}
+
+.order_list_ul .orderTitle .orderDate .orderNo{
+	font-size: 1.3rem;
+	margin-left: 5px;
+}
+
+.order_list_ul .orderTitle .orderDetail{
+	float: right;
+	width: 50%;
+	text-align: right;
+}
+
+.order_list_ul .orderTitle .orderDetail i{
+	position: relative;
+	top: 2px;
+	margin-left: 3px;
+}
+
+.order_list_ul .order_list_li{
+	border-radius: 20px;
+	box-shadow: 0 0 3px black;
+	padding: 20px;
+	margin-bottom: 20px;
+}
+
+.order_list_ul .order_list_li:last-child{
+	margin: 0;
+}
+
+.order_list_ul .order_list_li:after{
+	clear: both;
+	display: block;
+	content: '';
+}
+
+.order_list_li .orderStatus{
+	float: left;
+	width: 100%;
+	font-size: 1.5rem;
+	margin-bottom: 20px;
+	font-weight: bold;
+}
+
+.order_list_li .goodsImg{
+	float: left;
+	width: 20%;
+}
+
+.order_list_li .goodsInfo{
+	float: left;
+	width: 80%;
+	padding: 0 20px;
+	font-size: 1.3rem;
+}
+
+.order_list_li .goodsImg img{
+	display: block;
+	width: 100%
+	max-width: 183px;
+	height: 100%;
+	max-height: 183px;
+	margin: 0 auto;
+}
+
+.order_list_li .goodsInfo .goodsNm{
+	margin-bottom: 20px;
+	font-size: 1.3rem;
+}
+
+.order_list_li .goodsInfo .goodsPrice{
+	margin-bottom: 20px;
 }
 
 /* 주문내역 관련 E */

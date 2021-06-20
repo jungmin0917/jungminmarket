@@ -222,7 +222,7 @@ class Order{
 	}
 
 	public function getOrder($memNo){
-		$sql = "SELECT * FROM jmmk_order WHERE memNo = :memNo";
+		$sql = "SELECT * FROM jmmk_order WHERE memNo = :memNo ORDER BY regDt DESC";
 
 		$stmt = db()->prepare($sql);
 
