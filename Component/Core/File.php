@@ -63,7 +63,7 @@ class File{
 		}
 	}
 
-	// 이미지 업로드 함수
+	// 이미지 업로드
 	public function uploadImage($fileGroup){
 		try{
 			$files = request()->files();
@@ -116,8 +116,63 @@ class File{
 		}
 	}
 
+	// 배너 이미지 업로드 (배너 이미지는 올리자마자 임시 파일 아닌 것으로 간주)
+	public function uploadBannerImage($fileGroup){
+		try{
+			$files = request()->files();
 
-	// 상품 이미지 업로드 함수
+			extract($files);
+
+			// DB 처리
+			$isImage = 1;
+			$isBannerImage = 1;
+			$isNotTemporary = 1;
+			$fileName = $fileGroup;
+			$fileType = $file['type'];
+
+			$sql = "INSERT INTO jmmk_file (fileGroup, fileName, fileType, isImage, isBannerImage, isNotTemporary) VALUES (:fileGroup, :fileName, :fileType, :isImage, :isBannerImage, :isNotTemporary)";
+
+			$stmt = db()->prepare($sql);
+
+			$bindData = ['fileGroup', 'fileName', 'fileType', 'isImage', 'isBannerImage', 'isNotTemporary'];
+
+			foreach($bindData as $v){
+				$stmt->bindValue(":{$v}", $$v);
+			}
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('파일 업로드 실패');
+			}
+
+			// 파일 위치 옮기기
+			$uploadPath = __DIR__ . "/../../assets/Upload/Image/";
+
+			// 폴더 없으면 만들기
+			if(!file_exists($uploadPath)){
+				mkdir($uploadPath);
+			}
+
+			$result = move_uploaded_file($file['tmp_name'], $uploadPath.$fileName);
+
+			if($result === false){
+				throw new AlertException('파일 옮기기 실패');
+			}
+
+			// 업로드된 파일 정보 조회
+
+			$fileNo = db()->lastInsertId();
+
+			return $fileNo;
+
+		}catch(AlertException $e){
+			echo $e;
+			exit;
+		}
+	}
+
+	// 상품 이미지 업로드
 	public function uploadGoodsImage($fileGroup){
 		try{
 			$files = request()->files();
@@ -309,6 +364,31 @@ class File{
 			$row = $stmt->fetch(PDO::FETCH_ASSOC);
 
 			return $row;
+
+		}catch(AlertException $e){
+			echo $e;
+			exit;
+		}
+	}
+
+	public function getBannerImageFiles(){
+		try{
+			$isBannerImage = 1;
+			$sql = "SELECT * FROM jmmk_file WHERE isBannerImage = :isBannerImage";
+
+			$stmt = db()->prepare($sql);
+
+			$stmt->bindValue(":isBannerImage", $isBannerImage, PDO::PARAM_INT);
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('파일 정보 조회 실패');
+			}
+
+			$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+			return $rows;
 
 		}catch(AlertException $e){
 			echo $e;

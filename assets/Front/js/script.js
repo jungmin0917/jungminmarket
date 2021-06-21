@@ -7,6 +7,51 @@ $(document).ready(function(){
         height:400,
     });
 
+    /* 메인 페이지 swiper 관련 */
+
+    // 배너 swiper
+    var swiper = new Swiper(".mySwiper_banner", {
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+
+        loop:true,
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false,
+        },
+    });
+
+
+    // 베스트 상품 swiper
+
+    var swiper = new Swiper(".mySwiper_best", {
+        slidesPerView: 3,
+        spaceBetween: 20,
+
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        },
+
+        loop:true,
+        autoplay: {
+            delay: 3500,
+            disableOnInteraction: false,
+        },
+    });
+
 	/* 약관 관련 */
 	$('body').on('click', '#agree_all', function(){
 		if($(this).is(":checked")){
@@ -830,8 +875,34 @@ $(document).ready(function(){
         }
     });
 
-
     /* 주문하기 - 주문자 정보와 같음 E */
+
+
+    /* 메인 페이지 - 위아래로 가기 S */
+
+    $('aside').on('click', '.go_top', function(){
+        $('html').animate({scrollTop : 0});
+    });
+
+    $('aside').on('click', '.go_down', function(){
+        $('html').animate({scrollTop : document.body.scrollHeight});
+    });
+
+    /* 메인 페이지 - 위아래로 가기 E */
+
+
+    /* 메인 페이지 - 레이어 메뉴 관련 S */
+
+    // 마우스 들어왔을 때
+    $('.sub_menu_wrap').on('mouseenter', '.layer_menu_button', function(){ 
+        $('.layer_menu').fadeIn(200);
+    });
+
+    $('.sub_menu_wrap').on('mouseleave', '.layer_menu_button', function(){
+        $('.layer_menu').fadeOut(200);
+    });
+
+    /* 메인 페이지 - 레이어 메뉴 관련 E */
 
 });
 

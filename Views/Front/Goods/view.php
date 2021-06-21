@@ -72,7 +72,6 @@
 				<div class='buttons'>
 					<a href='javascript:;' class='buy_now'>바로구매</a>
 					<a href='javascript:;' class='add_cart'>장바구니</a>
-					<a href='javascript:;' class='add_wishlist'>관심상품</a>
 				</div>
 			</div>
 		</form>

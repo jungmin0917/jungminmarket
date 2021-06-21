@@ -1,4 +1,5 @@
 <div class='member_list_wrap layout_width'>
+	<div class='title'>회원 목록</div>
 	<form method='post' action='indb' target='ifrm_hidden' autocomplete='off' class='member_list_form'>
 		<input type='hidden' name='mode' value='updateGrade'>
 		<table class='member_list_table'>

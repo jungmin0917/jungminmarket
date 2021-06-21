@@ -1,6 +1,12 @@
 <div class='order_list_wrap layout_width'>
 	<div class='title'>주문내역</div>
 
+	<?php if(!$orderList) : ?>
+	<div class='no_order_info'>
+		주문내역이 존재하지 않습니다
+	</div>
+	<?php endif; ?>
+
 	<div class='order_list_box'>
 		<?php foreach($orderList as $k => $v) : ?>
 			<ul class='order_list_ul'>

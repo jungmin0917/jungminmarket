@@ -1,4 +1,5 @@
 <div class='goods_list_wrap layout_width'>
+	<div class='title'>상품 목록</div>
 	<form method='post' action='indb' target='ifrm_hidden' autocomplete='off' class='goods_list_table_form'>
 		<input type='hidden' name='mode' value='goods_list_update'>
 		<table class='goods_list_table'>

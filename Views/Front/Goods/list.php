@@ -53,6 +53,24 @@
 						<span class='salePoint'>판매점수 : <?=$v['salePoint']?></span>
 					</div>
 					<div class='stock_info'>
+						<?php if($category == 'new') : ?>
+							<span class='date_ago'>
+								<?php
+									$regTime = strtotime($v['regDt']);
+									$nowTime = strtotime(date("Y-m-d H:i:s"));
+
+									$second = $nowTime - $regTime;
+
+									$day = floor($second / 86400);
+
+									if($day > 0){
+										echo $day."일 전";
+									}else{
+										echo "오늘";
+									}
+								?>
+							</span>
+						<?php endif; ?>
 						<?php
 							$regTime = strtotime($v['regDt']); // 등록 시간 초로
 							$nowTime = strtotime(date("Y-m-d H:i:s")); // 현재 시간 초로

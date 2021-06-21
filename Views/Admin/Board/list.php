@@ -1,4 +1,5 @@
 <div class='board_list_wrap layout_width'>
+	<div class='title'>게시판 목록</div>
 	<form method='post' action='indb' target='ifrm_hidden' autocomplete="off" class='board_list_form'>
 		<input type='hidden' name='mode' value='updateNameSkin'>
 		<table class='board_list_table'>

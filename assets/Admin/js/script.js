@@ -119,6 +119,29 @@ $(document).ready(function(){
 
     /* 이미지 업로드 관련 S */
 
+    // 프론트 메인 배너 이미지 업로드
+
+    $('.admin_banner_wrap').on('click', '.bannerImageSet_ul .button a', function(){
+        layer_open();
+
+        const fileGroup = $(this).attr('class');
+
+        console.log(fileGroup);
+
+        const html = "<iframe src='/workspace/jungminmarket/file/upload?fileGroup=" + fileGroup + "'></iframe>";
+
+        $('.layer_popup').html(html);
+
+        // input type hidden으로 bannerImageSet임을 mode로 넣기
+
+        // iframe 로드 후 처리
+        $('iframe').on('load', function(){
+            const html2 = "<input type='hidden' name='mode' value='bannerImageSet'>";
+
+            $('iframe').contents().find('form').prepend(html2);
+        });
+    });
+
     // 상품 메인 이미지 업로드
     $('.goods_register_wrap').on('click', '.goodsImageSet', function(){
         layer_open();
@@ -203,7 +226,6 @@ $(document).ready(function(){
         });
     });
 
-
 });
 
 // 레이어 팝업 열기
@@ -239,6 +261,17 @@ function fileUploadCallback(data){
         </div>`;
 
     $('.longDescImageAdd').after(html);
+
+    layer_close();
+}
+
+// 배너 이미지 업로드 후 콜백
+function bannerImageUploadCallback(data){
+    const tag = `<img src='${data.url}'>`;
+
+    const fileGroup = data.fileGroup.split("_");
+
+    $('.bannerImagePreview_' + fileGroup[1]).html(tag);
 
     layer_close();
 }

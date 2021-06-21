@@ -9,7 +9,7 @@
 		<div class='right'>
 			<div class='text1'>환영합니다. <?=$memNm?> 회원님!</div>
 			<div class='text2'>
-				<a href='<?=siteUrl("order/list")?>'><i class='xi-won'></i>주문내역</a>ㆍ<a href='<?=siteUrl("order/cart")?>'><i class='xi-cart-o'></i>장바구니</a>ㆍ<a href='<?=siteUrl("mypage/wishlist")?>'><i class='xi-gift-o'></i>관심상품</a>
+				<a href='<?=siteUrl("order/list")?>'><i class='xi-won'></i>주문내역</a>ㆍ<a href='<?=siteUrl("order/cart")?>'><i class='xi-cart-o'></i>장바구니</a>
 			</div>
 			<div class='text3'>
 				총 주문 횟수 : <span class='text4'><?=$orderTime?></span>회<br>

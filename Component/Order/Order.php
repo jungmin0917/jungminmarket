@@ -239,6 +239,24 @@ class Order{
 		return $rows;
 	}
 
+	public function getOrderData($orderNo){
+		$sql = "SELECT * FROM jmmk_order WHERE orderNo = :orderNo";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":orderNo", $orderNo);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('주문 정보 조회 실패');
+		}
+
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		return $row;
+	}
+
 	public function getOrderGoods($orderNo){
 		$sql = "SELECT * FROM jmmk_order_goods WHERE orderNo = :orderNo";
 
@@ -255,5 +273,63 @@ class Order{
 		$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 		return $rows;
+	}
+
+	// 해당 주문이 해당 회원의 것인지 확인하기
+
+	public function isOrderOwn($orderNo, $memNo){
+		try{
+			$sql = "SELECT * FROM jmmk_order WHERE orderNo = :orderNo AND memNo = :memNo";
+
+			$stmt = db()->prepare($sql);
+
+			$bindData = ['orderNo', 'memNo'];
+
+			foreach($bindData as $v){
+				$stmt->bindValue(":{$v}", $$v);
+			}
+
+			$result = $stmt->execute();
+
+			if($result === false){
+				throw new AlertException('해당 주문 회원의 것인지 확인 실패');
+			}
+
+			$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+			if($row){
+				return true;
+			}else{
+				return false;
+			}
+
+		}catch(AlertException $e){
+			echo $e;
+			exit;
+		}
+	}
+
+	public function getOrderTotalPrice($orderNo){
+		$sql = "SELECT * FROM jmmk_order_goods WHERE orderNo = :orderNo";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":orderNo", $orderNo);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('주문의 총 상품 금액 조회 실패');
+		}
+
+		$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+		$total = 0;
+
+		foreach($rows as $v){
+			$total = $total + $v['totalGoodsPrice'];
+		}
+
+		return $total;
 	}
 }
