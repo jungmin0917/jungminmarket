@@ -268,7 +268,7 @@ input[type='file']{
 }
 
 .member_list_table thead{
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     background-color: lightblue;
 }
 
@@ -497,7 +497,7 @@ input[type='file']{
 }
 
 .board_list_table thead{
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     background-color: lightblue;
 }
 
@@ -1046,7 +1046,7 @@ input[type='file']{
 }
 
 .goods_category_table thead{
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     background-color: lightblue;
 }
 
@@ -1239,10 +1239,92 @@ input[type='file']{
 /* 상품관리 - 상품목록 관련 E */
 
 
+/* 주문관리 - 주문목록 관련 S */
+
+.order_list_wrap .title{
+    font-size: 1.8rem;
+    margin-bottom: 30px;
+}
+
+.order_list_table_wrap{
+    padding: 0 20px;
+}
+
+.order_list_table{
+    width: 100%;
+    margin-bottom: 30px;
+}
+
+.order_list_table thead{
+    font-size: 1.3rem;
+    background-color: lightblue;
+}
+
+.order_list_table thead th{
+    padding: 15px 0;
+    border-right: 1px solid white;
+}
+
+.order_list_table tbody{
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.order_list_table tbody select{
+    font-family: 'RIDIBatang', sans-serif;
+    border: 0;
+    box-shadow: 0 0 3px black;
+    border-radius: 5px;
+    font-size:1.1rem;
+    height: 30px;
+    width: 80px;
+    padding-left: 5px;
+}
+
+.order_list_table tbody tr{
+    height: 59px;
+}
+
+.order_list_table tbody tr td{
+    vertical-align: middle;
+}
+
+.order_list_table tbody tr:nth-child(2n){
+    background-color: lightcyan;
+}
+
+.order_list_table_form input[type='submit']{
+    font-family: 'RIDIBatang', sans-serif;
+    background-color:#2a2a2a;
+    color:white;
+    font-size:1.5rem;
+    padding:10px 40px;
+    cursor:pointer;
+    border-radius:5px;
+    border:0;
+    transition: all 0.5s;
+}
+
+.order_list_table_form input[type='submit']:focus,
+.order_list_table_form input[type='submit']:hover{
+    opacity: 0.5;
+}
+
+.order_list_submit_wrap{
+    text-align: center;
+}
+
+.order_list_table_form input[type='checkbox']{
+    zoom: 1.4;
+}
+
+/* 주문관리 - 주문목록 관련 E */
+
+
 /* 기타설정 - 임시파일 관련 S */
 
 .etc_temporary_wrap .title{
-    font-size: 1.7rem;
+    font-size: 1.8rem;
     margin-bottom: 30px;
 }
 

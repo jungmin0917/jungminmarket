@@ -417,7 +417,7 @@ $(document).ready(function(){
     /* 게시판, 상품 검색 관련 S */
 
     // 게시판에서 검색한 글자 색깔 바꾸기
-    const searchWord = $('#searchWord').val(); // 일단 검색값 가져옴
+    const searchWord = $('#searchWord').val();
     const searchWord2 = $('#searchWord2').html();
 
     if(searchWord){ // 검색어가 있을 때

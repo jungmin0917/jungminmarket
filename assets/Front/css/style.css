@@ -2483,6 +2483,12 @@ aside .go_down:focus{
 	color: #999;
 }
 
+.goods_list_wrap .no_searched_item_info{
+	text-align: center;
+	font-size: 1.8rem;
+	margin-top: 30px;
+}
+
 .goods_list_ul .searched{
 	background-color: skyblue;
 	color: dodgerblue;

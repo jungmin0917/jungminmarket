@@ -41,6 +41,11 @@
 	</div>
 
 	<div class='goods_list_ul_wrap'>
+		<?php 
+			if(isset($searchWord) && !$goodsList){
+				echo "<div class='no_searched_item_info'>검색 결과가 없습니다</div>";
+			}
+		?>
 		<ul class='goods_list_ul'>
 			<?php foreach($goodsList as $v) : ?>
 				<li>

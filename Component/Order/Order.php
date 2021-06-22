@@ -221,6 +221,62 @@ class Order{
 		}
 	}
 
+	public function getOrderList($page = 1, $limit = 10){
+		$url = siteUrl("admin/order/list");
+		$page = $page?$page:1;
+		$limit = $limit?$limit:10;
+		$offset = ($page - 1) * $limit;
+
+
+		// total 구하기
+
+		$sql = "SELECT COUNT(*) as cnt FROM jmmk_order";
+
+		$stmt = db()->prepare($sql);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('주문 총 개수 조회 실패');
+		}
+
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		$total = $row['cnt'];
+
+
+		// list 구하기
+
+		$sql = "SELECT * FROM jmmk_order ORDER BY regDt DESC LIMIT :limit OFFSET :offset";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":limit", $limit, PDO::PARAM_INT);
+		$stmt->bindValue(":offset", $offset, PDO::PARAM_INT);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('주문 목록 조회 실패');
+		}
+
+		$list = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+		// 페이징하기
+
+		$paginator = App::load(\Component\Core\Pagination::class, $page, $limit, $total, $url);
+
+		$pagination = $paginator->getHTML();
+
+		$data = [
+			'list' => $list,
+			'pagination' => $pagination,
+		];
+
+		return $data;
+	}
+
 	public function getOrder($memNo){
 		$sql = "SELECT * FROM jmmk_order WHERE memNo = :memNo ORDER BY regDt DESC";
 
@@ -331,5 +387,32 @@ class Order{
 		}
 
 		return $total;
+	}
+
+	public function updateOrderStatus(){
+
+		if(isset($this->params['orderNo'])){
+			$orderNo = $this->params['orderNo'];
+			$orderStatus = $this->params['orderStatus'];
+
+			foreach($orderNo as $k => $v){
+				$sql = "UPDATE jmmk_order SET orderStatus = :orderStatus WHERE orderNo = :orderNo";
+
+				$stmt = db()->prepare($sql);
+
+				$stmt->bindValue(":orderStatus", $orderStatus[$k]);
+				$stmt->bindValue(":orderNo", $k);
+
+				$result = $stmt->execute();
+
+				if($result === false){
+					throw new AlertException('주문상태 업데이트 실패');
+				}
+			}
+
+			return $result;
+		}else{
+			throw new AlertException('변경할 항목을 선택해주세요');
+		}
 	}
 }
