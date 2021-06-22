@@ -3736,3 +3736,12 @@ aside .go_down:focus{
 }
 
 /* 주문상세 관련 E */
+
+/* 회사정보 관련 S */
+
+.inform_wrap .title{
+	font-size: 1.8rem;
+	margin-bottom: 30px;
+}
+
+/* 회사정보 관련 E */
