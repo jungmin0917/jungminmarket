@@ -46,4 +46,5 @@
 		<?php endforeach; ?>
 
 	</div>
+	<?=$pagination?>
 </div>

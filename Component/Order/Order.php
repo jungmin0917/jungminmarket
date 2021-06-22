@@ -277,8 +277,14 @@ class Order{
 		return $data;
 	}
 
-	public function getOrder($memNo){
-		$sql = "SELECT * FROM jmmk_order WHERE memNo = :memNo ORDER BY regDt DESC";
+	public function getOrder($page = 1, $limit = 10, $memNo){
+		$url = siteUrl("order/list");
+		$page = $page?$page:1;
+		$limit = $limit?$limit:10;
+		$offset = ($page - 1) * $limit;
+
+		// total 구하기
+		$sql = "SELECT COUNT(*) as cnt FROM jmmk_order WHERE memNo = :memNo";
 
 		$stmt = db()->prepare($sql);
 
@@ -287,12 +293,44 @@ class Order{
 		$result = $stmt->execute();
 
 		if($result === false){
+			throw new AlertException('주문 총 개수 조회 실패');
+		}
+
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		$total = $row['cnt'];
+
+
+		// list 구하기
+		$sql = "SELECT * FROM jmmk_order WHERE memNo = :memNo ORDER BY regDt DESC LIMIT :limit OFFSET :offset";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":memNo", $memNo);
+		$stmt->bindValue(":limit", $limit, PDO::PARAM_INT);
+		$stmt->bindValue(":offset", $offset, PDO::PARAM_INT);
+
+		$result = $stmt->execute();
+
+		if($result === false){
 			throw new AlertException('주문내역 조회 실패');
 		}
 
-		$rows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		$list = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-		return $rows;
+
+		// 페이징하기
+
+		$paginator = App::load(\Component\Core\Pagination::class, $page, $limit, $total, $url);
+
+		$pagination = $paginator->getHTML();
+
+		$data = [
+			'list' => $list,
+			'pagination' => $pagination,
+		];
+
+		return $data;
 	}
 
 	public function getOrderData($orderNo){

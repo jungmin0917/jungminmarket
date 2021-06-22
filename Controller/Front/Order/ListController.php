@@ -14,19 +14,24 @@ class ListController extends \Controller\Front\FrontController{
 
 	public function index(){
 		try{
+			$page = request()->get('page');
+
+			$page = $page?$page:1;
+			$limit = 3;
+
 			$goods = App::load(\Component\Goods\Goods::class);
 
 			$order = App::load(\Component\Order\Order::class);
 
 			$memNo = getSession('member_memNo');
 
-			$orderList = $order->getOrder($memNo);
+			$orderData = $order->getOrder($page, $limit, $memNo);
 
-			foreach($orderList as $k => $v){
-				$orderList[$k]['orderGoodsList'] = $order->getOrderGoods($v['orderNo']);
+			foreach($orderData['list'] as $k => $v){
+				$orderData['list'][$k]['orderGoodsList'] = $order->getOrderGoods($v['orderNo']);
 			}
 
-			App::render("Front/Order/list", ['orderList' => $orderList]);
+			App::render("Front/Order/list", ['orderList' => $orderData['list'], 'pagination' => $orderData['pagination']]);
 
 		}catch(AlertException $e){
 			echo $e;

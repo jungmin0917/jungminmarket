@@ -3495,6 +3495,7 @@ aside .go_down:focus{
 
 .order_list_wrap .order_list_box{
 	padding: 0 30px;
+	margin-bottom: 30px;
 }
 
 .order_list_wrap .order_list_ul{
