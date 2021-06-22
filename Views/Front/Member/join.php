@@ -1,26 +1,26 @@
 <div class='member_join_wrap layout_width'>
 	<form method='post' action='indb' target='ifrm_hidden' autocomplete='off' class='member_join_form'>
-	<div class='member_join_title'><?php if(isset($memNo)){echo "회원정보 수정";}else{echo "회원가입";}?></div>
+	<div class='member_join_title'><?php if(isset($memNo)){echo "회원정보 수정";}else{echo "회원가입";}?><span class='required'>(* 표시는 필수 입력)</span></div>
 		<input type='hidden' name='mode' value='<?php if(isset($memNo)){echo "modify";}else{echo "join";}?>'>
 		<ul class='member_join_ul'>
 			<li>
-				<label for='memId'>아이디</label>
+				<label for='memId'>아이디<span class='required'>*</span></label>
 				<input type='text' name='memId' id='memId' class='<?php if(!isset($memNo)){echo "input_validator";}?>' value='<?php if(isset($memNo)){echo $memId;}?>' <?php if(isset($memNo)){echo "readonly";}?> >
 			</li>
 			<li>
-				<label for='memPw'>비밀번호</label>
+				<label for='memPw'>비밀번호<span class='required'>*</span></label>
 				<input type='password' name='memPw' id='memPw' class='input_validator'>
 			</li>
 			<li>
-				<label for='memPwRe'>비밀번호 확인</label>
+				<label for='memPwRe'>비밀번호 확인<span class='required'>*</span></label>
 				<input type='password' name='memPwRe' id='memPwRe' class='input_validator'>
 			</li>
 			<li>
-				<label for='memNm'>이름</label>
+				<label for='memNm'>이름<span class='required'>*</span></label>
 				<input type='text' name='memNm' id='memNm' value='<?php if(isset($memNo)){echo $memNm;}?>'>
 			</li>
 			<li>
-				<label for='memAd_search'>주소</label>
+				<label for='memAd_search'>주소<span class='required'>*</span></label>
 				<ul class='memAd_ul'>
 					<li>
 						<input type='text' name='memAdNum' id='memAdNum' placeholder='우편번호' value='<?php if(isset($memNo)){echo $memAdNum;}?>' readonly>
@@ -40,7 +40,7 @@
 						$memPhArray = explode("-", $memPh);
 					}
 				?>
-				<label for='memPh'>전화번호</label>
+				<label for='memPh'>전화번호<span class='required'>*</span></label>
 				<select id='memPh_1' name='memPh[]'>
 					<option value='010' <?php if(isset($memPhArray) && $memPhArray[0] == '010'){echo 'selected';}?> >010</option>
 					<option value='011' <?php if(isset($memPhArray) && $memPhArray[0] == '011'){echo 'selected';}?> >011</option>
@@ -53,7 +53,7 @@
 				<input id='memPh_3' name='memPh[]' maxlength='4' class='memPh' value='<?php if(isset($memNo)){echo $memPhArray[2];}?>'>
 			</li>
 			<li>
-				<label for='memEm'>이메일</label>
+				<label for='memEm'>이메일<span class='required'>*</span></label>
 				<input type='email' name='memEm' id='memEm' value='<?php if(isset($memNo)){echo $memEm;}?>'>
 			</li>
 		</ul>

@@ -357,6 +357,12 @@ input[type='file']{
     width:100%;
 }
 
+.member_register_form .required{
+    font-size: 1.3rem;
+    color: red;
+    margin-left: 5px;
+}
+
 .member_register_title{
     font-size:1.8rem;
     margin-bottom:30px;

@@ -508,6 +508,12 @@ input[type='file']{
 	margin-bottom:30px;
 }
 
+.member_join_form .required{
+	font-size: 1.3rem;
+	color: red;
+	margin-left: 5px;
+}
+
 .member_join_ul{
 	font-size:1.5rem;
 	margin-bottom:50px;
