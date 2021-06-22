@@ -343,8 +343,6 @@ $(document).ready(function(){
 
         $this = $(this);
 
-        console.log('test');
-
         $.ajax({
             url: "/workspace/jungminmarket/comment/modify",
             type: "post",
@@ -367,7 +365,6 @@ $(document).ready(function(){
 
     // 수정 확인 엔터 버튼으로 처리
     $('.comment_list_box').on('keypress', 'textarea', function(e){
-        console.log('test');
         if(e.which == 13){
             $('.comment_list_box').find('.comment_modify_submit').click();
             return false;
@@ -417,10 +414,11 @@ $(document).ready(function(){
     /* 게시판 댓글 삭제 E */
 
 
-    /* 게시판 검색 관련 S */
+    /* 게시판, 상품 검색 관련 S */
 
     // 게시판에서 검색한 글자 색깔 바꾸기
     const searchWord = $('#searchWord').val(); // 일단 검색값 가져옴
+    const searchWord2 = $('#searchWord2').html();
 
     if(searchWord){ // 검색어가 있을 때
         // 해당 검색값 앞뒤로 span 붙여서 꾸미기
@@ -430,14 +428,6 @@ $(document).ready(function(){
         const pattern = searchWord;
 
         const regexAll = new RegExp(pattern, "g");
-
-        /* 이건 한 개만 바꾸기
-        var html = $('.board_list_table').find('.first').html();
-
-        html = html.replace(regexAll, span_before+searchWord+span_after);
-
-        $('.board_list_table').find('.first').html(html);
-        */
 
         // 여기서부턴 모든 리스트 일일이 바꾸기
         const htmlList = $('.board_list_table').find('.first');
@@ -451,8 +441,27 @@ $(document).ready(function(){
         }
     }
 
-    /* 게시판 검색 관련 E */
+    if(searchWord2){
+        // 해당 검색값 앞뒤로 span 붙여서 꾸미기
+        const span_before = "<span class='searched'>";
+        const span_after = "</span>";
 
+        const pattern = searchWord2;
+
+        const regexAll = new RegExp(pattern, "g");
+
+        const htmlList2 = $('.goods_list_ul').find('.first');
+
+        for(i=0; i<htmlList2.length; i++){
+            var html = $('.goods_list_ul').find('.first').eq(i).html();
+
+            html = html.replace(regexAll, span_before+searchWord2+span_after);
+
+            $('.goods_list_ul').find('.first').eq(i).html(html);
+        }
+    }
+
+    /* 게시판, 상품 검색 관련 E */
 
 
 

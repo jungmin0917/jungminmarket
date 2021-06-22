@@ -67,8 +67,14 @@
 			</tr>
 			<?php endforeach; ?>
 		</tbody>
-
 	</table>
+	<?php if(isset($searchWord)) : ?>
+		<?php if(!$list) : ?>
+			<div class='no_result_info'>
+				'<?=$searchWord?>'에 대한 검색 결과가 없습니다.
+			</div>
+		<?php endif; ?>
+	<?php endif; ?>
 	<?php 
 		if(isAdminLogin() && ($boardId == 'notice' || $boardId == 'event')){
 			echo "<div class='write_button_wrap'>";

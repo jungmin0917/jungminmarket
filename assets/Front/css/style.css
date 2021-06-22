@@ -1259,6 +1259,12 @@ input[type='file']{
 	margin-bottom: 40px;
 }
 
+.board_list_wrap .no_result_info{
+	font-size: 1.8rem;
+	text-align: center;
+	margin-top: 50px;
+}
+
 .board_list_table thead{
 	font-size: 1.4rem;
 }
@@ -2475,6 +2481,11 @@ aside .go_down:focus{
 	font-size: 1.3rem;
 	margin-bottom: 30px;
 	color: #999;
+}
+
+.goods_list_ul .searched{
+	background-color: skyblue;
+	color: dodgerblue;
 }
 
 .goods_list_ul:after{

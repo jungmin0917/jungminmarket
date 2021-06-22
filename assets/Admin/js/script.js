@@ -126,8 +126,6 @@ $(document).ready(function(){
 
         const fileGroup = $(this).attr('class');
 
-        console.log(fileGroup);
-
         const html = "<iframe src='/workspace/jungminmarket/file/upload?fileGroup=" + fileGroup + "'></iframe>";
 
         $('.layer_popup').html(html);

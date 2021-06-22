@@ -826,4 +826,68 @@ class Goods{
 
 		return $data;
 	}
+
+	public function getSearchedGoods($page, $limit, $searchWord){
+		// url 구하기
+		$url = $_SERVER['REQUEST_URI']; // 현재 url에서 따와서 page 앞까지 가져옴
+		// page=? 이건 마지막에 넣을 것임
+
+		if(strpos($url, "&page")){ // &page=? 있으면 그 앞까지만 따기 (정규표현식 사용)
+			$pattern = "/.+?(?=&page)/"; // 전방탐색
+			preg_match($pattern, $url, $matches);
+			$url = $matches[0];
+		}
+		$page = $page?$page:1;
+		$limit = $limit?$limit:6;
+		$offset = ($page - 1) * $limit;
+
+		// total 구하기
+		$sql = "SELECT COUNT(*) as cnt FROM jmmk_goods WHERE goodsNm LIKE :searchWord";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":searchWord", "%".$searchWord."%");
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('검색어로 상품 개수 조회 실패');
+		}
+
+		$row = $stmt->fetch(PDO::FETCH_ASSOC);
+
+		$total = $row['cnt'];
+
+		// list 구하기
+		$sql = "SELECT * FROM jmmk_goods WHERE goodsNm LIKE :searchWord ORDER BY regDt DESC LIMIT :limit OFFSET :offset";
+
+		$stmt = db()->prepare($sql);
+
+		$stmt->bindValue(":searchWord", "%".$searchWord."%");
+		$stmt->bindValue(":limit", $limit, PDO::PARAM_INT);
+		$stmt->bindValue(":offset", $offset, PDO::PARAM_INT);
+
+		$result = $stmt->execute();
+
+		if($result === false){
+			throw new AlertException('검색어로 상품 조회 실패');
+		}
+
+		$list = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+		// 페이징하기
+
+		$paginator = App::load(\Component\Core\Pagination::class, $page, $limit, $total, $url);
+
+		$pagination = $paginator->getHTML();
+
+		$data = [
+			'list' => $list,
+			'pagination' => $pagination,
+			'total' => $total,
+		];
+
+		return $data;
+	}
 }

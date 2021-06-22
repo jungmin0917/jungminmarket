@@ -1,13 +1,22 @@
 <section class='goods_list_wrap layout_width'>
-	<div class='title'><?=$categoryNm?></div>
+	<div class='title'>
+		<?php 
+			if(isset($categoryNm)){
+				echo $categoryNm;
+			}else{
+				echo "'<span id='searchWord2'>".$searchWord."</span>' 검색 결과";
+			}
+		?>
+			
+	</div>
 
 	<div class='sub_title'>
-	<?php if($category == 'new') : ?>
+	<?php if(isset($category) && $category == 'new') : ?>
 		따끈따끈한 정민마켓의 신상품을 만나보세요
 	<?php endif; ?>
 
 
-	<?php if($category == 'best') : ?>
+	<?php if(isset($category) && $category == 'best') : ?>
 		가장 핫한 정민마켓의 베스트 상품을 만나보세요
 	<?php endif; ?>
 	</div>
@@ -16,7 +25,7 @@
 		<div class='info_box'>
 			<div class='item_count'><span class='count'><?=$goodsCount?></span> items</div>
 			<div class='sort_select'>
-			<?php if($category !== 'new' && $category !== 'best') : ?>
+			<?php if(isset($category) && $category !== 'new' && $category !== 'best') : ?>
 				<form method='get' action='<?=siteUrl("goods/list?category={$category}")?>' target='_self' autocomplete='off' class='sort_method_form'>
 					<input type='hidden' name='category' value='<?=$category?>'>
 					<select name='sort_method' class='sort_method'>
@@ -44,7 +53,7 @@
 							echo "<img src='/workspace/jungminmarket/assets/Upload/Image/{$fileInfo['fileName']}'>";
 						?>
 					</a>
-					<div class='goodsNm'><a href='<?=siteUrl("goods/view?goodsNo={$v['goodsNo']}")?>'><?=$v['goodsNm']?></a></div>
+					<div class='goodsNm'><a href='<?=siteUrl("goods/view?goodsNo={$v['goodsNo']}")?>' class='first'><?=$v['goodsNm']?></a></div>
 					<div class='shortDesc'><?=$v['shortDesc']?></div>
 					<div class='price'>
 						<span class='defaultPrice'><?=number_format($v['defaultPrice'])?>원</span> <span class='salePrice'><?=number_format($v['salePrice'])?>원</span>
@@ -53,7 +62,7 @@
 						<span class='salePoint'>판매점수 : <?=$v['salePoint']?></span>
 					</div>
 					<div class='stock_info'>
-						<?php if($category == 'new') : ?>
+						<?php if(isset($category) && $category == 'new') : ?>
 							<span class='date_ago'>
 								<?php
 									$regTime = strtotime($v['regDt']);
